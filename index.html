@@ -51,11 +51,9 @@ body{
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:2px}
 
-/* ── SCREENS ── */
 .screen{display:none;min-height:100vh;min-height:100dvh}
 .screen.active{display:flex;flex-direction:column}
 
-/* ── NAV ── */
 nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 16px;
@@ -96,7 +94,6 @@ nav{
   transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent;
 }
 
-/* ── HOME ── */
 #screen-home{
   align-items:center;justify-content:flex-start;
   padding:24px 16px 40px;position:relative;overflow:hidden;
@@ -118,7 +115,6 @@ h1{font-size:clamp(28px,7vw,60px);font-weight:600;line-height:1.15;letter-spacin
 h1 span{color:var(--accent)}
 .home-sub{font-size:15px;color:var(--text2);line-height:1.6;margin-bottom:24px;font-weight:300;animation:fade-up 0.5s 0.2s ease both}
 
-/* ── FILTERS ── */
 .filters-panel{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--rlg);padding:16px;margin-bottom:14px;
@@ -129,43 +125,35 @@ h1 span{color:var(--accent)}
 .filter-group{flex:1}
 .filter-label{font-size:12px;color:var(--text2);margin-bottom:8px}
 .filter-pills{display:flex;gap:8px;flex-wrap:wrap}
-
-/* ── PILLS — big enough to tap ── */
 .pill{
   background:var(--surface2);border:1px solid var(--border);
   color:var(--text2);padding:7px 13px;border-radius:99px;
   font-size:13px;cursor:pointer;transition:var(--tr);
   user-select:none;min-height:36px;
   display:inline-flex;align-items:center;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
 }
 .pill:hover{border-color:var(--accent);color:var(--accent)}
 .pill:active{opacity:0.75;transform:scale(0.96)}
 .pill.selected{background:var(--accent-bg);border-color:var(--accent);color:var(--accent2)}
 
-/* ── NICKNAME ── */
 .nickname-row{display:flex;gap:10px;margin-bottom:12px;animation:fade-up 0.5s 0.35s ease both}
 .nickname-input{
   flex:1;background:var(--surface);border:1px solid var(--border);
   border-radius:var(--rsm);padding:13px 16px;
-  font-family:'DM Sans',sans-serif;
-  font-size:16px; /* 16px = no iOS zoom */
-  color:var(--text);transition:var(--tr);outline:none;
-  -webkit-appearance:none;min-height:48px;
+  font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);
+  transition:var(--tr);outline:none;-webkit-appearance:none;min-height:48px;
 }
 .nickname-input::placeholder{color:var(--text3)}
 .nickname-input:focus{border-color:var(--accent);background:var(--surface2)}
 
-/* ── BUTTONS ── */
 .btn-primary{
   background:var(--accent);color:#fff;
   border:none;padding:14px 24px;border-radius:var(--r);
   font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
   cursor:pointer;transition:var(--tr);white-space:nowrap;
   display:inline-flex;align-items:center;gap:8px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  min-height:48px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:48px;
 }
 .btn-primary:hover{background:var(--accent2)}
 .btn-primary:active{opacity:0.85;transform:scale(0.98)}
@@ -176,8 +164,7 @@ h1 span{color:var(--accent)}
   font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;
   cursor:pointer;transition:var(--tr);
   display:inline-flex;align-items:center;gap:8px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  min-height:44px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px;
 }
 .btn-secondary:hover{background:var(--surface2);border-color:var(--border2)}
 .btn-secondary:active{opacity:0.8}
@@ -187,32 +174,39 @@ h1 span{color:var(--accent)}
   font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
   cursor:pointer;transition:var(--tr);
   display:inline-flex;align-items:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  min-height:40px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px;
 }
 .btn-danger:hover{background:rgba(248,113,113,0.2)}
-.btn-danger:active{opacity:0.8}
 .btn-amber{
   background:var(--amber-bg);border:1px solid rgba(251,191,36,0.2);
   color:var(--amber);padding:10px 12px;border-radius:var(--rsm);
   font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
   cursor:pointer;transition:var(--tr);
   display:inline-flex;align-items:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  min-height:40px;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px;
 }
 .btn-amber:hover{background:rgba(251,191,36,0.2)}
-.btn-amber:active{opacity:0.8}
-
 .start-btn-wrap{animation:fade-up 0.5s 0.4s ease both}
 
-/* ── STATS ── */
 .home-stats{display:flex;gap:20px;justify-content:center;margin-top:28px;flex-wrap:wrap;animation:fade-up 0.5s 0.5s ease both}
 .stat{text-align:center}
 .stat-num{font-size:22px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .stat-label{font-size:12px;color:var(--text3);margin-top:2px}
 
-/* ── MATCHING ── */
+/* Real online counter pulse */
+#online-count, #stat-online {
+  color:var(--green);font-variant-numeric:tabular-nums;
+  transition: all 0.4s ease;
+}
+.count-update {
+  animation: count-pop 0.4s ease;
+}
+@keyframes count-pop {
+  0%  { transform: scale(1); }
+  50% { transform: scale(1.15); color: var(--green); }
+  100%{ transform: scale(1); }
+}
+
 #screen-matching{
   align-items:center;justify-content:center;
   padding:40px 20px;
@@ -235,12 +229,10 @@ h1 span{color:var(--accent)}
 .matching-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes blink{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}
 
-/* ── CHAT SCREEN — fixed+dvh is the key iOS fix ── */
 #screen-chat{
   display:none;flex-direction:column;
   position:fixed;inset:0;z-index:10;
-  height:100vh;height:100dvh;
-  overflow:hidden;
+  height:100vh;height:100dvh;overflow:hidden;
 }
 #screen-chat.active{display:flex}
 
@@ -268,8 +260,7 @@ h1 span{color:var(--accent)}
 .messages{
   flex:1;overflow-y:auto;padding:12px 14px;
   display:flex;flex-direction:column;gap:6px;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
 }
 .msg-system{
   text-align:center;font-size:12px;color:var(--text3);
@@ -293,23 +284,18 @@ h1 span{color:var(--accent)}
 .typing-indicator span:nth-child(3){animation-delay:0.4s}
 @keyframes typing{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
 
-/* Input area — safe area bottom padding for home bar */
 .chat-input-area{
   padding:10px 12px;
   padding-bottom:max(10px,env(safe-area-inset-bottom));
-  border-top:1px solid var(--border);
-  background:var(--bg2);flex-shrink:0;
+  border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0;
 }
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
 .chat-input{
   flex:1;background:var(--surface);border:1px solid var(--border);
   border-radius:var(--r);padding:11px 14px;
-  font-family:'DM Sans',sans-serif;
-  font-size:16px; /* 16px = no iOS zoom */
-  color:var(--text);resize:none;outline:none;
-  max-height:100px;line-height:1.5;
-  transition:var(--tr);min-height:44px;
-  -webkit-appearance:none;
+  font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);
+  resize:none;outline:none;max-height:100px;line-height:1.5;
+  transition:var(--tr);min-height:44px;-webkit-appearance:none;
 }
 .chat-input::placeholder{color:var(--text3)}
 .chat-input:focus{border-color:var(--accent);background:var(--surface2)}
@@ -340,7 +326,6 @@ h1 span{color:var(--accent)}
 .next-btn:hover{background:var(--surface2);border-color:var(--accent);color:var(--accent)}
 .next-btn:active{opacity:0.8}
 
-/* ── MODALS — bottom sheet on mobile ── */
 .modal-overlay{
   display:none;position:fixed;inset:0;
   background:rgba(0,0,0,0.75);
@@ -380,7 +365,6 @@ h1 span{color:var(--accent)}
 .form-textarea{resize:vertical;min-height:80px}
 .form-select option{background:var(--surface)}
 
-/* ── TOAST ── */
 .toast{
   position:fixed;
   bottom:max(24px,env(safe-area-inset-bottom,24px));
@@ -396,10 +380,8 @@ h1 span{color:var(--accent)}
 .toast.success{border-color:rgba(74,222,128,0.3)}
 .toast.error{border-color:rgba(248,113,113,0.3)}
 
-/* ── ANIMATIONS ── */
 @keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── LANDING ── */
 #landing-sections{width:100%}
 .section{padding:36px 16px;max-width:900px;margin:0 auto}
 .section-title{font-size:22px;font-weight:600;letter-spacing:-0.5px;margin-bottom:8px}
@@ -426,13 +408,10 @@ footer{
 footer a{color:var(--text2);text-decoration:none}
 footer a:hover{color:var(--accent)}
 
-/* ── ACCESSIBILITY ── */
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-/* ── RESPONSIVE ── */
 @media(max-width:480px){
-  /* Hide text labels on chat action buttons, keep icons */
   .chat-actions .btn-label{display:none}
   .chat-actions .btn-amber,.chat-actions .btn-danger{padding:10px 12px}
   .features-grid{grid-template-columns:1fr}
@@ -452,7 +431,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 
 <div class="toast" id="toast" role="alert" aria-live="polite"></div>
 
-<!-- NAV -->
 <nav role="navigation" aria-label="Main navigation">
   <a href="#" class="nav-logo" onclick="goHome(event)">
     <span class="dot" aria-hidden="true"></span>
@@ -466,7 +444,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </nav>
 
-<!-- HOME SCREEN -->
 <main id="screen-home" class="screen active" role="main">
   <div class="home-bg" aria-hidden="true">
     <div class="home-bg-circle"></div>
@@ -476,7 +453,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <div class="home-content">
     <div class="home-badge" role="status">
       <span class="live-dot" aria-hidden="true"></span>
-      <span id="badge-text"><span id="online-count">1,284</span> online now</span>
+      <span id="badge-text"><span id="online-count">...</span> online now</span>
     </div>
 
     <h1 data-i18n="home_title">Meet someone<br><span>unexpected.</span></h1>
@@ -485,7 +462,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     <div class="filters-panel" role="group" aria-labelledby="filters-heading">
       <div class="filters-title" id="filters-heading" data-i18n="filters">Optional filters</div>
       <div class="filter-row">
-
         <div class="filter-group">
           <div class="filter-label" data-i18n="i_am">I am</div>
           <div class="filter-pills" role="group" aria-label="Gender">
@@ -494,7 +470,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
             <button class="pill" data-filter="gender" data-val="female" onclick="selectPill(this)" data-i18n-pill="female">Female</button>
           </div>
         </div>
-
         <div class="filter-group">
           <div class="filter-label" data-i18n="looking_for">Looking for</div>
           <div class="filter-pills" role="group" aria-label="Intent">
@@ -504,7 +479,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
             <button class="pill" data-filter="intent" data-val="romantic" onclick="selectPill(this)" data-i18n-pill="romantic">Romantic</button>
           </div>
         </div>
-
         <div class="filter-group">
           <div class="filter-label" data-i18n="interests_title">Things I am interested in</div>
           <div class="filter-pills" role="group" aria-label="Interests">
@@ -524,7 +498,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
             <button class="pill" data-interest="food" onclick="toggleInterest(this)" data-i18n-pill="food">🍔 Food</button>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -545,8 +518,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
 
     <div class="home-stats" aria-label="Platform statistics">
-      <div class="stat"><div class="stat-num" id="stat-online">1,284</div><div class="stat-label" data-i18n="stat_online">Online now</div></div>
-      <div class="stat"><div class="stat-num">48K+</div><div class="stat-label" data-i18n="stat_chats">Chats today</div></div>
+      <div class="stat"><div class="stat-num" id="stat-online">...</div><div class="stat-label" data-i18n="stat_online">Online now</div></div>
+      <div class="stat"><div class="stat-num" id="stat-chats-today">0</div><div class="stat-label" data-i18n="stat_chats">Chats today</div></div>
       <div class="stat"><div class="stat-num">🇬🇪</div><div class="stat-label" data-i18n="stat_made_in">Made in Georgia</div></div>
     </div>
   </div>
@@ -562,9 +535,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <h2 class="section-title" data-i18n="features_title">Why gacnoba.ge?</h2>
       <p class="section-sub" data-i18n="features_sub">A smarter, safer way to meet people online.</p>
       <div class="features-grid" role="list">
-        <div class="feature-card" role="listitem"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="f1_title">Instant Matching</div><div class="feature-desc" data-i18n="f1_desc">Connect with a real person in seconds. No waiting rooms, no queues.</div></div>
+        <div class="feature-card" role="listitem"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="f1_title">Instant Matching</div><div class="feature-desc" data-i18n="f1_desc">Connect with a real person in seconds. No waiting rooms.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🎭</div><div class="feature-title" data-i18n="f2_title">Stay Anonymous</div><div class="feature-desc" data-i18n="f2_desc">No account required. Your privacy is always protected.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🎯</div><div class="feature-title" data-i18n="f3_title">Smart Filters</div><div class="feature-desc" data-i18n="f3_desc">Gender, intent, interests — find conversations that match you.</div></div>
+        <div class="feature-card" role="listitem"><div class="feature-icon">🎯</div><div class="feature-title" data-i18n="f3_title">Smart Filters</div><div class="feature-desc" data-i18n="f3_desc">Gender, intent, interests — find your kind of conversation.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🚀</div><div class="feature-title" data-i18n="f4_title">Skip Freely</div><div class="feature-desc" data-i18n="f4_desc">Not feeling it? Hit Next and find someone new instantly.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🛡️</div><div class="feature-title" data-i18n="f5_title">Safe by Design</div><div class="feature-desc" data-i18n="f5_desc">Block, report, and active moderation keep you safe.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🌍</div><div class="feature-title" data-i18n="f6_title">Multilingual</div><div class="feature-desc" data-i18n="f6_desc">English, Georgian, Russian — the interface speaks your language.</div></div>
@@ -581,7 +554,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </footer>
 </main>
 
-<!-- MATCHING SCREEN -->
 <section id="screen-matching" class="screen" role="status" aria-live="polite" aria-label="Finding a match">
   <div class="matching-content">
     <div class="matching-orbs" aria-hidden="true">
@@ -597,10 +569,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </section>
 
-<!-- CHAT SCREEN -->
 <section id="screen-chat" class="screen" aria-label="Chat">
   <div class="connection-banner" id="connection-banner" role="status" aria-live="polite">✓ Contact established — say hello!</div>
-
   <header class="chat-header">
     <div class="chat-user-info">
       <div class="chat-avatar" id="chat-avatar" aria-hidden="true">A</div>
@@ -618,14 +588,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       </button>
     </div>
   </header>
-
   <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat messages">
     <div class="msg-system" data-i18n="connected_msg">You are connected. Be kind 👋</div>
     <div class="typing-indicator" id="typing-indicator" aria-label="Partner is typing">
       <span></span><span></span><span></span>
     </div>
   </div>
-
   <div class="chat-input-area">
     <div class="chat-input-row">
       <textarea class="chat-input" id="chat-input"
@@ -641,7 +609,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       </button>
     </div>
   </div>
-
   <div class="chat-bottom-bar">
     <button class="next-btn" onclick="nextChat()" aria-label="Next person">
       <span aria-hidden="true">→</span><span data-i18n="next_person">Next person</span>
@@ -727,16 +694,215 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 </div>
 
 <script>
+// =====================================================================
+// SUPABASE CONFIG — your real keys
+// =====================================================================
+const SUPABASE_URL = 'https://kgubxokkjhxsncgftgws.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_qOfOhQhRWaHKoXEQP4VjBg_40KliTGq';
+
+// =====================================================================
+// SUPABASE ONLINE COUNTER
+// =====================================================================
+// Each visitor gets a unique session ID
+const SESSION_ID = Math.random().toString(36).slice(2) + Date.now().toString(36);
+let heartbeatInterval = null;
+let countRefreshInterval = null;
+let chatsTodayCount = 0;
+
+// Register this user as online
+async function registerOnline() {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/online_users`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({
+        session_id: SESSION_ID,
+        last_seen: new Date().toISOString()
+      })
+    });
+  } catch(e) { /* silent fail */ }
+}
+
+// Update last_seen so we know user is still here (heartbeat every 20s)
+async function heartbeat() {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/online_users?session_id=eq.${SESSION_ID}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ last_seen: new Date().toISOString() })
+    });
+  } catch(e) { /* silent fail */ }
+}
+
+// Remove stale users (inactive > 45 seconds) then count
+async function getOnlineCount() {
+  try {
+    // First clean up users who haven't been seen in 45 seconds
+    const cutoff = new Date(Date.now() - 45000).toISOString();
+    await fetch(`${SUPABASE_URL}/rest/v1/online_users?last_seen=lt.${cutoff}`, {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+
+    // Now count remaining online users
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/online_users?select=count`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'count=exact',
+        'Range': '0-0'
+      }
+    });
+
+    const contentRange = res.headers.get('content-range');
+    if (contentRange) {
+      const total = parseInt(contentRange.split('/')[1]);
+      if (!isNaN(total)) updateOnlineDisplay(total);
+    }
+  } catch(e) { /* silent fail */ }
+}
+
+// Animate the number changing
+function updateOnlineDisplay(count) {
+  const badge = document.getElementById('online-count');
+  const stat  = document.getElementById('stat-online');
+  const formatted = count.toLocaleString();
+
+  if (badge && badge.textContent !== formatted) {
+    badge.textContent = formatted;
+    badge.classList.remove('count-update');
+    void badge.offsetWidth; // force reflow
+    badge.classList.add('count-update');
+  }
+  if (stat && stat.textContent !== formatted) {
+    stat.textContent = formatted;
+    stat.classList.remove('count-update');
+    void stat.offsetWidth;
+    stat.classList.add('count-update');
+  }
+}
+
+// Remove this user when they leave the page
+async function removeOnline() {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/online_users?session_id=eq.${SESSION_ID}`, {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+  } catch(e) { /* silent fail */ }
+}
+
+// Start the whole counter system
+async function initOnlineCounter() {
+  await registerOnline();
+  await getOnlineCount();
+
+  // Heartbeat every 20 seconds to stay "online"
+  heartbeatInterval = setInterval(heartbeat, 20000);
+
+  // Refresh the displayed count every 5 seconds
+  countRefreshInterval = setInterval(getOnlineCount, 5000);
+}
+
+// When user closes tab or navigates away — remove them
+window.addEventListener('beforeunload', removeOnline);
+window.addEventListener('pagehide', removeOnline); // iOS Safari fix
+
+// =====================================================================
+// CHATS TODAY COUNTER
+// =====================================================================
+async function incrementChatsToday() {
+  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  try {
+    // Try to get today's record
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}&select=count`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    const data = await res.json();
+
+    if (data && data.length > 0) {
+      // Update existing record
+      const newCount = (data[0].count || 0) + 1;
+      await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ count: newCount })
+      });
+      chatsTodayCount = newCount;
+    } else {
+      // Create new record for today
+      await fetch(`${SUPABASE_URL}/rest/v1/chats_today`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ date: today, count: 1 })
+      });
+      chatsTodayCount = 1;
+    }
+    const el = document.getElementById('stat-chats-today');
+    if (el) el.textContent = chatsTodayCount.toLocaleString();
+  } catch(e) { /* silent fail */ }
+}
+
+async function loadChatsToday() {
+  const today = new Date().toISOString().split('T')[0];
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}&select=count`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    const data = await res.json();
+    if (data && data.length > 0) {
+      chatsTodayCount = data[0].count || 0;
+      const el = document.getElementById('stat-chats-today');
+      if (el) el.textContent = chatsTodayCount.toLocaleString();
+    }
+  } catch(e) { /* silent fail */ }
+}
+
+// =====================================================================
+// STATE
+// =====================================================================
 const state = {
   lang:'en', theme:'dark', nickname:'',
   filters:{gender:'any',intent:'any'},
   interests:[],
   currentPartner:null,
   blockedIds:JSON.parse(localStorage.getItem('acq_blocked')||'[]'),
-  matchTimer:null, onlineCount:1284,
-  sessionId:Math.random().toString(36).slice(2)
+  matchTimer:null,
+  sessionId: SESSION_ID
 };
 
+// =====================================================================
+// I18N
+// =====================================================================
 const i18n = {
   en:{
     home_title:'Meet someone<br><span>unexpected.</span>',
@@ -861,20 +1027,6 @@ const i18n = {
 
 function t(k){return(i18n[state.lang]||i18n.en)[k]||i18n.en[k]||k}
 
-// Online count simulation
-function simulateOnline(){
-  const el=document.getElementById('online-count');
-  const st=document.getElementById('stat-online');
-  setInterval(()=>{
-    state.onlineCount+=Math.floor(Math.random()*7)-3;
-    if(state.onlineCount<900)state.onlineCount=900;
-    if(state.onlineCount>2000)state.onlineCount=2000;
-    const f=state.onlineCount.toLocaleString();
-    if(el)el.textContent=f;
-    if(st)st.textContent=f;
-  },4000);
-}
-
 // Screen management
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>{
@@ -882,10 +1034,7 @@ function showScreen(id){
     if(s.id!=='screen-chat')s.style.display='';
   });
   const el=document.getElementById('screen-'+id);
-  if(el){
-    el.classList.add('active');
-    if(id!=='chat')window.scrollTo(0,0);
-  }
+  if(el){el.classList.add('active');if(id!=='chat')window.scrollTo(0,0)}
 }
 
 function goHome(e){
@@ -908,8 +1057,7 @@ function generateNickname(){
 function selectPill(el){
   const f=el.dataset.filter;
   document.querySelectorAll(`[data-filter="${f}"]`).forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  state.filters[f]=el.dataset.val;
+  el.classList.add('selected');state.filters[f]=el.dataset.val;
 }
 function toggleInterest(el){
   const v=el.dataset.interest;
@@ -932,6 +1080,7 @@ function startMatching(){
     const name=partnerNames[Math.floor(Math.random()*partnerNames.length)];
     state.currentPartner={name,id:'uid_'+Math.random().toString(36).slice(2)};
     openChat(state.currentPartner);
+    incrementChatsToday(); // count this chat!
   },1500+Math.random()*2000);
 }
 function cancelMatching(){
@@ -1023,11 +1172,9 @@ function sendMessage(){
   },2000+Math.random()*1500);
 }
 
-// On mobile Enter = newline (natural), on desktop Enter = send
 function handleChatKey(e){
   if(e.key==='Enter'&&!e.shiftKey&&window.innerWidth>600){e.preventDefault();sendMessage()}
 }
-
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
 
 function nextChat(){
@@ -1036,14 +1183,12 @@ function nextChat(){
   if(msgs){const s=document.createElement('div');s.className='msg-system';s.textContent=t('partner_left');msgs.appendChild(s);scrollMessages()}
   setTimeout(()=>startMatching(),600);
 }
-
 function leaveChat(){
   if(autoReplyInterval)clearInterval(autoReplyInterval);
   showToast(t('toast_left'));
   setTimeout(()=>showScreen('home'),400);
 }
 
-// Block & Report
 function showBlockModal(){showModal('block-modal')}
 function showReportModal(){showModal('report-modal')}
 function confirmBlock(){
@@ -1057,13 +1202,11 @@ function submitReport(){
   document.getElementById('report-details').value='';
 }
 
-// Modals
 function showModal(id){const e=document.getElementById(id);if(e)e.classList.add('open')}
 function closeModal(id){const e=document.getElementById(id);if(e)e.classList.remove('open')}
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'))});
 
-// Toast
 let toastTimer=null;
 function showToast(msg,type=''){
   const el=document.getElementById('toast');if(!el)return;
@@ -1072,7 +1215,6 @@ function showToast(msg,type=''){
   toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
 }
 
-// Theme
 function toggleTheme(){
   state.theme=state.theme==='dark'?'light':'dark';
   document.documentElement.setAttribute('data-theme',state.theme);
@@ -1080,7 +1222,6 @@ function toggleTheme(){
   localStorage.setItem('acq_theme',state.theme);
 }
 
-// Language
 function setLang(lang){
   state.lang=lang;document.documentElement.lang=lang;
   localStorage.setItem('acq_lang',lang);
@@ -1093,21 +1234,27 @@ function applyTranslations(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(tr[k]!==undefined)el.innerHTML=tr[k]});
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(tr[k]!==undefined)el.placeholder=tr[k]});
   document.querySelectorAll('[data-i18n-pill]').forEach(el=>{const k=el.getAttribute('data-i18n-pill');if(tr[k]!==undefined)el.textContent=tr[k]});
-  const badge=document.getElementById('badge-text');
-  if(badge){const count=state.onlineCount.toLocaleString();badge.innerHTML=`<span id="online-count">${count}</span> ${(tr.badge_text||'').replace('{count}','').trim()}`}
   const banner=document.getElementById('connection-banner');
   const cs=document.getElementById('screen-chat');
   if(banner&&cs&&cs.classList.contains('active'))banner.textContent=tr.connection_est||'';
 }
 
-// Init
-(function(){
+// =====================================================================
+// INIT
+// =====================================================================
+(async function(){
+  // Theme
   const th=localStorage.getItem('acq_theme');
   if(th){state.theme=th;document.documentElement.setAttribute('data-theme',th);const b=document.getElementById('theme-btn');if(b)b.textContent=th==='dark'?'🌙':'☀️'}
+  // Language
   const lg=localStorage.getItem('acq_lang');
   if(lg&&i18n[lg])setLang(lg);
-  simulateOnline();
+  // Show home
   showScreen('home');
+  // Start real online counter
+  await initOnlineCounter();
+  // Load today's chat count
+  await loadChatsToday();
 })();
 </script>
 </body>
