@@ -703,10 +703,31 @@ const SUPABASE_KEY = 'sb_publishable_qOfOhQhRWaHKoXEQP4VjBg_40KliTGq';
 // =====================================================================
 // SUPABASE ONLINE COUNTER
 // =====================================================================
+// Create a unique device fingerprint to ensure different devices get different session IDs
+function generateDeviceFingerprint() {
+  const navigator_data = [
+    navigator.language,
+    navigator.platform,
+    navigator.hardwareConcurrency || 'unknown',
+    navigator.deviceMemory || 'unknown',
+    screen.width + 'x' + screen.height,
+    new Date().getTimezoneOffset()
+  ].join('|');
+  
+  let hash = 0;
+  for (let i = 0; i < navigator_data.length; i++) {
+    const char = navigator_data.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return Math.abs(hash).toString(36);
+}
+
 // Each visitor gets a unique session ID — but persistent across refreshes
 let SESSION_ID = localStorage.getItem('gacnoba_session_id');
 if (!SESSION_ID) {
-  SESSION_ID = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  const deviceFingerprint = generateDeviceFingerprint();
+  SESSION_ID = deviceFingerprint + '_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
   localStorage.setItem('gacnoba_session_id', SESSION_ID);
 }
 
