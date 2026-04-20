@@ -693,14 +693,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // =====================================================================
 // SUPABASE CONFIG — your real keys
 // =====================================================================
 const SUPABASE_URL = 'https://kgubxokkjhxsncgftgws.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_qOfOhQhRWaHKoXEQP4VjBg_40KliTGq';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // =====================================================================
 // SUPABASE ONLINE COUNTER
@@ -1065,7 +1063,7 @@ function showScreen(id){
 function goHome(e) {
   if (e) e.preventDefault();
   if (state.matchTimer) clearInterval(state.matchTimer);
-  unsubscribeMessages();
+  if (messageCheckInterval) clearInterval(messageCheckInterval);
   // Clean up from waiting
   fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
     method: 'DELETE',
@@ -1125,39 +1123,54 @@ function cancelMatching() {
 }
 
 // =====================================================================
-// REAL USER MATCHING & CHAT (Supabase Realtime)
+// REAL USER MATCHING & CHAT (Simple Polling)
 // =====================================================================
 let chatRoomId = null;
-let messageSubscription = null;
-let partnerSubscription = null;
+let messageCheckInterval = null;
+let lastMessageId = 0;
 
-// Create or find a waiting user and match with them
+// Find and match with another waiting user
 async function findAndMatchUser() {
   try {
-    // Check if there are other waiting users
-    const waitingRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/waiting_users?status=eq.waiting&session_id=neq.${SESSION_ID}&select=*&limit=1`,
-      {
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`
-        }
+    // Add self to waiting pool
+    await addUserToWaiting();
+    
+    // Poll every 1.5 seconds to see if someone else is waiting
+    let attempts = 0;
+    const matchInterval = setInterval(async () => {
+      attempts++;
+      if (attempts > 80) { // Stop after 2 minutes
+        clearInterval(matchInterval);
+        if (state.matchTimer) clearInterval(state.matchTimer);
+        state.matchTimer = null;
+        cancelMatching();
+        return;
       }
-    );
-    const waiting = await waitingRes.json();
-
-    if (waiting && waiting.length > 0) {
-      // Found another user! Create chat room
-      const otherUser = waiting[0];
-      await startChatWith(otherUser);
-    } else {
-      // No one waiting, add self as waiting
-      await addUserToWaiting();
-      // Poll every 2 seconds for matches
-      state.matchTimer = setInterval(checkForMatch, 2000);
-    }
+      
+      try {
+        // Find another waiting user (not me)
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/waiting_users?status=eq.waiting&session_id=neq.${SESSION_ID}&order=created_at.asc&limit=1`,
+          {
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': `Bearer ${SUPABASE_KEY}`
+            }
+          }
+        );
+        const waiting = await res.json();
+        
+        if (waiting && waiting.length > 0) {
+          clearInterval(matchInterval);
+          const otherUser = waiting[0];
+          await startChatWith(otherUser);
+        }
+      } catch (e) { console.error('Match check error:', e); }
+    }, 1500);
+    
+    state.matchTimer = matchInterval;
   } catch (e) {
-    console.error('Matching error:', e);
+    console.error('Find match error:', e);
   }
 }
 
@@ -1176,7 +1189,7 @@ async function addUserToWaiting() {
         nickname: state.nickname,
         gender: state.filters.gender,
         intent: state.filters.intent,
-        interests: JSON.stringify(state.interests),
+        interests: state.interests.length > 0 ? state.interests.join(',') : '',
         status: 'waiting',
         created_at: new Date().toISOString()
       })
@@ -1184,54 +1197,16 @@ async function addUserToWaiting() {
   } catch (e) { console.error('Error adding to waiting:', e); }
 }
 
-// Check periodically if someone matched with us
-async function checkForMatch() {
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}&select=matched_with`,
-      {
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`
-        }
-      }
-    );
-    const data = await res.json();
-    if (data && data[0] && data[0].matched_with) {
-      // We've been matched!
-      if (state.matchTimer) clearInterval(state.matchTimer);
-      const otherSession = data[0].matched_with;
-      chatRoomId = [SESSION_ID, otherSession].sort().join('-');
-      
-      // Get the other user's details
-      const otherRes = await fetch(
-        `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${otherSession}&select=nickname`,
-        {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`
-          }
-        }
-      );
-      const otherData = await otherRes.json();
-      state.currentPartner = {
-        name: (otherData[0]?.nickname) || 'Anonymous',
-        id: otherSession
-      };
-      openChat(state.currentPartner);
-      incrementChatsToday();
-      subscribeToMessages();
-    }
-  } catch (e) { console.error('Check match error:', e); }
-}
-
-// Start chat with a specific matched user
+// Start chat with a matched user
 async function startChatWith(otherUser) {
+  if (state.matchTimer) clearInterval(state.matchTimer);
+  
   // Create room ID
   chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');
   
-  // Mark both as matched
+  // Mark both as chatting
   try {
+    // Update other user
     await fetch(
       `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${otherUser.session_id}`,
       {
@@ -1244,6 +1219,7 @@ async function startChatWith(otherUser) {
         body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
       }
     );
+    // Update self
     await fetch(
       `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`,
       {
@@ -1262,12 +1238,45 @@ async function startChatWith(otherUser) {
     name: otherUser.nickname || 'Anonymous',
     id: otherUser.session_id
   };
+  
   openChat(state.currentPartner);
   incrementChatsToday();
-  subscribeToMessages();
+  startMessagePolling();
 }
 
-// Open the chat UI
+// Poll for new messages
+function startMessagePolling() {
+  if (messageCheckInterval) clearInterval(messageCheckInterval);
+  lastMessageId = 0;
+  
+  messageCheckInterval = setInterval(async () => {
+    if (!chatRoomId) return;
+    
+    try {
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/chat_messages?room_id=eq.${chatRoomId}&order=id.asc`,
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        }
+      );
+      const messages = await res.json();
+      
+      if (messages && messages.length > 0) {
+        messages.forEach(msg => {
+          if (msg.id > lastMessageId && msg.sender_id !== SESSION_ID) {
+            appendMessage('them', msg.text);
+            lastMessageId = msg.id;
+          }
+        });
+      }
+    } catch (e) { console.error('Error polling messages:', e); }
+  }, 1000); // Check every 1 second
+}
+
+// Open chat UI
 function openChat(partner) {
   const av = document.getElementById('chat-avatar');
   const un = document.getElementById('chat-username');
@@ -1278,52 +1287,8 @@ function openChat(partner) {
   if(bn)bn.textContent=t('connection_est');
   if(msgs){
     msgs.innerHTML=`<div class="msg-system">${t('connected_msg')}</div>`;
-    const ti=document.createElement('div');
-    ti.className='typing-indicator';ti.id='typing-indicator';
-    ti.setAttribute('aria-label','Partner is typing');
-    ti.innerHTML='<span></span><span></span><span></span>';
-    msgs.appendChild(ti);
   }
   showScreen('chat');
-}
-
-// Subscribe to real-time messages in this room
-function subscribeToMessages() {
-  if (!chatRoomId) return;
-  
-  // Use Supabase Realtime to listen for messages
-  const channel = supabase.channel(`chat:${chatRoomId}`)
-    .on(
-      'postgres_changes',
-      {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'chat_messages',
-        filter: `room_id=eq.${chatRoomId}`
-      },
-      (payload) => {
-        const msg = payload.new;
-        if (msg.sender_id !== SESSION_ID) {
-          hideTyping();
-          appendMessage('them', msg.text);
-        }
-      }
-    )
-    .subscribe();
-  
-  messageSubscription = channel;
-}
-
-// Unsubscribe from messages
-function unsubscribeMessages() {
-  if (messageSubscription) {
-    messageSubscription.unsubscribe();
-    messageSubscription = null;
-  }
-  if (partnerSubscription) {
-    partnerSubscription.unsubscribe();
-    partnerSubscription = null;
-  }
 }
 
 function randomColor(s){
@@ -1390,7 +1355,7 @@ function handleChatKey(e){
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
 
 function nextChat() {
-  unsubscribeMessages();
+  if (messageCheckInterval) clearInterval(messageCheckInterval);
   // Remove from waiting/chatting
   fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
     method: 'DELETE',
@@ -1407,7 +1372,7 @@ function nextChat() {
 }
 
 function leaveChat() {
-  unsubscribeMessages();
+  if (messageCheckInterval) clearInterval(messageCheckInterval);
   // Remove from waiting/chatting
   fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
     method: 'DELETE',
