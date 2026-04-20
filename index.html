@@ -1269,11 +1269,15 @@ async function startChatWith(otherUser) {
   
   // Create room ID
   chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');
+  console.log('Starting chat with:', otherUser.nickname);
+  console.log('Chat room ID:', chatRoomId);
+  console.log('My session:', SESSION_ID);
+  console.log('Their session:', otherUser.session_id);
   
   // Mark both as chatting
   try {
     // Update other user
-    await fetch(
+    const res1 = await fetch(
       `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${otherUser.session_id}`,
       {
         method: 'PATCH',
@@ -1285,8 +1289,10 @@ async function startChatWith(otherUser) {
         body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
       }
     );
+    console.log('Updated other user:', res1.status);
+    
     // Update self
-    await fetch(
+    const res2 = await fetch(
       `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`,
       {
         method: 'PATCH',
@@ -1298,6 +1304,7 @@ async function startChatWith(otherUser) {
         body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
       }
     );
+    console.log('Updated self:', res2.status);
   } catch (e) { console.error('Error marking match:', e); }
   
   state.currentPartner = {
@@ -1315,6 +1322,8 @@ function startMessagePolling() {
   if (messageCheckInterval) clearInterval(messageCheckInterval);
   lastMessageId = 0;
   
+  console.log('Starting message polling for room:', chatRoomId);
+  
   messageCheckInterval = setInterval(async () => {
     if (!chatRoomId) return;
     
@@ -1328,17 +1337,27 @@ function startMessagePolling() {
           }
         }
       );
+      
+      if (!res.ok) {
+        console.error('Polling error:', res.status, res.statusText);
+        return;
+      }
+      
       const messages = await res.json();
+      console.log('Messages fetched:', messages.length, 'Last ID:', lastMessageId);
       
       if (messages && messages.length > 0) {
         messages.forEach(msg => {
           if (msg.id > lastMessageId && msg.sender_id !== SESSION_ID) {
+            console.log('New message from', msg.sender_id, ':', msg.text);
             appendMessage('them', msg.text);
             lastMessageId = msg.id;
           }
         });
       }
-    } catch (e) { console.error('Error polling messages:', e); }
+    } catch (e) { 
+      console.error('Error polling messages:', e);
+    }
   }, 1000); // Check every 1 second
 }
 
@@ -1386,7 +1405,13 @@ async function sendMessage() {
   if (!inp) return;
   const text = inp.value.trim();
   if (!text) return;
-  if (!chatRoomId) return;
+  if (!chatRoomId) {
+    console.error('No chat room ID');
+    showToast('Chat not connected');
+    return;
+  }
+  
+  console.log('Sending message:', text);
   
   // Show message immediately on sender's screen
   appendMessage('me', text);
@@ -1395,7 +1420,7 @@ async function sendMessage() {
   
   // Save message to database
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/chat_messages`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/chat_messages`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
@@ -1409,6 +1434,15 @@ async function sendMessage() {
         created_at: new Date().toISOString()
       })
     });
+    
+    if (!res.ok) {
+      const error = await res.text();
+      console.error('Message send failed:', res.status, error);
+      showToast('Failed to send message: ' + res.status);
+      return;
+    }
+    
+    console.log('Message sent successfully');
   } catch (e) {
     console.error('Error sending message:', e);
     showToast('Failed to send message');
