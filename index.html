@@ -703,14 +703,22 @@ const SUPABASE_KEY = 'sb_publishable_qOfOhQhRWaHKoXEQP4VjBg_40KliTGq';
 // =====================================================================
 // SUPABASE ONLINE COUNTER
 // =====================================================================
-// Each visitor gets a unique session ID
-const SESSION_ID = Math.random().toString(36).slice(2) + Date.now().toString(36);
+// Each visitor gets a unique session ID — but persistent across refreshes
+let SESSION_ID = localStorage.getItem('gacnoba_session_id');
+if (!SESSION_ID) {
+  SESSION_ID = Math.random().toString(36).slice(2) + Date.now().toString(36);
+  localStorage.setItem('gacnoba_session_id', SESSION_ID);
+}
+
 let heartbeatInterval = null;
 let countRefreshInterval = null;
 let chatsTodayCount = 0;
+let isSessionRegistered = false;
 
 // Register this user as online
 async function registerOnline() {
+  if (isSessionRegistered) return; // Already registered in this session
+  
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/online_users`, {
       method: 'POST',
@@ -725,6 +733,7 @@ async function registerOnline() {
         last_seen: new Date().toISOString()
       })
     });
+    isSessionRegistered = true;
   } catch(e) { /* silent fail */ }
 }
 
