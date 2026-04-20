@@ -1044,6 +1044,12 @@ function showScreen(id){
   });
   const el=document.getElementById('screen-'+id);
   if(el){el.classList.add('active');if(id!=='chat')window.scrollTo(0,0)}
+  
+  // Hide nav during chat, show it otherwise
+  const nav = document.querySelector('nav');
+  if(nav) {
+    nav.style.display = (id === 'chat') ? 'none' : 'flex';
+  }
 }
 
 function goHome(e){
