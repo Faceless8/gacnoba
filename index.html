@@ -693,12 +693,14 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // =====================================================================
 // SUPABASE CONFIG — your real keys
 // =====================================================================
 const SUPABASE_URL = 'https://kgubxokkjhxsncgftgws.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_qOfOhQhRWaHKoXEQP4VjBg_40KliTGq';
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // =====================================================================
 // SUPABASE ONLINE COUNTER
@@ -807,6 +809,14 @@ function updateOnlineDisplay(count) {
 async function removeOnline() {
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/online_users?session_id=eq.${SESSION_ID}`, {
+      method: 'DELETE',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    // Also remove from waiting/chatting
+    await fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
       method: 'DELETE',
       headers: {
         'apikey': SUPABASE_KEY,
@@ -1052,10 +1062,19 @@ function showScreen(id){
   }
 }
 
-function goHome(e){
-  if(e)e.preventDefault();
-  if(state.matchTimer)clearTimeout(state.matchTimer);
-  if(autoReplyInterval)clearInterval(autoReplyInterval);
+function goHome(e) {
+  if (e) e.preventDefault();
+  if (state.matchTimer) clearInterval(state.matchTimer);
+  unsubscribeMessages();
+  // Clean up from waiting
+  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    }
+  }).catch(e => console.error('Error on home:', e));
+  chatRoomId = null;
   showScreen('home');
 }
 
@@ -1081,41 +1100,179 @@ function toggleInterest(el){
   else state.interests.push(v);
 }
 
-// Matching
-const partnerNames=['QuietFox42','BrightStar07','WarmOcean33','CleverMoon89','SwiftTiger55','CalmCloud11','WildPetal66','GentleRiver28','BoldFalcon44','KeenStorm77'];
-
-function startMatching(){
-  const inp=document.getElementById('nickname-input');
-  state.nickname=inp.value.trim();
-  if(!state.nickname){generateNickname();state.nickname=inp.value;}
-  const orb=document.getElementById('my-orb');
-  if(orb)orb.textContent=state.nickname.charAt(0).toUpperCase();
+// Real matching with actual users
+function startMatching() {
+  const inp = document.getElementById('nickname-input');
+  state.nickname = inp.value.trim();
+  if (!state.nickname) { generateNickname(); state.nickname = inp.value; }
+  const orb = document.getElementById('my-orb');
+  if (orb) orb.textContent = state.nickname.charAt(0).toUpperCase();
   showScreen('matching');
-  state.matchTimer=setTimeout(()=>{
-    const name=partnerNames[Math.floor(Math.random()*partnerNames.length)];
-    state.currentPartner={name,id:'uid_'+Math.random().toString(36).slice(2)};
-    openChat(state.currentPartner);
-    incrementChatsToday(); // count this chat!
-  },1500+Math.random()*2000);
+  findAndMatchUser();
 }
-function cancelMatching(){
-  if(state.matchTimer)clearTimeout(state.matchTimer);
+
+function cancelMatching() {
+  if (state.matchTimer) clearInterval(state.matchTimer);
+  // Remove from waiting pool
+  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    }
+  }).catch(e => console.error('Error cancelling:', e));
   showScreen('home');
 }
 
-// Chat
-const autoReplies={
-  en:['Hey! How are you?','Nice to meet you 😊','What are you up to today?','Where are you from?','That\'s interesting!','haha yeah 😄','Tell me more!','I totally agree.','Cool!','👋'],
-  ka:['გამარჯობა!','სად ხარ?','ძალიან სასიამოვნოა!','რა ამბავია?','ჰა, ნამდვილად 😄','კარგი!'],
-  ru:['Привет!','Как дела?','Интересно!','Откуда ты?','Расскажи больше!','Хаха 😄','Согласен!']
-};
-let autoReplyInterval=null;
+// =====================================================================
+// REAL USER MATCHING & CHAT (Supabase Realtime)
+// =====================================================================
+let chatRoomId = null;
+let messageSubscription = null;
+let partnerSubscription = null;
 
-function openChat(partner){
-  const av=document.getElementById('chat-avatar');
-  const un=document.getElementById('chat-username');
-  const bn=document.getElementById('connection-banner');
-  const msgs=document.getElementById('messages');
+// Create or find a waiting user and match with them
+async function findAndMatchUser() {
+  try {
+    // Check if there are other waiting users
+    const waitingRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/waiting_users?status=eq.waiting&session_id=neq.${SESSION_ID}&select=*&limit=1`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+    const waiting = await waitingRes.json();
+
+    if (waiting && waiting.length > 0) {
+      // Found another user! Create chat room
+      const otherUser = waiting[0];
+      await startChatWith(otherUser);
+    } else {
+      // No one waiting, add self as waiting
+      await addUserToWaiting();
+      // Poll every 2 seconds for matches
+      state.matchTimer = setInterval(checkForMatch, 2000);
+    }
+  } catch (e) {
+    console.error('Matching error:', e);
+  }
+}
+
+// Add current user to waiting pool
+async function addUserToWaiting() {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        session_id: SESSION_ID,
+        nickname: state.nickname,
+        gender: state.filters.gender,
+        intent: state.filters.intent,
+        interests: JSON.stringify(state.interests),
+        status: 'waiting',
+        created_at: new Date().toISOString()
+      })
+    });
+  } catch (e) { console.error('Error adding to waiting:', e); }
+}
+
+// Check periodically if someone matched with us
+async function checkForMatch() {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}&select=matched_with`,
+      {
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+    const data = await res.json();
+    if (data && data[0] && data[0].matched_with) {
+      // We've been matched!
+      if (state.matchTimer) clearInterval(state.matchTimer);
+      const otherSession = data[0].matched_with;
+      chatRoomId = [SESSION_ID, otherSession].sort().join('-');
+      
+      // Get the other user's details
+      const otherRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${otherSession}&select=nickname`,
+        {
+          headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`
+          }
+        }
+      );
+      const otherData = await otherRes.json();
+      state.currentPartner = {
+        name: (otherData[0]?.nickname) || 'Anonymous',
+        id: otherSession
+      };
+      openChat(state.currentPartner);
+      incrementChatsToday();
+      subscribeToMessages();
+    }
+  } catch (e) { console.error('Check match error:', e); }
+}
+
+// Start chat with a specific matched user
+async function startChatWith(otherUser) {
+  // Create room ID
+  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');
+  
+  // Mark both as matched
+  try {
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${otherUser.session_id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
+      }
+    );
+    await fetch(
+      `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
+      }
+    );
+  } catch (e) { console.error('Error marking match:', e); }
+  
+  state.currentPartner = {
+    name: otherUser.nickname || 'Anonymous',
+    id: otherUser.session_id
+  };
+  openChat(state.currentPartner);
+  incrementChatsToday();
+  subscribeToMessages();
+}
+
+// Open the chat UI
+function openChat(partner) {
+  const av = document.getElementById('chat-avatar');
+  const un = document.getElementById('chat-username');
+  const bn = document.getElementById('connection-banner');
+  const msgs = document.getElementById('messages');
   if(av){av.textContent=partner.name.charAt(0).toUpperCase();av.style.background=randomColor(partner.name)}
   if(un)un.textContent=partner.name;
   if(bn)bn.textContent=t('connection_est');
@@ -1128,13 +1285,45 @@ function openChat(partner){
     msgs.appendChild(ti);
   }
   showScreen('chat');
-  setTimeout(()=>showTyping(),1200);
-  setTimeout(()=>{
-    hideTyping();
-    const r=autoReplies[state.lang]||autoReplies.en;
-    appendMessage('them',r[Math.floor(Math.random()*r.length)]);
-    scheduleAutoReply();
-  },3000);
+}
+
+// Subscribe to real-time messages in this room
+function subscribeToMessages() {
+  if (!chatRoomId) return;
+  
+  // Use Supabase Realtime to listen for messages
+  const channel = supabase.channel(`chat:${chatRoomId}`)
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'chat_messages',
+        filter: `room_id=eq.${chatRoomId}`
+      },
+      (payload) => {
+        const msg = payload.new;
+        if (msg.sender_id !== SESSION_ID) {
+          hideTyping();
+          appendMessage('them', msg.text);
+        }
+      }
+    )
+    .subscribe();
+  
+  messageSubscription = channel;
+}
+
+// Unsubscribe from messages
+function unsubscribeMessages() {
+  if (messageSubscription) {
+    messageSubscription.unsubscribe();
+    messageSubscription = null;
+  }
+  if (partnerSubscription) {
+    partnerSubscription.unsubscribe();
+    partnerSubscription = null;
+  }
 }
 
 function randomColor(s){
@@ -1143,48 +1332,56 @@ function randomColor(s){
   return c[Math.abs(h)%c.length];
 }
 
-function appendMessage(from,text){
-  const msgs=document.getElementById('messages');
-  const ti=document.getElementById('typing-indicator');
-  if(!msgs)return;
-  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-  const msg=document.createElement('div');
-  msg.className=`msg ${from}`;
-  msg.innerHTML=`<div class="msg-bubble">${escapeHtml(text)}</div><div class="msg-time">${time}</div>`;
-  if(ti)msgs.insertBefore(msg,ti);else msgs.appendChild(msg);
+function appendMessage(from, text) {
+  const msgs = document.getElementById('messages');
+  const ti = document.getElementById('typing-indicator');
+  if (!msgs) return;
+  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const msg = document.createElement('div');
+  msg.className = `msg ${from}`;
+  msg.innerHTML = `<div class="msg-bubble">${escapeHtml(text)}</div><div class="msg-time">${time}</div>`;
+  if (ti) msgs.insertBefore(msg, ti); else msgs.appendChild(msg);
   scrollMessages();
 }
 
-function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function scrollMessages(){const m=document.getElementById('messages');if(m)m.scrollTop=m.scrollHeight}
-function showTyping(){const t=document.getElementById('typing-indicator');if(t){t.classList.add('visible');scrollMessages()}}
-function hideTyping(){const t=document.getElementById('typing-indicator');if(t)t.classList.remove('visible')}
+function escapeHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function scrollMessages() { const m = document.getElementById('messages'); if (m) m.scrollTop = m.scrollHeight; }
+function showTyping() { const t = document.getElementById('typing-indicator'); if (t) { t.classList.add('visible'); scrollMessages(); } }
+function hideTyping() { const t = document.getElementById('typing-indicator'); if (t) t.classList.remove('visible'); }
 
-function scheduleAutoReply(){
-  if(autoReplyInterval)clearInterval(autoReplyInterval);
-  autoReplyInterval=setInterval(()=>{
-    const cs=document.getElementById('screen-chat');
-    if(cs&&cs.classList.contains('active')&&Math.random()>0.4){
-      const r=autoReplies[state.lang]||autoReplies.en;
-      showTyping();
-      setTimeout(()=>{hideTyping();appendMessage('them',r[Math.floor(Math.random()*r.length)])},1200+Math.random()*800);
-    }
-  },8000+Math.random()*6000);
-}
-
-function sendMessage(){
-  const inp=document.getElementById('chat-input');
-  if(!inp)return;
-  const text=inp.value.trim();
-  if(!text)return;
-  appendMessage('me',text);
-  inp.value='';inp.style.height='';
-  setTimeout(()=>showTyping(),800);
-  setTimeout(()=>{
-    hideTyping();
-    const r=autoReplies[state.lang]||autoReplies.en;
-    appendMessage('them',r[Math.floor(Math.random()*r.length)]);
-  },2000+Math.random()*1500);
+// Send message to real partner
+async function sendMessage() {
+  const inp = document.getElementById('chat-input');
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  if (!chatRoomId) return;
+  
+  // Show message immediately on sender's screen
+  appendMessage('me', text);
+  inp.value = '';
+  inp.style.height = '';
+  
+  // Save message to database
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/chat_messages`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        room_id: chatRoomId,
+        sender_id: SESSION_ID,
+        text: text,
+        created_at: new Date().toISOString()
+      })
+    });
+  } catch (e) {
+    console.error('Error sending message:', e);
+    showToast('Failed to send message');
+  }
 }
 
 function handleChatKey(e){
@@ -1192,16 +1389,37 @@ function handleChatKey(e){
 }
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
 
-function nextChat(){
-  if(autoReplyInterval)clearInterval(autoReplyInterval);
-  const msgs=document.getElementById('messages');
-  if(msgs){const s=document.createElement('div');s.className='msg-system';s.textContent=t('partner_left');msgs.appendChild(s);scrollMessages()}
-  setTimeout(()=>startMatching(),600);
+function nextChat() {
+  unsubscribeMessages();
+  // Remove from waiting/chatting
+  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    }
+  }).catch(e => console.error('Error on next:', e));
+  
+  const msgs = document.getElementById('messages');
+  if (msgs) { const s = document.createElement('div'); s.className = 'msg-system'; s.textContent = t('partner_left'); msgs.appendChild(s); scrollMessages(); }
+  chatRoomId = null;
+  setTimeout(() => startMatching(), 600);
 }
-function leaveChat(){
-  if(autoReplyInterval)clearInterval(autoReplyInterval);
+
+function leaveChat() {
+  unsubscribeMessages();
+  // Remove from waiting/chatting
+  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    }
+  }).catch(e => console.error('Error on leave:', e));
+  
+  chatRoomId = null;
   showToast(t('toast_left'));
-  setTimeout(()=>showScreen('home'),400);
+  setTimeout(() => showScreen('home'), 400);
 }
 
 function showBlockModal(){showModal('block-modal')}
