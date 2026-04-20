@@ -1519,21 +1519,33 @@ function applyTranslations(){
   // Check database connectivity
   try {
     console.log('Checking database connection...');
+    console.log('URL:', SUPABASE_URL);
+    console.log('Key:', SUPABASE_KEY.substring(0, 20) + '...');
+    
     const testRes = await fetch(`${SUPABASE_URL}/rest/v1/online_users?limit=1`, {
       headers: {
         'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json'
       }
     });
+    
+    console.log('Response status:', testRes.status);
+    console.log('Response ok:', testRes.ok);
+    
+    const responseText = await testRes.text();
+    console.log('Response:', responseText);
+    
     if (testRes.ok) {
       console.log('✓ Database connected');
     } else {
-      console.error('✗ Database error:', testRes.status);
-      showToast('⚠️ Database connection issue');
+      console.error('✗ Database error:', testRes.status, responseText);
+      showToast('⚠️ Database error: ' + testRes.status);
     }
   } catch (e) {
-    console.error('✗ Cannot reach database:', e);
-    showToast('⚠️ Cannot connect to database!');
+    console.error('✗ Connection error:', e.message);
+    console.error('Full error:', e);
+    showToast('⚠️ Connection error: ' + e.message);
   }
   
   // Start real online counter
