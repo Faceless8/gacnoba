@@ -1127,7 +1127,16 @@ function startMatching() {
   const orb = document.getElementById('my-orb');
   if (orb) orb.textContent = state.nickname.charAt(0).toUpperCase();
   showScreen('matching');
-  findAndMatchUser();
+  
+  // Update the matching label to show we're registering
+  const label = document.querySelector('.matching-label');
+  if (label) label.textContent = 'Registering...';
+  
+  // Add small delay then start finding match
+  setTimeout(() => {
+    if (label) label.textContent = 'Looking for someone...';
+    findAndMatchUser();
+  }, 500);
 }
 
 function cancelMatching() {
@@ -1153,20 +1162,16 @@ let lastMessageId = 0;
 // Find and match with another waiting user
 async function findAndMatchUser() {
   try {
+    console.log('Starting matching for session:', SESSION_ID);
+    
     // Add self to waiting pool
     await addUserToWaiting();
+    console.log('Added to waiting pool');
     
     // Poll every 1.5 seconds to see if someone else is waiting
     let attempts = 0;
     const matchInterval = setInterval(async () => {
       attempts++;
-      if (attempts > 80) { // Stop after 2 minutes
-        clearInterval(matchInterval);
-        if (state.matchTimer) clearInterval(state.matchTimer);
-        state.matchTimer = null;
-        cancelMatching();
-        return;
-      }
       
       try {
         // Find another waiting user (not me)
@@ -1179,26 +1184,54 @@ async function findAndMatchUser() {
             }
           }
         );
+        
+        if (!res.ok) {
+          console.error('Query failed:', res.status, res.statusText);
+          return;
+        }
+        
         const waiting = await res.json();
+        console.log('Attempt', attempts, '- Found waiting users:', waiting.length);
         
         if (waiting && waiting.length > 0) {
+          console.log('MATCH FOUND!', waiting[0]);
           clearInterval(matchInterval);
+          if (state.matchTimer) clearInterval(state.matchTimer);
           const otherUser = waiting[0];
           await startChatWith(otherUser);
         }
-      } catch (e) { console.error('Match check error:', e); }
+      } catch (e) { 
+        console.error('Match check error:', e); 
+      }
+      
+      // Stop after 120 seconds (80 attempts * 1.5s)
+      if (attempts > 80) {
+        clearInterval(matchInterval);
+        if (state.matchTimer) clearInterval(state.matchTimer);
+        state.matchTimer = null;
+        console.log('Matching timeout - no one found');
+        showToast('No one available. Try again later!');
+        showScreen('home');
+      }
     }, 1500);
     
     state.matchTimer = matchInterval;
   } catch (e) {
     console.error('Find match error:', e);
+    showToast('Error starting match. Try again.');
   }
 }
 
 // Add current user to waiting pool
 async function addUserToWaiting() {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
+    console.log('Adding to waiting pool with data:', {
+      session_id: SESSION_ID,
+      nickname: state.nickname,
+      status: 'waiting'
+    });
+    
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
@@ -1215,7 +1248,19 @@ async function addUserToWaiting() {
         created_at: new Date().toISOString()
       })
     });
-  } catch (e) { console.error('Error adding to waiting:', e); }
+    
+    if (!res.ok) {
+      const error = await res.text();
+      console.error('Failed to add to waiting:', res.status, error);
+      showToast('Database error - check console');
+      throw new Error(`API error: ${res.status}`);
+    }
+    
+    console.log('Successfully added to waiting pool');
+  } catch (e) { 
+    console.error('Error adding to waiting:', e);
+    showToast('Cannot connect to database!');
+  }
 }
 
 // Start chat with a matched user
@@ -1470,6 +1515,27 @@ function applyTranslations(){
   if(lg&&i18n[lg])setLang(lg);
   // Show home
   showScreen('home');
+  
+  // Check database connectivity
+  try {
+    console.log('Checking database connection...');
+    const testRes = await fetch(`${SUPABASE_URL}/rest/v1/online_users?limit=1`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      }
+    });
+    if (testRes.ok) {
+      console.log('✓ Database connected');
+    } else {
+      console.error('✗ Database error:', testRes.status);
+      showToast('⚠️ Database connection issue');
+    }
+  } catch (e) {
+    console.error('✗ Cannot reach database:', e);
+    showToast('⚠️ Cannot connect to database!');
+  }
+  
   // Start real online counter
   await initOnlineCounter();
   // Load today's chat count
