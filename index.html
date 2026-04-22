@@ -1233,12 +1233,13 @@ async function addUserToWaiting() {
       status: 'waiting'
     });
     
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/waiting_users?on_conflict=session_id`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
       },
       body: JSON.stringify({
         session_id: SESSION_ID,
@@ -1247,9 +1248,16 @@ async function addUserToWaiting() {
         intent: state.filters.intent,
         interests: state.interests.length > 0 ? state.interests.join(',') : '',
         status: 'waiting',
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       })
     });
+    
+    // Handle 409 Conflict gracefully - user already in waiting
+    if (res.status === 409) {
+      console.warn('User already in waiting list');
+      return { alreadyWaiting: true };
+    }
     
     if (!res.ok) {
       const error = await res.text();
@@ -1259,6 +1267,7 @@ async function addUserToWaiting() {
     }
     
     console.log('Successfully added to waiting pool');
+    return { success: true };
   } catch (e) { 
     console.error('Error adding to waiting:', e);
     showToast('Cannot connect to database!');
