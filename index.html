@@ -10,7 +10,8 @@
 <meta name="description" content="gacnoba.ge — Meet someone new. Anonymous, instant, real conversations.">
 <meta name="keywords" content="anonymous chat, random chat, meet people, Georgia chat, online chat, gacnoba">
 <meta property="og:title" content="gacnoba.ge — Meet Someone New">
-<meta property="og:description" content="Anonymous instant chat. No registration. Real conversations.">
+<meta property="og:description" content="Anonymous instant chat.
+No registration. Real conversations.">
 <meta property="og:type" content="website">
 <title>gacnoba.ge — Meet Someone New</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>•</text></svg>">
@@ -27,13 +28,15 @@
   --green:#4ade80; --green-bg:rgba(74,222,128,0.1);
   --red:#f87171; --red-bg:rgba(248,113,113,0.1);
   --amber:#fbbf24; --amber-bg:rgba(251,191,36,0.1);
-  --r:14px; --rsm:8px; --rlg:20px; --rxl:28px;
+  --r:14px;
+--rsm:8px; --rlg:20px; --rxl:28px;
   --sh:0 4px 24px rgba(0,0,0,0.4); --shlg:0 8px 48px rgba(0,0,0,0.6);
   --tr:0.2s cubic-bezier(0.4,0,0.2,1);
 }
 [data-theme="light"] {
   --bg:#f5f5f8; --bg2:#ebebf0; --bg3:#e0e0e8;
-  --surface:#fff; --surface2:#f0f0f5;
+  --surface:#fff;
+--surface2:#f0f0f5;
   --border:rgba(0,0,0,0.07); --border2:rgba(0,0,0,0.12);
   --text:#111118; --text2:#55556a; --text3:#9898aa;
   --accent:#6254e8; --accent2:#7c6af7;
@@ -64,7 +67,7 @@ nav{
   background:var(--bg);
   position:sticky;top:0;z-index:100;
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  gap:8px;
+gap:8px;
 }
 .nav-logo{
   font-size:16px;font-weight:600;color:var(--text);
@@ -93,7 +96,7 @@ nav{
   background:var(--surface);border:1px solid var(--border);
   color:var(--text2);width:36px;height:36px;border-radius:var(--rsm);
   cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
-  transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent;
+transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent;
 }
 
 #screen-home{
@@ -120,7 +123,7 @@ h1 span{color:var(--accent)}
 .filters-panel{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--rlg);padding:16px;margin-bottom:14px;
-  animation:fade-up 0.5s 0.3s ease both;text-align:left;
+animation:fade-up 0.5s 0.3s ease both;text-align:left;
 }
 .filters-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
 .filter-row{display:flex;gap:12px;flex-direction:column}
@@ -152,7 +155,7 @@ h1 span{color:var(--accent)}
 .btn-primary{
   background:var(--accent);color:#fff;
   border:none;padding:14px 24px;border-radius:var(--r);
-  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
+font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
   cursor:pointer;transition:var(--tr);white-space:nowrap;
   display:inline-flex;align-items:center;gap:8px;
   -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:48px;
@@ -182,7 +185,7 @@ h1 span{color:var(--accent)}
 .btn-amber{
   background:var(--amber-bg);border:1px solid rgba(251,191,36,0.2);
   color:var(--amber);padding:10px 12px;border-radius:var(--rsm);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
   cursor:pointer;transition:var(--tr);
   display:inline-flex;align-items:center;gap:6px;
   -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px;
@@ -198,13 +201,14 @@ h1 span{color:var(--accent)}
 /* Real online counter pulse */
 #online-count, #stat-online {
   color:var(--green);font-variant-numeric:tabular-nums;
-  transition: all 0.4s ease;
+transition: all 0.4s ease;
 }
 .count-update {
   animation: count-pop 0.4s ease;
 }
 @keyframes count-pop {
-  0%  { transform: scale(1); }
+  0%  { transform: scale(1);
+}
   50% { transform: scale(1.15); color: var(--green); }
   100%{ transform: scale(1); }
 }
@@ -212,7 +216,7 @@ h1 span{color:var(--accent)}
 #screen-matching{
   align-items:center;justify-content:center;
   padding:40px 20px;
-  min-height:calc(100vh - 57px);min-height:calc(100dvh - 57px);
+min-height:calc(100vh - 57px);min-height:calc(100dvh - 57px);
 }
 .matching-content{text-align:center}
 .matching-orbs{display:flex;align-items:center;justify-content:center;margin-bottom:32px;height:100px}
@@ -233,7 +237,7 @@ h1 span{color:var(--accent)}
 
 #screen-chat{
   display:none;flex-direction:column;
-  position:fixed;inset:0;z-index:10;
+position:fixed;inset:0;z-index:10;
   height:100vh;height:100dvh;overflow:hidden;
 }
 #screen-chat.active{display:flex}
@@ -255,7 +259,7 @@ h1 span{color:var(--accent)}
   padding:8px 16px;text-align:center;
   background:var(--green-bg);border-bottom:1px solid rgba(74,222,128,0.15);
   font-size:12px;color:var(--green);font-weight:500;
-  animation:slide-down 0.4s ease;flex-shrink:0;
+animation:slide-down 0.4s ease;flex-shrink:0;
 }
 @keyframes slide-down{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 
@@ -288,7 +292,7 @@ h1 span{color:var(--accent)}
 
 .chat-input-area{
   padding:10px 12px;
-  padding-bottom:max(10px,env(safe-area-inset-bottom));
+padding-bottom:max(10px,env(safe-area-inset-bottom));
   border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0;
 }
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
@@ -305,7 +309,7 @@ h1 span{color:var(--accent)}
   width:44px;height:44px;border-radius:var(--rsm);
   background:var(--accent);border:none;color:#fff;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:var(--tr);flex-shrink:0;
+transition:var(--tr);flex-shrink:0;
   -webkit-tap-highlight-color:transparent;touch-action:manipulation;
 }
 .send-btn:hover{background:var(--accent2)}
@@ -323,7 +327,7 @@ h1 span{color:var(--accent)}
   font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
   cursor:pointer;transition:var(--tr);
   display:flex;align-items:center;justify-content:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px;
+-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px;
 }
 .next-btn:hover{background:var(--surface2);border-color:var(--accent);color:var(--accent)}
 .next-btn:active{opacity:0.8}
@@ -342,7 +346,7 @@ h1 span{color:var(--accent)}
   padding:20px;
   padding-bottom:max(20px,env(safe-area-inset-bottom));
   max-width:480px;width:100%;
-  animation:modal-up 0.3s cubic-bezier(0.34,1.56,0.64,1);
+animation:modal-up 0.3s cubic-bezier(0.34,1.56,0.64,1);
   max-height:92vh;overflow-y:auto;
 }
 .modal::before{content:'';display:block;width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px}
@@ -359,7 +363,7 @@ h1 span{color:var(--accent)}
 .form-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:block}
 .form-input,.form-select,.form-textarea{
   width:100%;background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--rsm);padding:11px 14px;
+border-radius:var(--rsm);padding:11px 14px;
   font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);
   outline:none;transition:var(--tr);-webkit-appearance:none;
 }
@@ -375,7 +379,7 @@ h1 span{color:var(--accent)}
   color:var(--text);padding:12px 20px;border-radius:var(--r);
   font-size:14px;z-index:300;
   box-shadow:var(--shlg);opacity:0;pointer-events:none;
-  transition:opacity 0.3s ease;
+transition:opacity 0.3s ease;
   max-width:calc(100vw - 32px);white-space:nowrap;
 }
 .toast.show{opacity:1;pointer-events:auto}
@@ -442,7 +446,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     <button class="lang-btn active" onclick="setLang('en')" id="lang-en" aria-label="English">EN</button>
     <button class="lang-btn" onclick="setLang('ka')" id="lang-ka" aria-label="Georgian">KA</button>
     <button class="lang-btn" onclick="setLang('ru')" id="lang-ru" aria-label="Russian">RU</button>
-    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle theme">🌙</button>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" 
+aria-label="Toggle theme">🌙</button>
   </div>
 </nav>
 
@@ -459,7 +464,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
 
     <h1 data-i18n="home_title">Meet someone<br><span>unexpected.</span></h1>
-    <p class="home-sub" data-i18n="home_sub">Anonymous, instant, real conversations.<br>No account needed. Just click and connect.</p>
+    <p class="home-sub" data-i18n="home_sub">Anonymous, instant, real conversations.<br>No account needed.
+Just click and connect.</p>
 
     <div class="filters-panel" role="group" aria-labelledby="filters-heading">
       <div class="filters-title" id="filters-heading" data-i18n="filters">Optional filters</div>
@@ -469,14 +475,16 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
           <div class="filter-pills" role="group" aria-label="Gender">
             <button class="pill selected" data-filter="gender" data-val="any" onclick="selectPill(this)" data-i18n-pill="any">Any</button>
             <button class="pill" data-filter="gender" data-val="male" onclick="selectPill(this)" data-i18n-pill="male">Male</button>
-            <button class="pill" data-filter="gender" data-val="female" onclick="selectPill(this)" data-i18n-pill="female">Female</button>
+   
+         <button class="pill" data-filter="gender" data-val="female" onclick="selectPill(this)" data-i18n-pill="female">Female</button>
           </div>
         </div>
         <div class="filter-group">
           <div class="filter-label" data-i18n="looking_for">Looking for</div>
           <div class="filter-pills" role="group" aria-label="Intent">
             <button class="pill selected" data-filter="intent" data-val="any" onclick="selectPill(this)" data-i18n-pill="any">Any</button>
-            <button class="pill" data-filter="intent" data-val="friendship" onclick="selectPill(this)" data-i18n-pill="friendship">Friendship</button>
+            <button class="pill" data-filter="intent" 
+data-val="friendship" onclick="selectPill(this)" data-i18n-pill="friendship">Friendship</button>
             <button class="pill" data-filter="intent" data-val="casual" onclick="selectPill(this)" data-i18n-pill="casual">Casual</button>
             <button class="pill" data-filter="intent" data-val="romantic" onclick="selectPill(this)" data-i18n-pill="romantic">Romantic</button>
           </div>
@@ -484,19 +492,22 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         <div class="filter-group">
           <div class="filter-label" data-i18n="interests_title">Things I am interested in</div>
           <div class="filter-pills" role="group" aria-label="Interests">
-            <button class="pill" data-interest="books" onclick="toggleInterest(this)" data-i18n-pill="books">📚 Reading</button>
+        
+    <button class="pill" data-interest="books" onclick="toggleInterest(this)" data-i18n-pill="books">📚 Reading</button>
             <button class="pill" data-interest="swimming" onclick="toggleInterest(this)" data-i18n-pill="swimming">🏊 Swimming</button>
             <button class="pill" data-interest="drawing" onclick="toggleInterest(this)" data-i18n-pill="drawing">🎨 Drawing</button>
             <button class="pill" data-interest="music" onclick="toggleInterest(this)" data-i18n-pill="music">🎵 Music</button>
             <button class="pill" data-interest="movies" onclick="toggleInterest(this)" data-i18n-pill="movies">🎬 Movies/TV</button>
             <button class="pill" data-interest="gym" onclick="toggleInterest(this)" data-i18n-pill="gym">🏋️ Gym</button>
-            <button class="pill" data-interest="hiking" onclick="toggleInterest(this)" data-i18n-pill="hiking">🥾 Hiking</button>
+      
+      <button class="pill" data-interest="hiking" onclick="toggleInterest(this)" data-i18n-pill="hiking">🥾 Hiking</button>
             <button class="pill" data-interest="cars" onclick="toggleInterest(this)" data-i18n-pill="cars">🚗 Cars</button>
             <button class="pill" data-interest="bikes" onclick="toggleInterest(this)" data-i18n-pill="bikes">🏍️ Bikes</button>
             <button class="pill" data-interest="gaming" onclick="toggleInterest(this)" data-i18n-pill="gaming">🎮 Gaming</button>
             <button class="pill" data-interest="cats" onclick="toggleInterest(this)" data-i18n-pill="cats">🐱 Cats</button>
             <button class="pill" data-interest="dogs" onclick="toggleInterest(this)" data-i18n-pill="dogs">🐶 Dogs</button>
-            <button class="pill" data-interest="travel" onclick="toggleInterest(this)" data-i18n-pill="travel">✈️ Travel</button>
+    
+        <button class="pill" data-interest="travel" onclick="toggleInterest(this)" data-i18n-pill="travel">✈️ Travel</button>
             <button class="pill" data-interest="food" onclick="toggleInterest(this)" data-i18n-pill="food">🍔 Food</button>
           </div>
         </div>
@@ -507,7 +518,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <input type="text" class="nickname-input" id="nickname-input"
         placeholder="Nickname (optional)" maxlength="20"
         aria-label="Enter optional nickname" data-i18n-ph="nickname_ph"
-        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+       
+ autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       <button class="btn-secondary" onclick="generateNickname()" aria-label="Random nickname"
         style="padding:0;width:48px;flex-shrink:0;justify-content:center;font-size:20px">🎲</button>
     </div>
@@ -517,7 +529,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span data-i18n="start_chat">Start Chat</span>
       </button>
-    </div>
+  
+  </div>
 
     <div class="home-stats" aria-label="Platform statistics">
       <div class="stat"><div class="stat-num" id="stat-online">...</div><div class="stat-label" data-i18n="stat_online">Online now</div></div>
@@ -531,16 +544,20 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <div class="trust-item" role="listitem"><span aria-hidden="true">🔒</span><span data-i18n="trust_anon">100% Anonymous</span></div>
       <div class="trust-item" role="listitem"><span aria-hidden="true">⚡</span><span data-i18n="trust_instant">Instant Connection</span></div>
       <div class="trust-item" role="listitem"><span aria-hidden="true">🛡️</span><span data-i18n="trust_safe">Safe & Moderated</span></div>
-      <div class="trust-item" role="listitem"><span aria-hidden="true">📱</span><span data-i18n="trust_mobile">Mobile Friendly</span></div>
+      
+<div class="trust-item" role="listitem"><span aria-hidden="true">📱</span><span data-i18n="trust_mobile">Mobile Friendly</span></div>
     </div>
     <div class="section">
       <h2 class="section-title" data-i18n="features_title">Why gacnoba.ge?</h2>
       <p class="section-sub" data-i18n="features_sub">A smarter, safer way to meet people online.</p>
       <div class="features-grid" role="list">
-        <div class="feature-card" role="listitem"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="f1_title">Instant Matching</div><div class="feature-desc" data-i18n="f1_desc">Connect with a real person in seconds. No waiting rooms.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🎭</div><div class="feature-title" data-i18n="f2_title">Stay Anonymous</div><div class="feature-desc" data-i18n="f2_desc">No account required. Your privacy is always protected.</div></div>
+        <div class="feature-card" role="listitem"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="f1_title">Instant Matching</div><div class="feature-desc" data-i18n="f1_desc">Connect with a real person in seconds.
+No waiting rooms.</div></div>
+        <div class="feature-card" role="listitem"><div class="feature-icon">🎭</div><div class="feature-title" data-i18n="f2_title">Stay Anonymous</div><div class="feature-desc" data-i18n="f2_desc">No account required.
+Your privacy is always protected.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🎯</div><div class="feature-title" data-i18n="f3_title">Smart Filters</div><div class="feature-desc" data-i18n="f3_desc">Gender, intent, interests — find your kind of conversation.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🚀</div><div class="feature-title" data-i18n="f4_title">Skip Freely</div><div class="feature-desc" data-i18n="f4_desc">Not feeling it? Hit Next and find someone new instantly.</div></div>
+        <div class="feature-card" role="listitem"><div class="feature-icon">🚀</div><div class="feature-title" data-i18n="f4_title">Skip Freely</div><div class="feature-desc" data-i18n="f4_desc">Not feeling it?
+Hit Next and find someone new instantly.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🛡️</div><div class="feature-title" data-i18n="f5_title">Safe by Design</div><div class="feature-desc" data-i18n="f5_desc">Block, report, and active moderation keep you safe.</div></div>
         <div class="feature-card" role="listitem"><div class="feature-icon">🌍</div><div class="feature-title" data-i18n="f6_title">Multilingual</div><div class="feature-desc" data-i18n="f6_desc">English, Georgian, Russian — the interface speaks your language.</div></div>
       </div>
@@ -549,7 +566,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 
   <footer role="contentinfo">
     <p>© 2025 gacnoba.ge &nbsp;·&nbsp;
-      <a href="#" onclick="showModal('terms-modal')">Terms</a> &nbsp;·&nbsp;
+<a href="#" onclick="showModal('terms-modal')">Terms</a> &nbsp;·&nbsp;
       <a href="#" onclick="showModal('privacy-modal')">Privacy</a> &nbsp;·&nbsp;
       <a href="#" onclick="showModal('safety-modal')">Safety</a>
     </p>
@@ -572,7 +589,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 </section>
 
 <section id="screen-chat" class="screen" aria-label="Chat">
-  <div class="connection-banner" id="connection-banner" role="status" aria-live="polite">✓ Contact established — say hello!</div>
+  
+<div class="connection-banner" id="connection-banner" role="status" aria-live="polite">✓ Contact established — say hello!</div>
   <header class="chat-header">
     <div class="chat-user-info">
       <div class="chat-avatar" id="chat-avatar" aria-hidden="true">A</div>
@@ -585,13 +603,15 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <button class="btn-amber" onclick="showReportModal()" aria-label="Report user">
         <span aria-hidden="true">⚑</span><span class="btn-label" data-i18n="report">Report</span>
       </button>
-      <button class="btn-danger" onclick="showBlockModal()" aria-label="Block user">
+      
+<button class="btn-danger" onclick="showBlockModal()" aria-label="Block user">
         <span aria-hidden="true">⊘</span><span class="btn-label" data-i18n="block">Block</span>
       </button>
     </div>
   </header>
   <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat messages">
-    <div class="msg-system" data-i18n="connected_msg">You are connected. Be kind 👋</div>
+    <div class="msg-system" data-i18n="connected_msg">You are connected.
+Be kind 👋</div>
     <div class="typing-indicator" id="typing-indicator" aria-label="Partner is typing">
       <span></span><span></span><span></span>
     </div>
@@ -604,7 +624,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         onkeydown="handleChatKey(event)" oninput="autoResize(this)"
         autocorrect="off" autocapitalize="sentences"></textarea>
       <button class="send-btn" onclick="sendMessage()" aria-label="Send message">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <svg viewBox="0 0 24 
+24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="22" y1="2" x2="11" y2="13"></line>
           <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
         </svg>
@@ -617,11 +638,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </button>
     <button class="btn-secondary" onclick="leaveChat()" aria-label="Leave chat">
       <span data-i18n="leave">Leave</span>
+ 
     </button>
   </div>
 </section>
 
-<!-- MODALS -->
 <div class="modal-overlay" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title">
   <div class="modal">
     <h2 class="modal-title" id="report-title" data-i18n="report_title">Report User</h2>
@@ -632,7 +653,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         <option value="spam" data-i18n="r_spam">Spam or advertising</option>
         <option value="harassment" data-i18n="r_harassment">Harassment or threats</option>
         <option value="explicit" data-i18n="r_explicit">Explicit content</option>
-        <option value="underage" data-i18n="r_underage">Suspected minor</option>
+        <option value="underage" 
+data-i18n="r_underage">Suspected minor</option>
         <option value="other" data-i18n="r_other">Other</option>
       </select>
     </div>
@@ -650,7 +672,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 <div class="modal-overlay" id="block-modal" role="dialog" aria-modal="true" aria-labelledby="block-title">
   <div class="modal">
     <h2 class="modal-title" id="block-title" data-i18n="block_title">Block User</h2>
-    <p class="modal-sub" data-i18n="block_sub">This person will never be matched with you again.</p>
+  
+  <p class="modal-sub" data-i18n="block_sub">This person will never be matched with you again.</p>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('block-modal')" data-i18n="cancel_btn">Cancel</button>
       <button class="btn-danger" onclick="confirmBlock()" data-i18n="confirm_block">Block & Skip</button>
@@ -662,7 +685,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <div class="modal">
     <h2 class="modal-title" id="terms-title">Terms of Service</h2>
     <div style="font-size:14px;color:var(--text2);line-height:1.7;max-height:240px;overflow-y:auto;margin-bottom:16px">
-      <p style="margin-bottom:10px">By using gacnoba.ge you agree to treat all users with respect. You must be 18 or older.</p>
+      <p style="margin-bottom:10px">By using gacnoba.ge you agree to treat all users with respect.
+You must be 18 or older.</p>
       <p style="margin-bottom:10px">Prohibited: explicit content, harassment, spam, illegal activity, sharing personal information.</p>
       <p>We reserve the right to ban users who violate these terms.</p>
     </div>
@@ -674,9 +698,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
   <div class="modal">
     <h2 class="modal-title" id="privacy-title">Privacy Policy</h2>
     <div style="font-size:14px;color:var(--text2);line-height:1.7;max-height:240px;overflow-y:auto;margin-bottom:16px">
-      <p style="margin-bottom:10px">We do not store chat messages. Sessions are deleted when the chat ends.</p>
+      <p style="margin-bottom:10px">We do not store chat messages.
+Sessions are deleted when the chat ends.</p>
       <p style="margin-bottom:10px">We collect: temporary session IDs, browser type, and timestamps for anti-spam.</p>
-      <p>We never sell your data. Block lists are stored locally in your browser.</p>
+      <p>We never sell your data.
+Block lists are stored locally in your browser.</p>
     </div>
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('privacy-modal')">Got it</button></div>
   </div>
@@ -689,7 +715,8 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <p style="margin-bottom:10px">🛡️ Never share personal info: name, address, phone, or social handles.</p>
       <p style="margin-bottom:10px">🚨 Use Report immediately for any inappropriate behavior.</p>
       <p style="margin-bottom:10px">⛔ Use Block to prevent someone matching with you again.</p>
-      <p>💬 You can always hit "Next" to move on from any conversation.</p>
+      <p>💬 You can always hit "Next" 
+to move on from any conversation.</p>
     </div>
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('safety-modal')">Got it</button></div>
   </div>
@@ -710,16 +737,16 @@ function generateDeviceFingerprint() {
   const navigator_data = [
     navigator.language,
     navigator.platform,
-    navigator.hardwareConcurrency || 'unknown',
+    navigator.hardwareConcurrency ||
+'unknown',
     navigator.deviceMemory || 'unknown',
     screen.width + 'x' + screen.height,
     new Date().getTimezoneOffset()
   ].join('|');
-  
-  let hash = 0;
+let hash = 0;
   for (let i = 0; i < navigator_data.length; i++) {
     const char = navigator_data.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+hash = ((hash << 5) - hash) + char;
     hash = hash & hash;
   }
   return Math.abs(hash).toString(36);
@@ -737,10 +764,10 @@ let heartbeatInterval = null;
 let countRefreshInterval = null;
 let chatsTodayCount = 0;
 let isSessionRegistered = false;
-
 // Register this user as online
 async function registerOnline() {
-  if (isSessionRegistered) return; // Already registered in this session
+  if (isSessionRegistered) return;
+// Already registered in this session
   
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/online_users`, {
@@ -754,10 +781,11 @@ async function registerOnline() {
       body: JSON.stringify({
         session_id: SESSION_ID,
         last_seen: new Date().toISOString()
+ 
       })
     });
     isSessionRegistered = true;
-  } catch(e) { /* silent fail */ }
+} catch(e) { /* silent fail */ }
 }
 
 // Update last_seen so we know user is still here (heartbeat every 20s)
@@ -772,7 +800,7 @@ async function heartbeat() {
       },
       body: JSON.stringify({ last_seen: new Date().toISOString() })
     });
-  } catch(e) { /* silent fail */ }
+} catch(e) { /* silent fail */ }
 }
 
 // Remove stale users (inactive > 45 seconds) then count
@@ -780,15 +808,14 @@ async function getOnlineCount() {
   try {
     // First clean up users who haven't been seen in 45 seconds
     const cutoff = new Date(Date.now() - 45000).toISOString();
-    await fetch(`${SUPABASE_URL}/rest/v1/online_users?last_seen=lt.${cutoff}`, {
+await fetch(`${SUPABASE_URL}/rest/v1/online_users?last_seen=lt.${cutoff}`, {
       method: 'DELETE',
       headers: {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`
       }
     });
-
-    // Now count remaining online users
+// Now count remaining online users
     const res = await fetch(`${SUPABASE_URL}/rest/v1/online_users?select=count`, {
       headers: {
         'apikey': SUPABASE_KEY,
@@ -797,33 +824,32 @@ async function getOnlineCount() {
         'Range': '0-0'
       }
     });
-
-    const contentRange = res.headers.get('content-range');
+const contentRange = res.headers.get('content-range');
     if (contentRange) {
       const total = parseInt(contentRange.split('/')[1]);
       if (!isNaN(total)) updateOnlineDisplay(total);
-    }
+}
   } catch(e) { /* silent fail */ }
 }
 
 // Animate the number changing
 function updateOnlineDisplay(count) {
   const badge = document.getElementById('online-count');
-  const stat  = document.getElementById('stat-online');
+const stat  = document.getElementById('stat-online');
   const formatted = count.toLocaleString();
 
   if (badge && badge.textContent !== formatted) {
     badge.textContent = formatted;
-    badge.classList.remove('count-update');
+badge.classList.remove('count-update');
     void badge.offsetWidth; // force reflow
     badge.classList.add('count-update');
-  }
+}
   if (stat && stat.textContent !== formatted) {
     stat.textContent = formatted;
     stat.classList.remove('count-update');
     void stat.offsetWidth;
     stat.classList.add('count-update');
-  }
+}
 }
 
 // Remove this user when they leave the page
@@ -836,7 +862,7 @@ async function removeOnline() {
         'Authorization': `Bearer ${SUPABASE_KEY}`
       }
     });
-    // Also remove from waiting/chatting
+// Also remove from waiting/chatting
     await fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
       method: 'DELETE',
       headers: {
@@ -844,30 +870,31 @@ async function removeOnline() {
         'Authorization': `Bearer ${SUPABASE_KEY}`
       }
     });
-  } catch(e) { /* silent fail */ }
+} catch(e) { /* silent fail */ }
 }
 
 // Start the whole counter system
 async function initOnlineCounter() {
   await registerOnline();
-  await getOnlineCount();
+await getOnlineCount();
 
   // Heartbeat every 20 seconds to stay "online"
   heartbeatInterval = setInterval(heartbeat, 20000);
-
-  // Refresh the displayed count every 5 seconds
+// Refresh the displayed count every 5 seconds
   countRefreshInterval = setInterval(getOnlineCount, 5000);
 }
 
 // When user closes tab or navigates away — remove them
 window.addEventListener('beforeunload', removeOnline);
-window.addEventListener('pagehide', removeOnline); // iOS Safari fix
+window.addEventListener('pagehide', removeOnline);
+// iOS Safari fix
 
 // =====================================================================
 // CHATS TODAY COUNTER
 // =====================================================================
 async function incrementChatsToday() {
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  const today = new Date().toISOString().split('T')[0];
+// YYYY-MM-DD
   try {
     // Try to get today's record
     const res = await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}&select=count`, {
@@ -876,12 +903,12 @@ async function incrementChatsToday() {
         'Authorization': `Bearer ${SUPABASE_KEY}`
       }
     });
-    const data = await res.json();
+const data = await res.json();
 
     if (data && data.length > 0) {
       // Update existing record
       const newCount = (data[0].count || 0) + 1;
-      await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}`, {
+await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}`, {
         method: 'PATCH',
         headers: {
           'apikey': SUPABASE_KEY,
@@ -890,7 +917,7 @@ async function incrementChatsToday() {
         },
         body: JSON.stringify({ count: newCount })
       });
-      chatsTodayCount = newCount;
+chatsTodayCount = newCount;
     } else {
       // Create new record for today
       await fetch(`${SUPABASE_URL}/rest/v1/chats_today`, {
@@ -901,29 +928,31 @@ async function incrementChatsToday() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ date: today, count: 1 })
-      });
+  
+     });
       chatsTodayCount = 1;
     }
     const el = document.getElementById('stat-chats-today');
-    if (el) el.textContent = chatsTodayCount.toLocaleString();
+if (el) el.textContent = chatsTodayCount.toLocaleString();
   } catch(e) { /* silent fail */ }
 }
 
 async function loadChatsToday() {
   const today = new Date().toISOString().split('T')[0];
-  try {
+try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}&select=count`, {
       headers: {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`
       }
     });
-    const data = await res.json();
+const data = await res.json();
     if (data && data.length > 0) {
-      chatsTodayCount = data[0].count || 0;
+      chatsTodayCount = data[0].count ||
+0;
       const el = document.getElementById('stat-chats-today');
       if (el) el.textContent = chatsTodayCount.toLocaleString();
-    }
+}
   } catch(e) { /* silent fail */ }
 }
 
@@ -937,16 +966,17 @@ const state = {
   currentPartner:null,
   blockedIds:JSON.parse(localStorage.getItem('acq_blocked')||'[]'),
   matchTimer:null,
-  sessionId: SESSION_ID
+  sessionId: SESSION_ID,
+  chatStartTime: null // Added to filter out old chat messages
 };
-
 // =====================================================================
 // I18N
 // =====================================================================
 const i18n = {
   en:{
     home_title:'Meet someone<br><span>unexpected.</span>',
-    home_sub:'Anonymous, instant, real conversations.<br>No account needed. Just click and connect.',
+    home_sub:'Anonymous, instant, real conversations.<br>No account needed.
+Just click and connect.',
     badge_text:'{count} online now',
     filters:'Optional filters', i_am:'I am', looking_for:'Looking for',
     interests_title:'Things I am interested in',
@@ -959,18 +989,23 @@ const i18n = {
     travel:'✈️ Travel', food:'🍔 Food',
     nickname_ph:'Nickname (optional)', start_chat:'Start Chat',
     stat_online:'Online now', stat_chats:'Chats today', stat_made_in:'Made in Georgia',
-    trust_anon:'100% Anonymous', trust_instant:'Instant Connection',
+  
+  trust_anon:'100% Anonymous', trust_instant:'Instant Connection',
     trust_safe:'Safe & Moderated', trust_mobile:'Mobile Friendly',
     features_title:'Why gacnoba.ge?', features_sub:'A smarter, safer way to meet people online.',
-    f1_title:'Instant Matching', f1_desc:'Connect with a real person in seconds. No waiting rooms.',
-    f2_title:'Stay Anonymous', f2_desc:'No account required. Your privacy is always protected.',
+    f1_title:'Instant Matching', f1_desc:'Connect with a real person in seconds.
+No waiting rooms.',
+    f2_title:'Stay Anonymous', f2_desc:'No account required.
+Your privacy is always protected.',
     f3_title:'Smart Filters', f3_desc:'Gender, intent, interests — find your kind of conversation.',
-    f4_title:'Skip Freely', f4_desc:'Not feeling it? Hit Next and find someone new instantly.',
+    f4_title:'Skip Freely', f4_desc:'Not feeling it?
+Hit Next and find someone new instantly.',
     f5_title:'Safe by Design', f5_desc:'Block, report, and active moderation keep you safe.',
     f6_title:'Multilingual', f6_desc:'English, Georgian, Russian — the interface speaks your language.',
     looking_for_match:'Looking for someone...',
     finding_match:'Finding your match', cancel:'Cancel',
-    connected_msg:'You are connected. Be kind 👋', online:'Online',
+    connected_msg:'You are connected.
+Be kind 👋', online:'Online',
     report:'Report', block:'Block', next_person:'Next person', leave:'Leave',
     type_message:'Type a message…',
     report_title:'Report User', report_sub:'Help us keep the community safe.',
@@ -980,7 +1015,8 @@ const i18n = {
     cancel_btn:'Cancel', submit_report:'Submit Report',
     block_title:'Block User', block_sub:'This person will never be matched with you again.',
     confirm_block:'Block & Skip',
-    toast_reported:'✓ Report submitted. Thank you.',
+    toast_reported:'✓ Report submitted.
+Thank you.',
     toast_blocked:'⊘ User blocked.', toast_left:'Chat ended.',
     connection_est:'✓ Contact established — say hello!',
     partner_left:'Your partner left the chat.', report_ph:'Describe what happened...',
@@ -995,7 +1031,8 @@ const i18n = {
     friendship:'მეგობრობა', casual:'კასუალური', romantic:'რომანტიული',
     books:'📚 კითხვა', swimming:'🏊 ცურვა', drawing:'🎨 ხატვა',
     music:'🎵 მუსიკა', movies:'🎬 ფილმები', gym:'🏋️ დარბაზი',
-    hiking:'🥾 ლაშქრობა', cars:'🚗 მანქანები', bikes:'🏍️ მოტო',
+   
+ hiking:'🥾 ლაშქრობა', cars:'🚗 მანქანები', bikes:'🏍️ მოტო',
     gaming:'🎮 თამაშები', cats:'🐱 კატები', dogs:'🐶 ძაღლები',
     travel:'✈️ მოგზაურობა', food:'🍔 საკვები',
     nickname_ph:'მეტსახელი (სურვილისამებრ)', start_chat:'ჩატის დაწყება',
@@ -1006,11 +1043,13 @@ const i18n = {
     f1_title:'სწრაფი დაკავშირება', f1_desc:'დაუკავშირდი რეალურ ადამიანს წამებში.',
     f2_title:'დარჩი ანონიმური', f2_desc:'კონფიდენციალურობა დაცულია.',
     f3_title:'ჭკვიანი ფილტრები', f3_desc:'სქესი, მიზანი, ინტერესები.',
-    f4_title:'გადახტი', f4_desc:'არ მოგწონს? დააჭირე "შემდეგი".',
+    f4_title:'გადახტი', f4_desc:'არ მოგწონს?
+დააჭირე "შემდეგი".',
     f5_title:'უსაფრთხო', f5_desc:'დაბლოკვა, შეტყობინება, მოდერაცია.',
     f6_title:'მრავალენოვანი', f6_desc:'ინტერფეისი შენს ენაზე.',
     looking_for_match:'ვეძებ...', finding_match:'ეძებს მოსაუბრეს', cancel:'გაუქმება',
-    connected_msg:'დაკავშირებული ხარ. იყავი კეთილი 👋', online:'ონლაინ',
+    connected_msg:'დაკავშირებული ხარ.
+იყავი კეთილი 👋', online:'ონლაინ',
     report:'შეტყობინება', block:'დაბლოკვა', next_person:'შემდეგი', leave:'გასვლა',
     type_message:'შეიყვანე შეტყობინება…',
     report_title:'შეტყობინება', report_sub:'დაგვეხმარე საზოგადოების დაცვაში.',
@@ -1026,7 +1065,8 @@ const i18n = {
   },
   ru:{
     home_title:'Познакомься с<br><span>кем-то новым.</span>',
-    home_sub:'Анонимные, мгновенные, настоящие разговоры.<br>Без регистрации.',
+    home_sub:'Анонимные, 
+мгновенные, настоящие разговоры.<br>Без регистрации.',
     badge_text:'{count} сейчас онлайн',
     filters:'Фильтры (необязательно)', i_am:'Я', looking_for:'Ищу',
     interests_title:'Мои интересы',
@@ -1039,17 +1079,21 @@ const i18n = {
     travel:'✈️ Путешествия', food:'🍔 Еда',
     nickname_ph:'Никнейм (необязательно)', start_chat:'Начать чат',
     stat_online:'Онлайн сейчас', stat_chats:'Чатов сегодня', stat_made_in:'Сделано в Грузии',
-    trust_anon:'100% Анонимно', trust_instant:'Мгновенное соединение',
+    trust_anon:'100% Анонимно', trust_instant:'Мгновенное 
+соединение',
     trust_safe:'Безопасно', trust_mobile:'Мобильная версия',
     features_title:'Почему gacnoba.ge?', features_sub:'Умнее и безопаснее.',
     f1_title:'Мгновенный матчинг', f1_desc:'Подключись к реальному человеку за секунды.',
-    f2_title:'Анонимность', f2_desc:'Аккаунт не нужен. Приватность защищена.',
+    f2_title:'Анонимность', f2_desc:'Аккаунт не нужен.
+Приватность защищена.',
     f3_title:'Умные фильтры', f3_desc:'Пол, цель, интересы — найди своих.',
-    f4_title:'Пропускай', f4_desc:'Не нравится? Жми "Следующий".',
+    f4_title:'Пропускай', f4_desc:'Не нравится?
+Жми "Следующий".',
     f5_title:'Безопасность', f5_desc:'Блокировка, жалобы, модерация.',
     f6_title:'Многоязычность', f6_desc:'Интерфейс на твоём языке.',
     looking_for_match:'Ищем...', finding_match:'Ищем твой матч', cancel:'Отмена',
-    connected_msg:'Вы подключены. Будьте добры 👋', online:'Онлайн',
+    connected_msg:'Вы подключены.
+Будьте добры 👋', online:'Онлайн',
     report:'Жалоба', block:'Заблокировать', next_person:'Следующий', leave:'Выйти',
     type_message:'Введите сообщение…',
     report_title:'Пожаловаться', report_sub:'Помогите сохранить безопасность.',
@@ -1064,7 +1108,6 @@ const i18n = {
     partner_left:'Собеседник покинул чат.', report_ph:'Опишите что произошло...',
   }
 };
-
 function t(k){return(i18n[state.lang]||i18n.en)[k]||i18n.en[k]||k}
 
 // Screen management
@@ -1074,20 +1117,20 @@ function showScreen(id){
     if(s.id!=='screen-chat')s.style.display='';
   });
   const el=document.getElementById('screen-'+id);
-  if(el){el.classList.add('active');if(id!=='chat')window.scrollTo(0,0)}
+if(el){el.classList.add('active');if(id!=='chat')window.scrollTo(0,0)}
   
   // Hide nav during chat, show it otherwise
   const nav = document.querySelector('nav');
-  if(nav) {
+if(nav) {
     nav.style.display = (id === 'chat') ? 'none' : 'flex';
-  }
+}
 }
 
 function goHome(e) {
   if (e) e.preventDefault();
   if (state.matchTimer) clearInterval(state.matchTimer);
   if (messageCheckInterval) clearInterval(messageCheckInterval);
-  // Clean up from waiting
+// Clean up from waiting
   fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
     method: 'DELETE',
     headers: {
@@ -1095,7 +1138,7 @@ function goHome(e) {
       'Authorization': `Bearer ${SUPABASE_KEY}`
     }
   }).catch(e => console.error('Error on home:', e));
-  chatRoomId = null;
+chatRoomId = null;
   showScreen('home');
 }
 
@@ -1125,16 +1168,15 @@ function toggleInterest(el){
 function startMatching() {
   const inp = document.getElementById('nickname-input');
   state.nickname = inp.value.trim();
-  if (!state.nickname) { generateNickname(); state.nickname = inp.value; }
+  if (!state.nickname) { generateNickname();
+state.nickname = inp.value; }
   const orb = document.getElementById('my-orb');
   if (orb) orb.textContent = state.nickname.charAt(0).toUpperCase();
   showScreen('matching');
-  
-  // Update the matching label to show we're registering
+// Update the matching label to show we're registering
   const label = document.querySelector('.matching-label');
   if (label) label.textContent = 'Registering...';
-  
-  // Add small delay then start finding match
+// Add small delay then start finding match
   setTimeout(() => {
     if (label) label.textContent = 'Looking for someone...';
     findAndMatchUser();
@@ -1151,7 +1193,7 @@ function cancelMatching() {
       'Authorization': `Bearer ${SUPABASE_KEY}`
     }
   }).catch(e => console.error('Error cancelling:', e));
-  showScreen('home');
+showScreen('home');
 }
 
 // =====================================================================
@@ -1165,57 +1207,77 @@ let lastMessageId = 0;
 async function findAndMatchUser() {
   try {
     console.log('Starting matching for session:', SESSION_ID);
-    
     // Add self to waiting pool
     await addUserToWaiting();
     console.log('Added to waiting pool');
     
-    // Poll every 1.5 seconds to see if someone else is waiting
     let attempts = 0;
     const matchInterval = setInterval(async () => {
       attempts++;
       
       try {
-        // Find another waiting user (not me)
-        const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/waiting_users?status=eq.waiting&session_id=neq.${SESSION_ID}&order=created_at.asc&limit=1`,
-          {
-            headers: {
-              'apikey': SUPABASE_KEY,
-              'Authorization': `Bearer ${SUPABASE_KEY}`
-            }
-          }
+        // 1. FIRST, check if someone else already matched with me
+        const meRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}&select=status,matched_with`,
+          { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
         );
-        
-        if (!res.ok) {
-          console.error('Query failed:', res.status, res.statusText);
-          return;
-        }
-        
-        const waiting = await res.json();
-        console.log('Attempt', attempts, '- Found waiting users:', waiting.length);
-        
-        if (waiting && waiting.length > 0) {
-          console.log('MATCH FOUND!', waiting[0]);
+        const meData = await meRes.json();
+
+        if (meData && meData.length > 0 && meData[0].status === 'chatting' && meData[0].matched_with) {
+          // Someone found us!
           clearInterval(matchInterval);
           if (state.matchTimer) clearInterval(state.matchTimer);
-          const otherUser = waiting[0];
-          await startChatWith(otherUser);
+
+          const partnerId = meData[0].matched_with;
+          chatRoomId = [SESSION_ID, partnerId].sort().join('-');
+          state.currentPartner = { name: 'Anonymous', id: partnerId };
+          state.chatStartTime = new Date().toISOString(); // Record exact start time
+
+          // Try to get their nickname
+          const pRes = await fetch(
+              `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${partnerId}&select=nickname`,
+              { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+          );
+          const pData = await pRes.json();
+          if (pData && pData.length > 0 && pData[0].nickname) {
+              state.currentPartner.name = pData[0].nickname;
+          }
+
+          openChat(state.currentPartner);
+          incrementChatsToday();
+          startMessagePolling();
+          return;
+        }
+
+        // 2. If nobody matched with me, try to find someone else
+        const res = await fetch(
+          `${SUPABASE_URL}/rest/v1/waiting_users?status=eq.waiting&session_id=neq.${SESSION_ID}&order=created_at.asc&limit=1`,
+          { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
+        );
+        
+        if (!res.ok) return;
+      
+        const waiting = await res.json();
+        
+        if (waiting && waiting.length > 0) {
+          // MATCH FOUND!
+          clearInterval(matchInterval);
+          if (state.matchTimer) clearInterval(state.matchTimer);
+          await startChatWith(waiting[0]);
         }
       } catch (e) { 
-        console.error('Match check error:', e); 
+        console.error('Match check error:', e);
       }
       
-      // Stop after 120 seconds (80 attempts * 1.5s)
-      if (attempts > 80) {
+      // Stop after 60 seconds (75 attempts * 800ms)
+      if (attempts > 75) {
         clearInterval(matchInterval);
         if (state.matchTimer) clearInterval(state.matchTimer);
         state.matchTimer = null;
-        console.log('Matching timeout - no one found');
         showToast('No one available. Try again later!');
         showScreen('home');
       }
-    }, 1500);
+    }, 800); // Reduced from 1500ms for much faster connections
     
     state.matchTimer = matchInterval;
   } catch (e) {
@@ -1232,8 +1294,7 @@ async function addUserToWaiting() {
       nickname: state.nickname,
       status: 'waiting'
     });
-    
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
+const res = await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_KEY,
@@ -1245,42 +1306,43 @@ async function addUserToWaiting() {
         nickname: state.nickname,
         gender: state.filters.gender,
         intent: state.filters.intent,
-        interests: state.interests.length > 0 ? state.interests : null,
+    
+    interests: state.interests.length > 0 ? state.interests : null,
         status: 'waiting'
       })
     });
-    
-    // Handle 409 Conflict gracefully - user already in waiting
+// Handle 409 Conflict gracefully - user already in waiting
     if (res.status === 409) {
       console.warn('User already in waiting list');
-      return { alreadyWaiting: true };
+return { alreadyWaiting: true };
     }
     
     if (!res.ok) {
       const error = await res.text();
-      console.error('Failed to add to waiting:', res.status, error);
+console.error('Failed to add to waiting:', res.status, error);
       showToast('Database error - check console');
       throw new Error(`API error: ${res.status}`);
-    }
+}
     
     console.log('Successfully added to waiting pool');
     return { success: true };
-  } catch (e) { 
+} catch (e) { 
     console.error('Error adding to waiting:', e);
     showToast('Cannot connect to database!');
-  }
+}
 }
 
 // Start chat with a matched user
 async function startChatWith(otherUser) {
   if (state.matchTimer) clearInterval(state.matchTimer);
-  
-  // Create room ID
+// Create room ID
   chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');
+  state.chatStartTime = new Date().toISOString(); // Added to filter out previous messages
+  
   console.log('Starting chat with:', otherUser.nickname);
   console.log('Chat room ID:', chatRoomId);
   console.log('My session:', SESSION_ID);
-  console.log('Their session:', otherUser.session_id);
+console.log('Their session:', otherUser.session_id);
   
   // Mark both as chatting
   try {
@@ -1294,10 +1356,11 @@ async function startChatWith(otherUser) {
           'Authorization': `Bearer ${SUPABASE_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
+   
+     body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
       }
     );
-    console.log('Updated other user:', res1.status);
+console.log('Updated other user:', res1.status);
     
     // Update self
     const res2 = await fetch(
@@ -1309,14 +1372,16 @@ async function startChatWith(otherUser) {
           'Authorization': `Bearer ${SUPABASE_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
+        body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' 
+})
       }
     );
     console.log('Updated self:', res2.status);
-  } catch (e) { console.error('Error marking match:', e); }
+} catch (e) { console.error('Error marking match:', e); }
   
   state.currentPartner = {
-    name: otherUser.nickname || 'Anonymous',
+    name: otherUser.nickname ||
+'Anonymous',
     id: otherUser.session_id
   };
   
@@ -1331,19 +1396,21 @@ function startMessagePolling() {
   lastMessageId = 0;
   
   console.log('Starting message polling for room:', chatRoomId);
-  
   messageCheckInterval = setInterval(async () => {
-    if (!chatRoomId) return;
+    // Make sure we don't poll without a start time
+    if (!chatRoomId || !state.chatStartTime) return; 
     
     try {
+      // Fetch messages created ONLY AFTER the chat start time
       const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/chat_messages?room_id=eq.${chatRoomId}&order=id.asc`,
+        `${SUPABASE_URL}/rest/v1/chat_messages?room_id=eq.${chatRoomId}&created_at=gte.${state.chatStartTime}&order=id.asc`,
         {
           headers: {
             'apikey': SUPABASE_KEY,
             'Authorization': `Bearer ${SUPABASE_KEY}`
           }
-        }
+      
+  }
       );
       
       if (!res.ok) {
@@ -1355,7 +1422,8 @@ function startMessagePolling() {
       console.log('Messages fetched:', messages.length, 'Last ID:', lastMessageId);
       
       if (messages && messages.length > 0) {
-        messages.forEach(msg => {
+        
+messages.forEach(msg => {
           if (msg.id > lastMessageId && msg.sender_id !== SESSION_ID) {
             console.log('New message from', msg.sender_id, ':', msg.text);
             appendMessage('them', msg.text);
@@ -1364,23 +1432,25 @@ function startMessagePolling() {
         });
       }
     } catch (e) { 
-      console.error('Error polling messages:', e);
+    
+  console.error('Error polling messages:', e);
     }
-  }, 1000); // Check every 1 second
+  }, 1000);
+// Check every 1 second
 }
 
 // Open chat UI
 function openChat(partner) {
   const av = document.getElementById('chat-avatar');
   const un = document.getElementById('chat-username');
-  const bn = document.getElementById('connection-banner');
+const bn = document.getElementById('connection-banner');
   const msgs = document.getElementById('messages');
   if(av){av.textContent=partner.name.charAt(0).toUpperCase();av.style.background=randomColor(partner.name)}
   if(un)un.textContent=partner.name;
   if(bn)bn.textContent=t('connection_est');
   if(msgs){
     msgs.innerHTML=`<div class="msg-system">${t('connected_msg')}</div>`;
-  }
+}
   showScreen('chat');
 }
 
@@ -1394,10 +1464,10 @@ function appendMessage(from, text) {
   const msgs = document.getElementById('messages');
   const ti = document.getElementById('typing-indicator');
   if (!msgs) return;
-  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const msg = document.createElement('div');
   msg.className = `msg ${from}`;
-  msg.innerHTML = `<div class="msg-bubble">${escapeHtml(text)}</div><div class="msg-time">${time}</div>`;
+msg.innerHTML = `<div class="msg-bubble">${escapeHtml(text)}</div><div class="msg-time">${time}</div>`;
   if (ti) msgs.insertBefore(msg, ti); else msgs.appendChild(msg);
   scrollMessages();
 }
@@ -1420,7 +1490,8 @@ async function sendMessage() {
   }
   
   console.log('Sending message:', text);
-  
+ 
+ 
   // Show message immediately on sender's screen
   appendMessage('me', text);
   inp.value = '';
@@ -1436,25 +1507,25 @@ async function sendMessage() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        room_id: chatRoomId,
+     
+   room_id: chatRoomId,
         sender_id: SESSION_ID,
         text: text,
         created_at: new Date().toISOString()
       })
     });
-    
-    if (!res.ok) {
+if (!res.ok) {
       const error = await res.text();
       console.error('Message send failed:', res.status, error);
-      showToast('Failed to send message: ' + res.status);
+showToast('Failed to send message: ' + res.status);
       return;
     }
     
     console.log('Message sent successfully');
-  } catch (e) {
+} catch (e) {
     console.error('Error sending message:', e);
     showToast('Failed to send message');
-  }
+}
 }
 
 function handleChatKey(e){
@@ -1464,7 +1535,7 @@ function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrol
 
 function nextChat() {
   if (messageCheckInterval) clearInterval(messageCheckInterval);
-  // Remove from waiting/chatting
+// Remove from waiting/chatting
   fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
     method: 'DELETE',
     headers: {
@@ -1472,16 +1543,16 @@ function nextChat() {
       'Authorization': `Bearer ${SUPABASE_KEY}`
     }
   }).catch(e => console.error('Error on next:', e));
-  
-  const msgs = document.getElementById('messages');
-  if (msgs) { const s = document.createElement('div'); s.className = 'msg-system'; s.textContent = t('partner_left'); msgs.appendChild(s); scrollMessages(); }
+const msgs = document.getElementById('messages');
+  if (msgs) { const s = document.createElement('div'); s.className = 'msg-system'; s.textContent = t('partner_left'); msgs.appendChild(s); scrollMessages();
+}
   chatRoomId = null;
   setTimeout(() => startMatching(), 600);
 }
 
 function leaveChat() {
   if (messageCheckInterval) clearInterval(messageCheckInterval);
-  // Remove from waiting/chatting
+// Remove from waiting/chatting
   fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
     method: 'DELETE',
     headers: {
@@ -1489,8 +1560,7 @@ function leaveChat() {
       'Authorization': `Bearer ${SUPABASE_KEY}`
     }
   }).catch(e => console.error('Error on leave:', e));
-  
-  chatRoomId = null;
+chatRoomId = null;
   showToast(t('toast_left'));
   setTimeout(() => showScreen('home'), 400);
 }
@@ -1517,7 +1587,7 @@ let toastTimer=null;
 function showToast(msg,type=''){
   const el=document.getElementById('toast');if(!el)return;
   if(toastTimer)clearTimeout(toastTimer);
-  el.textContent=msg;el.className=`toast show ${type}`;
+el.textContent=msg;el.className=`toast show ${type}`;
   toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
 }
 
@@ -1568,31 +1638,31 @@ function applyTranslations(){
       headers: {
         'apikey': SUPABASE_KEY,
         'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
+     
+   'Content-Type': 'application/json'
       }
     });
     
     console.log('Response status:', testRes.status);
-    console.log('Response ok:', testRes.ok);
+console.log('Response ok:', testRes.ok);
     
     const responseText = await testRes.text();
     console.log('Response:', responseText);
-    
-    if (testRes.ok) {
+if (testRes.ok) {
       console.log('✓ Database connected');
-    } else {
+} else {
       console.error('✗ Database error:', testRes.status, responseText);
       showToast('⚠️ Database error: ' + testRes.status);
-    }
+}
   } catch (e) {
     console.error('✗ Connection error:', e.message);
     console.error('Full error:', e);
-    showToast('⚠️ Connection error: ' + e.message);
+showToast('⚠️ Connection error: ' + e.message);
   }
   
   // Start real online counter
   await initOnlineCounter();
-  // Load today's chat count
+// Load today's chat count
   await loadChatsToday();
 })();
 </script>
