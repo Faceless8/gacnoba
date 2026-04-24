@@ -1161,6 +1161,7 @@ function cancelMatching() {
 let chatRoomId = null;
 let messageCheckInterval = null;
 let lastMessageId = 0;
+let chatStartTime = null;
 
 // Find and match with another waiting user
 async function findAndMatchUser() {
@@ -1277,11 +1278,7 @@ async function startChatWith(otherUser) {
   if (state.matchTimer) clearInterval(state.matchTimer);
   
   // Create room ID
-  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');
-  console.log('Starting chat with:', otherUser.nickname);
-  console.log('Chat room ID:', chatRoomId);
-  console.log('My session:', SESSION_ID);
-  console.log('Their session:', otherUser.session_id);
+  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');\n  chatStartTime = new Date().toISOString();\n  console.log('Starting chat with:', otherUser.nickname);\n  console.log('Chat room ID:', chatRoomId);\n  console.log('Chat start time:', chatStartTime);\n  console.log('My session:', SESSION_ID);\n  console.log('Their session:', otherUser.session_id);
   
   // Mark both as chatting
   try {
@@ -1327,25 +1324,13 @@ async function startChatWith(otherUser) {
 }
 
 // Poll for new messages
-function startMessagePolling() {
-  if (messageCheckInterval) clearInterval(messageCheckInterval);
-  lastMessageId = 0;
-  
-  console.log('Starting message polling for room:', chatRoomId);
+function startMessagePolling() {\n  if (messageCheckInterval) clearInterval(messageCheckInterval);\n  lastMessageId = 0;\n  if (!chatStartTime) chatStartTime = new Date().toISOString();\n  \n  console.log('Starting message polling for room:', chatRoomId, 'since:', chatStartTime);
   
   messageCheckInterval = setInterval(async () => {
     if (!chatRoomId) return;
     
     try {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/chat_messages?room_id=eq.${chatRoomId}&order=id.asc`,
-        {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`
-          }
-        }
-      );
+      const res = await fetch(\n        `${SUPABASE_URL}/rest/v1/chat_messages?room_id=eq.${chatRoomId}&created_at=gt.${encodeURIComponent(chatStartTime)}&order=id.asc`,\n        {\n          headers: {\n            'apikey': SUPABASE_KEY,\n            'Authorization': `Bearer ${SUPABASE_KEY}`\n          }\n        }\n      );
       
       if (!res.ok) {
         console.error('Polling error:', res.status, res.statusText);
@@ -1356,13 +1341,7 @@ function startMessagePolling() {
       console.log('Messages fetched:', messages.length, 'Last ID:', lastMessageId);
       
       if (messages && messages.length > 0) {
-        messages.forEach(msg => {
-          if (msg.id > lastMessageId && msg.sender_id !== SESSION_ID) {
-            console.log('New message from', msg.sender_id, ':', msg.text);
-            appendMessage('them', msg.text);
-            lastMessageId = msg.id;
-          }
-        });
+        messages.forEach(msg => {\n          if (msg.id > lastMessageId && msg.sender_id !== SESSION_ID && new Date(msg.created_at) >= new Date(chatStartTime)) {\n            console.log('New message from', msg.sender_id, ':', msg.text);\n            appendMessage('them', msg.text);\n            lastMessageId = msg.id;\n          }\n        });
       }
     } catch (e) { 
       console.error('Error polling messages:', e);
@@ -1379,9 +1358,7 @@ function openChat(partner) {
   if(av){av.textContent=partner.name.charAt(0).toUpperCase();av.style.background=randomColor(partner.name)}
   if(un)un.textContent=partner.name;
   if(bn)bn.textContent=t('connection_est');
-  if(msgs){
-    msgs.innerHTML=`<div class="msg-system">${t('connected_msg')}</div>`;
-  }
+  if(msgs){\n    msgs.innerHTML='';\n    const sysMsg = document.createElement('div');\n    sysMsg.className = 'msg-system';\n    sysMsg.textContent = t('connected_msg');\n    msgs.appendChild(sysMsg);\n  }
   showScreen('chat');
 }
 
