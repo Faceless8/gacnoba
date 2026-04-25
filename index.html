@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https: https://fonts.googleapis.com; img-src 'self' data: https:; font-src https://fonts.gstatic.com; connect-src 'self' https:;">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
@@ -52,10 +51,8 @@ body{
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:2px}
-
 .screen{display:none;min-height:100vh;min-height:100dvh}
 .screen.active{display:flex;flex-direction:column}
-
 nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 16px;
@@ -95,7 +92,6 @@ nav{
   cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
   transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent;
 }
-
 #screen-home{
   align-items:center;justify-content:flex-start;
   padding:24px 16px 40px;position:relative;overflow:hidden;
@@ -116,7 +112,6 @@ nav{
 h1{font-size:clamp(28px,7vw,60px);font-weight:600;line-height:1.15;letter-spacing:-1px;margin-bottom:12px;animation:fade-up 0.5s 0.1s ease both}
 h1 span{color:var(--accent)}
 .home-sub{font-size:15px;color:var(--text2);line-height:1.6;margin-bottom:24px;font-weight:300;animation:fade-up 0.5s 0.2s ease both}
-
 .filters-panel{
   background:var(--surface);border:1px solid var(--border);
   border-radius:var(--rlg);padding:16px;margin-bottom:14px;
@@ -138,7 +133,6 @@ h1 span{color:var(--accent)}
 .pill:hover{border-color:var(--accent);color:var(--accent)}
 .pill:active{opacity:0.75;transform:scale(0.96)}
 .pill.selected{background:var(--accent-bg);border-color:var(--accent);color:var(--accent2)}
-
 .nickname-row{display:flex;gap:10px;margin-bottom:12px;animation:fade-up 0.5s 0.35s ease both}
 .nickname-input{
   flex:1;background:var(--surface);border:1px solid var(--border);
@@ -148,7 +142,6 @@ h1 span{color:var(--accent)}
 }
 .nickname-input::placeholder{color:var(--text3)}
 .nickname-input:focus{border-color:var(--accent);background:var(--surface2)}
-
 .btn-primary{
   background:var(--accent);color:#fff;
   border:none;padding:14px 24px;border-radius:var(--r);
@@ -189,26 +182,13 @@ h1 span{color:var(--accent)}
 }
 .btn-amber:hover{background:rgba(251,191,36,0.2)}
 .start-btn-wrap{animation:fade-up 0.5s 0.4s ease both}
-
 .home-stats{display:flex;gap:20px;justify-content:center;margin-top:28px;flex-wrap:wrap;animation:fade-up 0.5s 0.5s ease both}
 .stat{text-align:center}
 .stat-num{font-size:22px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .stat-label{font-size:12px;color:var(--text3);margin-top:2px}
-
-/* Real online counter pulse */
-#online-count, #stat-online {
-  color:var(--green);font-variant-numeric:tabular-nums;
-  transition: all 0.4s ease;
-}
-.count-update {
-  animation: count-pop 0.4s ease;
-}
-@keyframes count-pop {
-  0%  { transform: scale(1); }
-  50% { transform: scale(1.15); color: var(--green); }
-  100%{ transform: scale(1); }
-}
-
+#online-count,#stat-online{color:var(--green);font-variant-numeric:tabular-nums;transition:all 0.4s ease}
+.count-update{animation:count-pop 0.4s ease}
+@keyframes count-pop{0%{transform:scale(1)}50%{transform:scale(1.15);color:var(--green)}100%{transform:scale(1)}}
 #screen-matching{
   align-items:center;justify-content:center;
   padding:40px 20px;
@@ -230,14 +210,12 @@ h1 span{color:var(--accent)}
 .matching-dots span:nth-child(2){animation-delay:0.2s}
 .matching-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes blink{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}
-
 #screen-chat{
   display:none;flex-direction:column;
   position:fixed;inset:0;z-index:10;
   height:100vh;height:100dvh;overflow:hidden;
 }
 #screen-chat.active{display:flex}
-
 .chat-header{
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 12px;
@@ -250,7 +228,6 @@ h1 span{color:var(--accent)}
 .chat-status{font-size:12px;color:var(--green);display:flex;align-items:center;gap:4px}
 .chat-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
 .chat-actions{display:flex;gap:6px;align-items:center}
-
 .connection-banner{
   padding:8px 16px;text-align:center;
   background:var(--green-bg);border-bottom:1px solid rgba(74,222,128,0.15);
@@ -258,7 +235,6 @@ h1 span{color:var(--accent)}
   animation:slide-down 0.4s ease;flex-shrink:0;
 }
 @keyframes slide-down{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-
 .messages{
   flex:1;overflow-y:auto;padding:12px 14px;
   display:flex;flex-direction:column;gap:6px;
@@ -278,14 +254,12 @@ h1 span{color:var(--accent)}
 .msg.me .msg-bubble{background:var(--accent);color:#fff;border-bottom-right-radius:4px}
 .msg-time{font-size:11px;color:var(--text3);margin-top:3px;padding:0 4px}
 .msg.me .msg-time{text-align:right}
-
 .typing-indicator{display:none;align-self:flex-start;background:var(--surface2);padding:11px 15px;border-radius:18px;border-bottom-left-radius:4px;gap:4px;align-items:center}
 .typing-indicator.visible{display:flex}
 .typing-indicator span{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:typing 1.2s ease infinite}
 .typing-indicator span:nth-child(2){animation-delay:0.2s}
 .typing-indicator span:nth-child(3){animation-delay:0.4s}
 @keyframes typing{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-
 .chat-input-area{
   padding:10px 12px;
   padding-bottom:max(10px,env(safe-area-inset-bottom));
@@ -311,7 +285,6 @@ h1 span{color:var(--accent)}
 .send-btn:hover{background:var(--accent2)}
 .send-btn:active{opacity:0.8;transform:scale(0.94)}
 .send-btn svg{width:18px;height:18px}
-
 .chat-bottom-bar{
   display:flex;gap:8px;padding:8px 12px;
   padding-bottom:max(8px,env(safe-area-inset-bottom));
@@ -327,7 +300,6 @@ h1 span{color:var(--accent)}
 }
 .next-btn:hover{background:var(--surface2);border-color:var(--accent);color:var(--accent)}
 .next-btn:active{opacity:0.8}
-
 .modal-overlay{
   display:none;position:fixed;inset:0;
   background:rgba(0,0,0,0.75);
@@ -366,7 +338,6 @@ h1 span{color:var(--accent)}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);background:var(--bg3)}
 .form-textarea{resize:vertical;min-height:80px}
 .form-select option{background:var(--surface)}
-
 .toast{
   position:fixed;
   bottom:max(24px,env(safe-area-inset-bottom,24px));
@@ -381,9 +352,7 @@ h1 span{color:var(--accent)}
 .toast.show{opacity:1;pointer-events:auto}
 .toast.success{border-color:rgba(74,222,128,0.3)}
 .toast.error{border-color:rgba(248,113,113,0.3)}
-
 @keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
 #landing-sections{width:100%}
 .section{padding:36px 16px;max-width:900px;margin:0 auto}
 .section-title{font-size:22px;font-weight:600;letter-spacing:-0.5px;margin-bottom:8px}
@@ -401,7 +370,6 @@ h1 span{color:var(--accent)}
 .feature-icon{width:36px;height:36px;border-radius:var(--rsm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
 .feature-title{font-size:14px;font-weight:500;margin-bottom:4px}
 .feature-desc{font-size:13px;color:var(--text2);line-height:1.6}
-
 footer{
   border-top:1px solid var(--border);padding:20px;
   padding-bottom:max(20px,env(safe-area-inset-bottom));
@@ -409,10 +377,8 @@ footer{
 }
 footer a{color:var(--text2);text-decoration:none}
 footer a:hover{color:var(--accent)}
-
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
 @media(max-width:480px){
   .chat-actions .btn-label{display:none}
   .chat-actions .btn-amber,.chat-actions .btn-danger{padding:10px 12px}
@@ -451,16 +417,13 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     <div class="home-bg-circle"></div>
     <div class="home-bg-circle"></div>
   </div>
-
   <div class="home-content">
     <div class="home-badge" role="status">
       <span class="live-dot" aria-hidden="true"></span>
       <span id="badge-text"><span id="online-count">...</span> online now</span>
     </div>
-
     <h1 data-i18n="home_title">Meet someone<br><span>unexpected.</span></h1>
     <p class="home-sub" data-i18n="home_sub">Anonymous, instant, real conversations.<br>No account needed. Just click and connect.</p>
-
     <div class="filters-panel" role="group" aria-labelledby="filters-heading">
       <div class="filters-title" id="filters-heading" data-i18n="filters">Optional filters</div>
       <div class="filter-row">
@@ -502,7 +465,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         </div>
       </div>
     </div>
-
     <div class="nickname-row">
       <input type="text" class="nickname-input" id="nickname-input"
         placeholder="Nickname (optional)" maxlength="20"
@@ -511,21 +473,18 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       <button class="btn-secondary" onclick="generateNickname()" aria-label="Random nickname"
         style="padding:0;width:48px;flex-shrink:0;justify-content:center;font-size:20px">🎲</button>
     </div>
-
     <div class="start-btn-wrap">
       <button class="btn-primary full" onclick="startMatching()" aria-label="Start random chat">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span data-i18n="start_chat">Start Chat</span>
       </button>
     </div>
-
     <div class="home-stats" aria-label="Platform statistics">
       <div class="stat"><div class="stat-num" id="stat-online">...</div><div class="stat-label" data-i18n="stat_online">Online now</div></div>
       <div class="stat"><div class="stat-num" id="stat-chats-today">0</div><div class="stat-label" data-i18n="stat_chats">Chats today</div></div>
       <div class="stat"><div class="stat-num">🇬🇪</div><div class="stat-label" data-i18n="stat_made_in">Made in Georgia</div></div>
     </div>
   </div>
-
   <div id="landing-sections">
     <div class="trust-bar" role="list">
       <div class="trust-item" role="listitem"><span aria-hidden="true">🔒</span><span data-i18n="trust_anon">100% Anonymous</span></div>
@@ -546,7 +505,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       </div>
     </div>
   </div>
-
   <footer role="contentinfo">
     <p>© 2025 gacnoba.ge &nbsp;·&nbsp;
       <a href="#" onclick="showModal('terms-modal')">Terms</a> &nbsp;·&nbsp;
@@ -646,7 +604,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" id="block-modal" role="dialog" aria-modal="true" aria-labelledby="block-title">
   <div class="modal">
     <h2 class="modal-title" id="block-title" data-i18n="block_title">Block User</h2>
@@ -657,7 +614,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
   </div>
 </div>
-
 <div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
   <div class="modal">
     <h2 class="modal-title" id="terms-title">Terms of Service</h2>
@@ -669,7 +625,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('terms-modal')">Got it</button></div>
   </div>
 </div>
-
 <div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
   <div class="modal">
     <h2 class="modal-title" id="privacy-title">Privacy Policy</h2>
@@ -681,7 +636,6 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('privacy-modal')">Got it</button></div>
   </div>
 </div>
-
 <div class="modal-overlay" id="safety-modal" role="dialog" aria-modal="true" aria-labelledby="safety-title">
   <div class="modal">
     <h2 class="modal-title" id="safety-title">Safety Guidelines</h2>
@@ -697,234 +651,159 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 
 <script>
 // =====================================================================
-// SUPABASE CONFIG — your real keys
+// SUPABASE CONFIG
 // =====================================================================
 const SUPABASE_URL = 'https://kgubxokkjhxsncgftgws.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtndWJ4b2tramh4c25jZ2Z0Z3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MDkyOTEsImV4cCI6MjA5MjE4NTI5MX0.0Ff-lk-yqHMzWjzdeTKTbWjcNg88fGzxfEJMVod0FOc';
 
 // =====================================================================
-// SUPABASE ONLINE COUNTER
+// SESSION ID — persistent across refreshes, unique per browser
 // =====================================================================
-// Create a unique device fingerprint to ensure different devices get different session IDs
 function generateDeviceFingerprint() {
-  const navigator_data = [
-    navigator.language,
-    navigator.platform,
-    navigator.hardwareConcurrency || 'unknown',
-    navigator.deviceMemory || 'unknown',
+  const data = [
+    navigator.language, navigator.platform,
+    navigator.hardwareConcurrency || 'x',
+    navigator.deviceMemory || 'x',
     screen.width + 'x' + screen.height,
     new Date().getTimezoneOffset()
   ].join('|');
-  
   let hash = 0;
-  for (let i = 0; i < navigator_data.length; i++) {
-    const char = navigator_data.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
+  for (let i = 0; i < data.length; i++) {
+    hash = ((hash << 5) - hash) + data.charCodeAt(i);
     hash = hash & hash;
   }
   return Math.abs(hash).toString(36);
 }
 
-// Each visitor gets a unique session ID — but persistent across refreshes
 let SESSION_ID = localStorage.getItem('gacnoba_session_id');
 if (!SESSION_ID) {
-  const deviceFingerprint = generateDeviceFingerprint();
-  SESSION_ID = deviceFingerprint + '_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  SESSION_ID = generateDeviceFingerprint() + '_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
   localStorage.setItem('gacnoba_session_id', SESSION_ID);
 }
 
-let heartbeatInterval = null;
-let countRefreshInterval = null;
-let chatsTodayCount = 0;
-let isSessionRegistered = false;
-
-// Register this user as online
-async function registerOnline() {
-  if (isSessionRegistered) return; // Already registered in this session
-  
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/online_users`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates'
-      },
-      body: JSON.stringify({
-        session_id: SESSION_ID,
-        last_seen: new Date().toISOString()
-      })
-    });
-    isSessionRegistered = true;
-  } catch(e) { /* silent fail */ }
+// =====================================================================
+// HELPER — all Supabase requests go through here
+// =====================================================================
+function sb(path, opts = {}) {
+  return fetch(SUPABASE_URL + '/rest/v1/' + path, {
+    ...opts,
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      ...(opts.headers || {})
+    }
+  });
 }
 
-// Update last_seen so we know user is still here (heartbeat every 20s)
+// =====================================================================
+// ONLINE COUNTER
+// =====================================================================
+let heartbeatInterval   = null;
+let countRefreshInterval = null;
+let chatsTodayCount     = 0;
+let isRegistered        = false;
+
+async function registerOnline() {
+  if (isRegistered) return;
+  try {
+    const res = await sb('online_users?on_conflict=session_id', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ session_id: SESSION_ID, last_seen: new Date().toISOString() })
+    });
+    if (res.ok) isRegistered = true;
+  } catch(e) {}
+}
+
 async function heartbeat() {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/online_users?session_id=eq.${SESSION_ID}`, {
-      method: 'PATCH',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ last_seen: new Date().toISOString() })
+    await sb('online_users?on_conflict=session_id', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ session_id: SESSION_ID, last_seen: new Date().toISOString() })
     });
-  } catch(e) { /* silent fail */ }
+  } catch(e) {}
 }
 
-// Remove stale users (inactive > 45 seconds) then count
 async function getOnlineCount() {
   try {
-    // First clean up users who haven't been seen in 45 seconds
     const cutoff = new Date(Date.now() - 45000).toISOString();
-    await fetch(`${SUPABASE_URL}/rest/v1/online_users?last_seen=lt.${cutoff}`, {
-      method: 'DELETE',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
+    await sb('online_users?last_seen=lt.' + cutoff, { method: 'DELETE' });
+    const res = await sb('online_users?select=count', {
+      headers: { 'Prefer': 'count=exact', 'Range': '0-0' }
     });
-
-    // Now count remaining online users
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/online_users?select=count`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'count=exact',
-        'Range': '0-0'
-      }
-    });
-
-    const contentRange = res.headers.get('content-range');
-    if (contentRange) {
-      const total = parseInt(contentRange.split('/')[1]);
+    const range = res.headers.get('content-range');
+    if (range) {
+      const total = parseInt(range.split('/')[1]);
       if (!isNaN(total)) updateOnlineDisplay(total);
     }
-  } catch(e) { /* silent fail */ }
+  } catch(e) {}
 }
 
-// Animate the number changing
 function updateOnlineDisplay(count) {
   const badge = document.getElementById('online-count');
   const stat  = document.getElementById('stat-online');
-  const formatted = count.toLocaleString();
-
-  if (badge && badge.textContent !== formatted) {
-    badge.textContent = formatted;
-    badge.classList.remove('count-update');
-    void badge.offsetWidth; // force reflow
-    badge.classList.add('count-update');
-  }
-  if (stat && stat.textContent !== formatted) {
-    stat.textContent = formatted;
-    stat.classList.remove('count-update');
-    void stat.offsetWidth;
-    stat.classList.add('count-update');
-  }
+  const f = count.toLocaleString();
+  [badge, stat].forEach(el => {
+    if (el && el.textContent !== f) {
+      el.textContent = f;
+      el.classList.remove('count-update');
+      void el.offsetWidth;
+      el.classList.add('count-update');
+    }
+  });
 }
 
-// Remove this user when they leave the page
 async function removeOnline() {
   try {
-    await fetch(`${SUPABASE_URL}/rest/v1/online_users?session_id=eq.${SESSION_ID}`, {
-      method: 'DELETE',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
-    });
-    // Also remove from waiting/chatting
-    await fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
-      method: 'DELETE',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
-    });
-  } catch(e) { /* silent fail */ }
+    await sb('online_users?session_id=eq.'  + SESSION_ID, { method: 'DELETE' });
+    await sb('waiting_users?session_id=eq.' + SESSION_ID, { method: 'DELETE' });
+  } catch(e) {}
 }
 
-// Start the whole counter system
 async function initOnlineCounter() {
   await registerOnline();
   await getOnlineCount();
-
-  // Heartbeat every 20 seconds to stay "online"
-  heartbeatInterval = setInterval(heartbeat, 20000);
-
-  // Refresh the displayed count every 5 seconds
-  countRefreshInterval = setInterval(getOnlineCount, 5000);
+  heartbeatInterval    = setInterval(heartbeat,      20000);
+  countRefreshInterval = setInterval(getOnlineCount,  5000);
 }
 
-// When user closes tab or navigates away — remove them
 window.addEventListener('beforeunload', removeOnline);
-window.addEventListener('pagehide', removeOnline); // iOS Safari fix
+window.addEventListener('pagehide',     removeOnline);
 
 // =====================================================================
-// CHATS TODAY COUNTER
+// CHATS TODAY
 // =====================================================================
 async function incrementChatsToday() {
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  const today = new Date().toISOString().split('T')[0];
   try {
-    // Try to get today's record
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}&select=count`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
-    });
+    const res  = await sb('chats_today?date=eq.' + today + '&select=count');
     const data = await res.json();
-
     if (data && data.length > 0) {
-      // Update existing record
-      const newCount = (data[0].count || 0) + 1;
-      await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}`, {
-        method: 'PATCH',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ count: newCount })
-      });
-      chatsTodayCount = newCount;
+      const n = (data[0].count || 0) + 1;
+      await sb('chats_today?date=eq.' + today, { method: 'PATCH', body: JSON.stringify({ count: n }) });
+      chatsTodayCount = n;
     } else {
-      // Create new record for today
-      await fetch(`${SUPABASE_URL}/rest/v1/chats_today`, {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ date: today, count: 1 })
-      });
+      await sb('chats_today', { method: 'POST', body: JSON.stringify({ date: today, count: 1 }) });
       chatsTodayCount = 1;
     }
     const el = document.getElementById('stat-chats-today');
     if (el) el.textContent = chatsTodayCount.toLocaleString();
-  } catch(e) { /* silent fail */ }
+  } catch(e) {}
 }
 
 async function loadChatsToday() {
   const today = new Date().toISOString().split('T')[0];
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/chats_today?date=eq.${today}&select=count`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
-    });
+    const res  = await sb('chats_today?date=eq.' + today + '&select=count');
     const data = await res.json();
     if (data && data.length > 0) {
       chatsTodayCount = data[0].count || 0;
       const el = document.getElementById('stat-chats-today');
       if (el) el.textContent = chatsTodayCount.toLocaleString();
     }
-  } catch(e) { /* silent fail */ }
+  } catch(e) {}
 }
 
 // =====================================================================
@@ -932,12 +811,11 @@ async function loadChatsToday() {
 // =====================================================================
 const state = {
   lang:'en', theme:'dark', nickname:'',
-  filters:{gender:'any',intent:'any'},
-  interests:[],
-  currentPartner:null,
-  blockedIds:JSON.parse(localStorage.getItem('acq_blocked')||'[]'),
-  matchTimer:null,
-  sessionId: SESSION_ID
+  filters:{ gender:'any', intent:'any' },
+  interests: [],
+  currentPartner: null,
+  blockedIds: JSON.parse(localStorage.getItem('acq_blocked') || '[]'),
+  matchTimer: null
 };
 
 // =====================================================================
@@ -947,7 +825,6 @@ const i18n = {
   en:{
     home_title:'Meet someone<br><span>unexpected.</span>',
     home_sub:'Anonymous, instant, real conversations.<br>No account needed. Just click and connect.',
-    badge_text:'{count} online now',
     filters:'Optional filters', i_am:'I am', looking_for:'Looking for',
     interests_title:'Things I am interested in',
     any:'Any', male:'Male', female:'Female',
@@ -984,11 +861,11 @@ const i18n = {
     toast_blocked:'⊘ User blocked.', toast_left:'Chat ended.',
     connection_est:'✓ Contact established — say hello!',
     partner_left:'Your partner left the chat.', report_ph:'Describe what happened...',
+    no_one_found:'No one available right now. Try again!'
   },
   ka:{
     home_title:'გაიცანი<br><span>ვინმე მოულოდნელი.</span>',
     home_sub:'ანონიმური, სწრაფი, ნამდვილი საუბრები.<br>რეგისტრაცია საჭირო არ არის.',
-    badge_text:'{count} ახლა ონლაინ',
     filters:'სურვილისამებრ ფილტრები', i_am:'მე ვარ', looking_for:'ვეძებ',
     interests_title:'რაც მაინტერესებს',
     any:'ნებისმიერი', male:'კაცი', female:'ქალი',
@@ -1023,11 +900,11 @@ const i18n = {
     toast_reported:'✓ შეტყობინება გაიგზავნა.', toast_blocked:'⊘ დაიბლოკა.', toast_left:'ჩატი დასრულდა.',
     connection_est:'✓ კავშირი დამყარდა — გამარჯობა!',
     partner_left:'შენი პარტნიორი გავიდა.', report_ph:'აღწერე რა მოხდა...',
+    no_one_found:'ახლა არავინ არის. სცადე მოგვიანებით!'
   },
   ru:{
     home_title:'Познакомься с<br><span>кем-то новым.</span>',
     home_sub:'Анонимные, мгновенные, настоящие разговоры.<br>Без регистрации.',
-    badge_text:'{count} сейчас онлайн',
     filters:'Фильтры (необязательно)', i_am:'Я', looking_for:'Ищу',
     interests_title:'Мои интересы',
     any:'Любой', male:'Мужчину', female:'Женщину',
@@ -1062,66 +939,73 @@ const i18n = {
     toast_reported:'✓ Жалоба отправлена.', toast_blocked:'⊘ Заблокировано.', toast_left:'Чат завершён.',
     connection_est:'✓ Контакт установлен — скажи привет!',
     partner_left:'Собеседник покинул чат.', report_ph:'Опишите что произошло...',
+    no_one_found:'Сейчас никого нет. Попробуйте позже!'
   }
 };
+function t(k){ return (i18n[state.lang]||i18n.en)[k] || i18n.en[k] || k; }
 
-function t(k){return(i18n[state.lang]||i18n.en)[k]||i18n.en[k]||k}
-
-// Screen management
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>{
+// =====================================================================
+// SCREEN MANAGEMENT
+// =====================================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => {
     s.classList.remove('active');
-    if(s.id!=='screen-chat')s.style.display='';
+    if (s.id !== 'screen-chat') s.style.display = '';
   });
-  const el=document.getElementById('screen-'+id);
-  if(el){el.classList.add('active');if(id!=='chat')window.scrollTo(0,0)}
-  
-  // Hide nav during chat, show it otherwise
+  const el = document.getElementById('screen-' + id);
+  if (el) { el.classList.add('active'); if (id !== 'chat') window.scrollTo(0,0); }
   const nav = document.querySelector('nav');
-  if(nav) {
-    nav.style.display = (id === 'chat') ? 'none' : 'flex';
-  }
+  if (nav) nav.style.display = (id === 'chat') ? 'none' : 'flex';
 }
 
 function goHome(e) {
   if (e) e.preventDefault();
-  if (state.matchTimer) clearInterval(state.matchTimer);
-  if (messageCheckInterval) clearInterval(messageCheckInterval);
-  // Clean up from waiting
-  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
-    method: 'DELETE',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    }
-  }).catch(e => console.error('Error on home:', e));
+  stopMatching();
+  stopMessagePolling();
+  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
   chatRoomId = null;
   showScreen('home');
 }
 
-// Nickname
-const adjs=['Swift','Quiet','Bright','Calm','Wild','Clever','Gentle','Bold','Keen','Warm'];
-const nouns=['Falcon','River','Star','Fox','Ocean','Tiger','Cloud','Moon','Storm','Petal'];
-function generateNickname(){
-  const a=adjs[Math.floor(Math.random()*adjs.length)];
-  const n=nouns[Math.floor(Math.random()*nouns.length)];
-  document.getElementById('nickname-input').value=`${a}${n}${Math.floor(Math.random()*90)+10}`;
+// =====================================================================
+// NICKNAME & FILTERS
+// =====================================================================
+const adjs  = ['Swift','Quiet','Bright','Calm','Wild','Clever','Gentle','Bold','Keen','Warm'];
+const nouns = ['Falcon','River','Star','Fox','Ocean','Tiger','Cloud','Moon','Storm','Petal'];
+function generateNickname() {
+  const a = adjs[Math.floor(Math.random()*adjs.length)];
+  const n = nouns[Math.floor(Math.random()*nouns.length)];
+  document.getElementById('nickname-input').value = a + n + (Math.floor(Math.random()*90)+10);
 }
-
-// Filters
-function selectPill(el){
-  const f=el.dataset.filter;
-  document.querySelectorAll(`[data-filter="${f}"]`).forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');state.filters[f]=el.dataset.val;
+function selectPill(el) {
+  const f = el.dataset.filter;
+  document.querySelectorAll('[data-filter="'+f+'"]').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  state.filters[f] = el.dataset.val;
 }
-function toggleInterest(el){
-  const v=el.dataset.interest;
+function toggleInterest(el) {
+  const v = el.dataset.interest;
   el.classList.toggle('selected');
-  if(state.interests.includes(v))state.interests=state.interests.filter(i=>i!==v);
+  if (state.interests.includes(v)) state.interests = state.interests.filter(i => i !== v);
   else state.interests.push(v);
 }
 
-// Real matching with actual users
+// =====================================================================
+// MATCHING
+// =====================================================================
+let chatRoomId          = null;
+let messageCheckInterval = null;
+let lastMessageId       = 0;   // will be set to current max BEFORE chat starts
+let matchInterval       = null;
+
+function stopMatching() {
+  if (matchInterval)       { clearInterval(matchInterval);  matchInterval = null; }
+  if (state.matchTimer)    { clearInterval(state.matchTimer); state.matchTimer = null; }
+}
+function stopMessagePolling() {
+  if (messageCheckInterval) { clearInterval(messageCheckInterval); messageCheckInterval = null; }
+}
+
 function startMatching() {
   const inp = document.getElementById('nickname-input');
   state.nickname = inp.value.trim();
@@ -1129,470 +1013,346 @@ function startMatching() {
   const orb = document.getElementById('my-orb');
   if (orb) orb.textContent = state.nickname.charAt(0).toUpperCase();
   showScreen('matching');
-  
-  // Update the matching label to show we're registering
-  const label = document.querySelector('.matching-label');
-  if (label) label.textContent = 'Registering...';
-  
-  // Add small delay then start finding match
-  setTimeout(() => {
-    if (label) label.textContent = 'Looking for someone...';
-    findAndMatchUser();
-  }, 500);
+  // ✅ FIX 1: No delay — start immediately
+  findAndMatchUser();
 }
 
 function cancelMatching() {
-  if (state.matchTimer) clearInterval(state.matchTimer);
-  // Remove from waiting pool
-  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
-    method: 'DELETE',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    }
-  }).catch(e => console.error('Error cancelling:', e));
+  stopMatching();
+  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
   showScreen('home');
 }
 
-// =====================================================================
-// REAL USER MATCHING & CHAT (Simple Polling)
-// =====================================================================
-let chatRoomId = null;
-let messageCheckInterval = null;
-let lastMessageId = 0;
-
-// Find and match with another waiting user
 async function findAndMatchUser() {
   try {
-    console.log('Starting matching for session:', SESSION_ID);
-    
-    // Add self to waiting pool
     await addUserToWaiting();
-    console.log('Added to waiting pool');
-    
-    // Poll every 1.5 seconds to see if someone else is waiting
+
     let attempts = 0;
-    const matchInterval = setInterval(async () => {
+    // ✅ FIX 1: Poll every 500ms instead of 1500ms — 3x faster matching
+    matchInterval = setInterval(async () => {
       attempts++;
-      
       try {
-        // Find another waiting user (not me)
-        const res = await fetch(
-          `${SUPABASE_URL}/rest/v1/waiting_users?status=eq.waiting&session_id=neq.${SESSION_ID}&order=created_at.asc&limit=1`,
-          {
-            headers: {
-              'apikey': SUPABASE_KEY,
-              'Authorization': `Bearer ${SUPABASE_KEY}`
-            }
-          }
+        const res = await sb(
+          'waiting_users?status=eq.waiting&session_id=neq.' + SESSION_ID + '&order=created_at.asc&limit=1'
         );
-        
-        if (!res.ok) {
-          console.error('Query failed:', res.status, res.statusText);
-          return;
-        }
-        
+        if (!res.ok) return;
         const waiting = await res.json();
-        console.log('Attempt', attempts, '- Found waiting users:', waiting.length);
-        
         if (waiting && waiting.length > 0) {
-          console.log('MATCH FOUND!', waiting[0]);
-          clearInterval(matchInterval);
-          if (state.matchTimer) clearInterval(state.matchTimer);
-          const otherUser = waiting[0];
-          await startChatWith(otherUser);
+          stopMatching();
+          await startChatWith(waiting[0]);
         }
-      } catch (e) { 
-        console.error('Match check error:', e); 
-      }
-      
-      // Stop after 120 seconds (80 attempts * 1.5s)
-      if (attempts > 80) {
-        clearInterval(matchInterval);
-        if (state.matchTimer) clearInterval(state.matchTimer);
-        state.matchTimer = null;
-        console.log('Matching timeout - no one found');
-        showToast('No one available. Try again later!');
+      } catch(e) {}
+
+      // Timeout after 2 minutes (240 attempts × 500ms)
+      if (attempts > 240) {
+        stopMatching();
+        sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
+        showToast(t('no_one_found'));
         showScreen('home');
       }
-    }, 1500);
-    
+    }, 500);
+
     state.matchTimer = matchInterval;
-  } catch (e) {
-    console.error('Find match error:', e);
-    showToast('Error starting match. Try again.');
+  } catch(e) {
+    showToast('Error connecting. Try again.');
+    showScreen('home');
   }
 }
 
-// Add current user to waiting pool
 async function addUserToWaiting() {
-  try {
-    console.log('Adding to waiting pool with data:', {
+  // ✅ FIX: no updated_at, uses upsert to avoid 409 errors
+  const res = await sb('waiting_users?on_conflict=session_id', {
+    method: 'POST',
+    headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+    body: JSON.stringify({
       session_id: SESSION_ID,
-      nickname: state.nickname,
-      status: 'waiting'
-    });
-    
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/waiting_users`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        session_id: SESSION_ID,
-        nickname: state.nickname,
-        gender: state.filters.gender,
-        intent: state.filters.intent,
-        interests: state.interests.length > 0 ? state.interests : null,
-        status: 'waiting'
-      })
-    });
-    
-    // Handle 409 Conflict gracefully - user already in waiting
-    if (res.status === 409) {
-      console.warn('User already in waiting list');
-      return { alreadyWaiting: true };
-    }
-    
-    if (!res.ok) {
-      const error = await res.text();
-      console.error('Failed to add to waiting:', res.status, error);
-      showToast('Database error - check console');
-      throw new Error(`API error: ${res.status}`);
-    }
-    
-    console.log('Successfully added to waiting pool');
-    return { success: true };
-  } catch (e) { 
-    console.error('Error adding to waiting:', e);
-    showToast('Cannot connect to database!');
+      nickname:   state.nickname,
+      gender:     state.filters.gender,
+      intent:     state.filters.intent,
+      interests:  state.interests.join(','),
+      status:     'waiting',
+      created_at: new Date().toISOString()
+      // ✅ updated_at REMOVED — column does not exist
+    })
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error('addUserToWaiting failed: ' + res.status + ' ' + err);
   }
 }
 
-// Start chat with a matched user
 async function startChatWith(otherUser) {
-  if (state.matchTimer) clearInterval(state.matchTimer);
-  
-  // Create room ID
-  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('-');
-  console.log('Starting chat with:', otherUser.nickname);
-  console.log('Chat room ID:', chatRoomId);
-  console.log('My session:', SESSION_ID);
-  console.log('Their session:', otherUser.session_id);
-  
-  // Mark both as chatting
-  try {
-    // Update other user
-    const res1 = await fetch(
-      `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${otherUser.session_id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
-      }
-    );
-    console.log('Updated other user:', res1.status);
-    
-    // Update self
-    const res2 = await fetch(
-      `${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
-      }
-    );
-    console.log('Updated self:', res2.status);
-  } catch (e) { console.error('Error marking match:', e); }
-  
-  state.currentPartner = {
-    name: otherUser.nickname || 'Anonymous',
-    id: otherUser.session_id
-  };
-  
+  // Create a stable room ID from both session IDs sorted alphabetically
+  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('___');
+
+  // Mark both users as chatting
+  await sb('waiting_users?session_id=eq.' + otherUser.session_id, {
+    method: 'PATCH',
+    body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
+  }).catch(()=>{});
+  await sb('waiting_users?session_id=eq.' + SESSION_ID, {
+    method: 'PATCH',
+    body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
+  }).catch(()=>{});
+
+  state.currentPartner = { name: otherUser.nickname || 'Anonymous', id: otherUser.session_id };
+
+  // ✅ FIX 2: Get the current highest message ID BEFORE opening chat
+  // so we ONLY show messages sent AFTER this point — no old messages!
+  await initMessageBaseline();
+
   openChat(state.currentPartner);
   incrementChatsToday();
   startMessagePolling();
 }
 
-// Poll for new messages
-function startMessagePolling() {
-  if (messageCheckInterval) clearInterval(messageCheckInterval);
-  lastMessageId = 0;
-  
-  console.log('Starting message polling for room:', chatRoomId);
-  
-  messageCheckInterval = setInterval(async () => {
-    if (!chatRoomId) return;
-    
-    try {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/chat_messages?room_id=eq.${chatRoomId}&order=id.asc`,
-        {
-          headers: {
-            'apikey': SUPABASE_KEY,
-            'Authorization': `Bearer ${SUPABASE_KEY}`
-          }
-        }
-      );
-      
-      if (!res.ok) {
-        console.error('Polling error:', res.status, res.statusText);
-        return;
-      }
-      
-      const messages = await res.json();
-      console.log('Messages fetched:', messages.length, 'Last ID:', lastMessageId);
-      
-      if (messages && messages.length > 0) {
-        messages.forEach(msg => {
-          if (msg.id > lastMessageId && msg.sender_id !== SESSION_ID) {
-            console.log('New message from', msg.sender_id, ':', msg.text);
-            appendMessage('them', msg.text);
-            lastMessageId = msg.id;
-          }
-        });
-      }
-    } catch (e) { 
-      console.error('Error polling messages:', e);
+// ✅ FIX 2: Sets lastMessageId to max existing ID so old messages are ignored
+async function initMessageBaseline() {
+  try {
+    const res = await sb(
+      'chat_messages?room_id=eq.' + chatRoomId + '&order=id.desc&limit=1'
+    );
+    if (res.ok) {
+      const data = await res.json();
+      // If there are old messages, start AFTER the last one
+      // If no messages yet, set to 0 (will accept all new ones)
+      lastMessageId = (data && data.length > 0) ? data[0].id : 0;
+    } else {
+      lastMessageId = 0;
     }
-  }, 1000); // Check every 1 second
+  } catch(e) {
+    lastMessageId = 0;
+  }
 }
 
-// Open chat UI
+// =====================================================================
+// CHAT UI
+// =====================================================================
 function openChat(partner) {
-  const av = document.getElementById('chat-avatar');
-  const un = document.getElementById('chat-username');
-  const bn = document.getElementById('connection-banner');
+  const av   = document.getElementById('chat-avatar');
+  const un   = document.getElementById('chat-username');
+  const bn   = document.getElementById('connection-banner');
   const msgs = document.getElementById('messages');
-  if(av){av.textContent=partner.name.charAt(0).toUpperCase();av.style.background=randomColor(partner.name)}
-  if(un)un.textContent=partner.name;
-  if(bn)bn.textContent=t('connection_est');
-  if(msgs){
-    msgs.innerHTML=`<div class="msg-system">${t('connected_msg')}</div>`;
-  }
+  if (av) { av.textContent = partner.name.charAt(0).toUpperCase(); av.style.background = randomColor(partner.name); }
+  if (un) un.textContent = partner.name;
+  if (bn) bn.textContent = t('connection_est');
+  // ✅ FIX 2: Always clear messages when opening a new chat
+  if (msgs) msgs.innerHTML =
+    '<div class="msg-system">' + t('connected_msg') + '</div>' +
+    '<div class="typing-indicator" id="typing-indicator" aria-label="Partner is typing">' +
+    '<span></span><span></span><span></span></div>';
   showScreen('chat');
 }
 
-function randomColor(s){
-  const c=['#7c6af7','#f472b6','#34d399','#60a5fa','#fbbf24','#a78bfa','#fb7185'];
-  let h=0;for(let i=0;i<s.length;i++)h=s.charCodeAt(i)+((h<<5)-h);
-  return c[Math.abs(h)%c.length];
+function startMessagePolling() {
+  stopMessagePolling();
+  // ✅ FIX 2: Only fetch messages with id > lastMessageId (set in initMessageBaseline)
+  messageCheckInterval = setInterval(async () => {
+    if (!chatRoomId) return;
+    try {
+      const res = await sb(
+        'chat_messages?room_id=eq.' + chatRoomId +
+        '&id=gt.' + lastMessageId +
+        '&order=id.asc'
+      );
+      if (!res.ok) return;
+      const messages = await res.json();
+      if (messages && messages.length > 0) {
+        messages.forEach(msg => {
+          // Only show messages from the other person
+          if (msg.sender_id !== SESSION_ID) {
+            appendMessage('them', msg.text);
+          }
+          // Always advance the cursor so we don't reprocess
+          if (msg.id > lastMessageId) lastMessageId = msg.id;
+        });
+      }
+    } catch(e) {}
+  }, 800); // Check every 800ms — fast enough, not too spammy
+}
+
+function randomColor(s) {
+  const c = ['#7c6af7','#f472b6','#34d399','#60a5fa','#fbbf24','#a78bfa','#fb7185'];
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = s.charCodeAt(i) + ((h << 5) - h);
+  return c[Math.abs(h) % c.length];
 }
 
 function appendMessage(from, text) {
   const msgs = document.getElementById('messages');
-  const ti = document.getElementById('typing-indicator');
+  const ti   = document.getElementById('typing-indicator');
   if (!msgs) return;
-  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const msg = document.createElement('div');
-  msg.className = `msg ${from}`;
-  msg.innerHTML = `<div class="msg-bubble">${escapeHtml(text)}</div><div class="msg-time">${time}</div>`;
+  const time = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+  const msg  = document.createElement('div');
+  msg.className = 'msg ' + from;
+  msg.innerHTML = '<div class="msg-bubble">' + escapeHtml(text) + '</div>' +
+                  '<div class="msg-time">' + time + '</div>';
   if (ti) msgs.insertBefore(msg, ti); else msgs.appendChild(msg);
   scrollMessages();
 }
 
-function escapeHtml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-function scrollMessages() { const m = document.getElementById('messages'); if (m) m.scrollTop = m.scrollHeight; }
-function showTyping() { const t = document.getElementById('typing-indicator'); if (t) { t.classList.add('visible'); scrollMessages(); } }
-function hideTyping() { const t = document.getElementById('typing-indicator'); if (t) t.classList.remove('visible'); }
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function scrollMessages() {
+  const m = document.getElementById('messages');
+  if (m) m.scrollTop = m.scrollHeight;
+}
 
-// Send message to real partner
 async function sendMessage() {
   const inp = document.getElementById('chat-input');
   if (!inp) return;
   const text = inp.value.trim();
-  if (!text) return;
-  if (!chatRoomId) {
-    console.error('No chat room ID');
-    showToast('Chat not connected');
-    return;
-  }
-  
-  console.log('Sending message:', text);
-  
-  // Show message immediately on sender's screen
+  if (!text || !chatRoomId) return;
+
+  // Show immediately on sender's screen
   appendMessage('me', text);
-  inp.value = '';
-  inp.style.height = '';
-  
-  // Save message to database
+  inp.value = ''; inp.style.height = '';
+
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/chat_messages`, {
+    const res = await sb('chat_messages', {
       method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify({
-        room_id: chatRoomId,
-        sender_id: SESSION_ID,
-        text: text,
+        room_id:    chatRoomId,
+        sender_id:  SESSION_ID,
+        text:       text,
         created_at: new Date().toISOString()
       })
     });
-    
-    if (!res.ok) {
-      const error = await res.text();
-      console.error('Message send failed:', res.status, error);
-      showToast('Failed to send message: ' + res.status);
-      return;
-    }
-    
-    console.log('Message sent successfully');
-  } catch (e) {
-    console.error('Error sending message:', e);
-    showToast('Failed to send message');
+    if (!res.ok) showToast('Failed to send. Try again.');
+  } catch(e) {
+    showToast('Failed to send. Try again.');
   }
 }
 
-function handleChatKey(e){
-  if(e.key==='Enter'&&!e.shiftKey&&window.innerWidth>600){e.preventDefault();sendMessage()}
+function handleChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 600) {
+    e.preventDefault(); sendMessage();
+  }
 }
-function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
 
 function nextChat() {
-  if (messageCheckInterval) clearInterval(messageCheckInterval);
-  // Remove from waiting/chatting
-  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
-    method: 'DELETE',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    }
-  }).catch(e => console.error('Error on next:', e));
-  
+  stopMessagePolling();
+  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
   const msgs = document.getElementById('messages');
-  if (msgs) { const s = document.createElement('div'); s.className = 'msg-system'; s.textContent = t('partner_left'); msgs.appendChild(s); scrollMessages(); }
+  if (msgs) {
+    const s = document.createElement('div');
+    s.className = 'msg-system';
+    s.textContent = t('partner_left');
+    msgs.appendChild(s);
+    scrollMessages();
+  }
   chatRoomId = null;
-  setTimeout(() => startMatching(), 600);
+  setTimeout(startMatching, 600);
 }
 
 function leaveChat() {
-  if (messageCheckInterval) clearInterval(messageCheckInterval);
-  // Remove from waiting/chatting
-  fetch(`${SUPABASE_URL}/rest/v1/waiting_users?session_id=eq.${SESSION_ID}`, {
-    method: 'DELETE',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`
-    }
-  }).catch(e => console.error('Error on leave:', e));
-  
+  stopMessagePolling();
+  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
   chatRoomId = null;
   showToast(t('toast_left'));
   setTimeout(() => showScreen('home'), 400);
 }
 
-function showBlockModal(){showModal('block-modal')}
-function showReportModal(){showModal('report-modal')}
-function confirmBlock(){
-  if(state.currentPartner){state.blockedIds.push(state.currentPartner.id);localStorage.setItem('acq_blocked',JSON.stringify(state.blockedIds))}
-  closeModal('block-modal');showToast(t('toast_blocked'),'error');
-  setTimeout(()=>nextChat(),500);
+// =====================================================================
+// BLOCK & REPORT
+// =====================================================================
+function showBlockModal()  { showModal('block-modal'); }
+function showReportModal() { showModal('report-modal'); }
+function confirmBlock() {
+  if (state.currentPartner) {
+    state.blockedIds.push(state.currentPartner.id);
+    localStorage.setItem('acq_blocked', JSON.stringify(state.blockedIds));
+  }
+  closeModal('block-modal');
+  showToast(t('toast_blocked'), 'error');
+  setTimeout(nextChat, 500);
 }
-function submitReport(){
-  if(!document.getElementById('report-reason')?.value)return;
-  closeModal('report-modal');showToast(t('toast_reported'),'success');
-  document.getElementById('report-details').value='';
-}
-
-function showModal(id){const e=document.getElementById(id);if(e)e.classList.add('open')}
-function closeModal(id){const e=document.getElementById(id);if(e)e.classList.remove('open')}
-document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'))});
-
-let toastTimer=null;
-function showToast(msg,type=''){
-  const el=document.getElementById('toast');if(!el)return;
-  if(toastTimer)clearTimeout(toastTimer);
-  el.textContent=msg;el.className=`toast show ${type}`;
-  toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
+function submitReport() {
+  if (!document.getElementById('report-reason')?.value) return;
+  closeModal('report-modal');
+  showToast(t('toast_reported'), 'success');
+  document.getElementById('report-details').value = '';
 }
 
-function toggleTheme(){
-  state.theme=state.theme==='dark'?'light':'dark';
-  document.documentElement.setAttribute('data-theme',state.theme);
-  document.getElementById('theme-btn').textContent=state.theme==='dark'?'🌙':'☀️';
-  localStorage.setItem('acq_theme',state.theme);
+// =====================================================================
+// MODALS / TOAST / THEME / LANG
+// =====================================================================
+function showModal(id)  { const e = document.getElementById(id); if (e) e.classList.add('open'); }
+function closeModal(id) { const e = document.getElementById(id); if (e) e.classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o =>
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); })
+);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+});
+
+let toastTimer = null;
+function showToast(msg, type = '') {
+  const el = document.getElementById('toast');
+  if (!el) return;
+  if (toastTimer) clearTimeout(toastTimer);
+  el.textContent = msg;
+  el.className = 'toast show ' + type;
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-function setLang(lang){
-  state.lang=lang;document.documentElement.lang=lang;
-  localStorage.setItem('acq_lang',lang);
-  ['en','ka','ru'].forEach(l=>{const b=document.getElementById('lang-'+l);if(b)b.classList.toggle('active',l===lang)});
+function toggleTheme() {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', state.theme);
+  document.getElementById('theme-btn').textContent = state.theme === 'dark' ? '🌙' : '☀️';
+  localStorage.setItem('acq_theme', state.theme);
+}
+
+function setLang(lang) {
+  state.lang = lang;
+  document.documentElement.lang = lang;
+  localStorage.setItem('acq_lang', lang);
+  ['en','ka','ru'].forEach(l => {
+    const b = document.getElementById('lang-' + l);
+    if (b) b.classList.toggle('active', l === lang);
+  });
   applyTranslations();
 }
 
-function applyTranslations(){
-  const tr=i18n[state.lang]||i18n.en;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(tr[k]!==undefined)el.innerHTML=tr[k]});
-  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(tr[k]!==undefined)el.placeholder=tr[k]});
-  document.querySelectorAll('[data-i18n-pill]').forEach(el=>{const k=el.getAttribute('data-i18n-pill');if(tr[k]!==undefined)el.textContent=tr[k]});
-  const banner=document.getElementById('connection-banner');
-  const cs=document.getElementById('screen-chat');
-  if(banner&&cs&&cs.classList.contains('active'))banner.textContent=tr.connection_est||'';
+function applyTranslations() {
+  const tr = i18n[state.lang] || i18n.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (tr[k] !== undefined) el.innerHTML = tr[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.getAttribute('data-i18n-ph');
+    if (tr[k] !== undefined) el.placeholder = tr[k];
+  });
+  document.querySelectorAll('[data-i18n-pill]').forEach(el => {
+    const k = el.getAttribute('data-i18n-pill');
+    if (tr[k] !== undefined) el.textContent = tr[k];
+  });
+  const banner = document.getElementById('connection-banner');
+  const cs = document.getElementById('screen-chat');
+  if (banner && cs && cs.classList.contains('active')) banner.textContent = tr.connection_est || '';
 }
 
 // =====================================================================
 // INIT
 // =====================================================================
-(async function(){
-  // Theme
-  const th=localStorage.getItem('acq_theme');
-  if(th){state.theme=th;document.documentElement.setAttribute('data-theme',th);const b=document.getElementById('theme-btn');if(b)b.textContent=th==='dark'?'🌙':'☀️'}
-  // Language
-  const lg=localStorage.getItem('acq_lang');
-  if(lg&&i18n[lg])setLang(lg);
-  // Show home
-  showScreen('home');
-  
-  // Check database connectivity
-  try {
-    console.log('Checking database connection...');
-    console.log('URL:', SUPABASE_URL);
-    console.log('Key:', SUPABASE_KEY.substring(0, 20) + '...');
-    
-    const testRes = await fetch(`${SUPABASE_URL}/rest/v1/online_users?limit=1`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    console.log('Response status:', testRes.status);
-    console.log('Response ok:', testRes.ok);
-    
-    const responseText = await testRes.text();
-    console.log('Response:', responseText);
-    
-    if (testRes.ok) {
-      console.log('✓ Database connected');
-    } else {
-      console.error('✗ Database error:', testRes.status, responseText);
-      showToast('⚠️ Database error: ' + testRes.status);
-    }
-  } catch (e) {
-    console.error('✗ Connection error:', e.message);
-    console.error('Full error:', e);
-    showToast('⚠️ Connection error: ' + e.message);
+(async function() {
+  const th = localStorage.getItem('acq_theme');
+  if (th) {
+    state.theme = th;
+    document.documentElement.setAttribute('data-theme', th);
+    const b = document.getElementById('theme-btn');
+    if (b) b.textContent = th === 'dark' ? '🌙' : '☀️';
   }
-  
-  // Start real online counter
+  const lg = localStorage.getItem('acq_lang');
+  if (lg && i18n[lg]) setLang(lg);
+  showScreen('home');
   await initOnlineCounter();
-  // Load today's chat count
   await loadChatsToday();
 })();
 </script>
