@@ -657,6 +657,13 @@ const SUPABASE_URL = 'https://kgubxokkjhxsncgftgws.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtndWJ4b2tramh4c25jZ2Z0Z3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MDkyOTEsImV4cCI6MjA5MjE4NTI5MX0.0Ff-lk-yqHMzWjzdeTKTbWjcNg88fGzxfEJMVod0FOc';
 
 // =====================================================================
+// PARTNER-LEFT SIGNAL — special sentinel value in chat_messages.text
+// The sender inserts this when leaving; the receiver detects it and
+// shows a localised system message in THEIR own language.
+// =====================================================================
+const PARTNER_LEFT_SIGNAL = '__PARTNER_LEFT__';
+
+// =====================================================================
 // SESSION ID — persistent across refreshes, unique per browser
 // =====================================================================
 function generateDeviceFingerprint() {
@@ -699,10 +706,10 @@ function sb(path, opts = {}) {
 // =====================================================================
 // ONLINE COUNTER
 // =====================================================================
-let heartbeatInterval   = null;
+let heartbeatInterval    = null;
 let countRefreshInterval = null;
-let chatsTodayCount     = 0;
-let isRegistered        = false;
+let chatsTodayCount      = 0;
+let isRegistered         = false;
 
 async function registerOnline() {
   if (isRegistered) return;
@@ -860,7 +867,8 @@ const i18n = {
     toast_reported:'✓ Report submitted. Thank you.',
     toast_blocked:'⊘ User blocked.', toast_left:'Chat ended.',
     connection_est:'✓ Contact established — say hello!',
-    partner_left:'Your partner left the chat.', report_ph:'Describe what happened...',
+    partner_left:'Your partner left the chat.',
+    report_ph:'Describe what happened...',
     no_one_found:'No one available right now. Try again!'
   },
   ka:{
@@ -899,7 +907,8 @@ const i18n = {
     confirm_block:'დაბლოკვა',
     toast_reported:'✓ შეტყობინება გაიგზავნა.', toast_blocked:'⊘ დაიბლოკა.', toast_left:'ჩატი დასრულდა.',
     connection_est:'✓ კავშირი დამყარდა — გამარჯობა!',
-    partner_left:'შენი პარტნიორი გავიდა.', report_ph:'აღწერე რა მოხდა...',
+    partner_left:'შენი პარტნიორი გავიდა.',
+    report_ph:'აღწერე რა მოხდა...',
     no_one_found:'ახლა არავინ არის. სცადე მოგვიანებით!'
   },
   ru:{
@@ -938,7 +947,8 @@ const i18n = {
     confirm_block:'Заблокировать',
     toast_reported:'✓ Жалоба отправлена.', toast_blocked:'⊘ Заблокировано.', toast_left:'Чат завершён.',
     connection_est:'✓ Контакт установлен — скажи привет!',
-    partner_left:'Собеседник покинул чат.', report_ph:'Опишите что произошло...',
+    partner_left:'Собеседник покинул чат.',
+    report_ph:'Опишите что произошло...',
     no_one_found:'Сейчас никого нет. Попробуйте позже!'
   }
 };
@@ -993,14 +1003,14 @@ function toggleInterest(el) {
 // =====================================================================
 // MATCHING
 // =====================================================================
-let chatRoomId          = null;
+let chatRoomId           = null;
 let messageCheckInterval = null;
-let lastMessageId       = 0;   // will be set to current max BEFORE chat starts
-let matchInterval       = null;
+let lastMessageId        = 0;
+let matchInterval        = null;
 
 function stopMatching() {
-  if (matchInterval)       { clearInterval(matchInterval);  matchInterval = null; }
-  if (state.matchTimer)    { clearInterval(state.matchTimer); state.matchTimer = null; }
+  if (matchInterval)    { clearInterval(matchInterval);  matchInterval = null; }
+  if (state.matchTimer) { clearInterval(state.matchTimer); state.matchTimer = null; }
 }
 function stopMessagePolling() {
   if (messageCheckInterval) { clearInterval(messageCheckInterval); messageCheckInterval = null; }
@@ -1008,12 +1018,11 @@ function stopMessagePolling() {
 
 function startMatching() {
   const inp = document.getElementById('nickname-input');
-  state.nickname = inp.value.trim();
-  if (!state.nickname) { generateNickname(); state.nickname = inp.value; }
+  state.nickname = inp ? inp.value.trim() : '';
+  if (!state.nickname) { generateNickname(); state.nickname = document.getElementById('nickname-input').value; }
   const orb = document.getElementById('my-orb');
   if (orb) orb.textContent = state.nickname.charAt(0).toUpperCase();
   showScreen('matching');
-  // ✅ FIX 1: No delay — start immediately
   findAndMatchUser();
 }
 
@@ -1023,27 +1032,110 @@ function cancelMatching() {
   showScreen('home');
 }
 
+// =====================================================================
+// TWO-PHASE MATCHING — fixes the asymmetric connection bug
+//
+// Each poll tick does TWO things:
+//   Phase 1 — Check if WE were already matched by someone else.
+//             The matcher set our status to 'chatting' and wrote their
+//             session_id into our matched_with column. If so, we join.
+//   Phase 2 — If we're still waiting, try to ATOMICALLY claim someone
+//             else by PATCHing them with ?status=eq.waiting filter.
+//             Supabase only updates if the row still has status=waiting,
+//             so only one of two concurrent claimers wins. The loser
+//             re-enters Phase 1 on the next tick and finds themselves
+//             already matched.
+// =====================================================================
 async function findAndMatchUser() {
   try {
     await addUserToWaiting();
-
     let attempts = 0;
-    // ✅ FIX 1: Poll every 500ms instead of 1500ms — 3x faster matching
+
     matchInterval = setInterval(async () => {
       attempts++;
       try {
+
+        // ── PHASE 1: Were we matched by the other person? ─────────────
+        const myRes = await sb(
+          'waiting_users?session_id=eq.' + SESSION_ID + '&select=status,matched_with'
+        );
+        if (myRes.ok) {
+          const myRows = await myRes.json();
+          if (myRows && myRows.length > 0) {
+            const me = myRows[0];
+            if (me.status === 'chatting' && me.matched_with) {
+              // Someone matched us — join their room
+              stopMatching();
+              const partnerId = me.matched_with;
+
+              // Fetch partner nickname (may already be gone, that's fine)
+              let partnerName = 'Anonymous';
+              try {
+                const pRes = await sb('waiting_users?session_id=eq.' + partnerId + '&select=nickname');
+                if (pRes.ok) {
+                  const pd = await pRes.json();
+                  if (pd && pd.length > 0 && pd[0].nickname) partnerName = pd[0].nickname;
+                }
+              } catch(_) {}
+
+              chatRoomId = [SESSION_ID, partnerId].sort().join('___');
+              state.currentPartner = { name: partnerName, id: partnerId };
+              await initMessageBaseline();
+              openChat(state.currentPartner);
+              incrementChatsToday();
+              startMessagePolling();
+              return; // done
+            }
+          }
+        }
+
+        // ── PHASE 2: Try to claim a waiting user ──────────────────────
         const res = await sb(
-          'waiting_users?status=eq.waiting&session_id=neq.' + SESSION_ID + '&order=created_at.asc&limit=1'
+          'waiting_users?status=eq.waiting&session_id=neq.' + SESSION_ID +
+          '&order=created_at.asc&limit=5&select=*'
         );
         if (!res.ok) return;
-        const waiting = await res.json();
-        if (waiting && waiting.length > 0) {
+        const candidates = await res.json();
+
+        for (const candidate of (candidates || [])) {
+          if (state.blockedIds.includes(candidate.session_id)) continue;
+
+          // Atomic claim: the WHERE clause ?status=eq.waiting means this
+          // PATCH only updates the row if it is STILL waiting.
+          // If two users both try to claim the same candidate simultaneously,
+          // only the first one wins (returns 1 row); the other gets 0 rows.
+          const claimRes = await sb(
+            'waiting_users?session_id=eq.' + candidate.session_id + '&status=eq.waiting',
+            {
+              method: 'PATCH',
+              headers: { 'Prefer': 'return=representation' },
+              body: JSON.stringify({ status: 'chatting', matched_with: SESSION_ID })
+            }
+          );
+
+          if (!claimRes.ok) continue;
+          const claimed = await claimRes.json();
+          if (!claimed || claimed.length === 0) continue; // lost the race — try next
+
+          // We won — mark ourselves as chatting too
           stopMatching();
-          await startChatWith(waiting[0]);
+          await sb('waiting_users?session_id=eq.' + SESSION_ID, {
+            method: 'PATCH',
+            body: JSON.stringify({ status: 'chatting', matched_with: candidate.session_id })
+          }).catch(()=>{});
+
+          chatRoomId = [SESSION_ID, candidate.session_id].sort().join('___');
+          state.currentPartner = { name: candidate.nickname || 'Anonymous', id: candidate.session_id };
+          await initMessageBaseline();
+          openChat(state.currentPartner);
+          incrementChatsToday();
+          startMessagePolling();
+          return; // done
         }
+
       } catch(e) {}
 
-      // Timeout after 2 minutes (240 attempts × 500ms)
+      // Timeout after 2 minutes
       if (attempts > 240) {
         stopMatching();
         sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
@@ -1060,7 +1152,6 @@ async function findAndMatchUser() {
 }
 
 async function addUserToWaiting() {
-  // ✅ FIX: no updated_at, uses upsert to avoid 409 errors
   const res = await sb('waiting_users?on_conflict=session_id', {
     method: 'POST',
     headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
@@ -1072,7 +1163,6 @@ async function addUserToWaiting() {
       interests:  state.interests.join(','),
       status:     'waiting',
       created_at: new Date().toISOString()
-      // ✅ updated_at REMOVED — column does not exist
     })
   });
   if (!res.ok) {
@@ -1081,32 +1171,9 @@ async function addUserToWaiting() {
   }
 }
 
-async function startChatWith(otherUser) {
-  // Create a stable room ID from both session IDs sorted alphabetically
-  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('___');
-
-  // Mark both users as chatting
-  await sb('waiting_users?session_id=eq.' + otherUser.session_id, {
-    method: 'PATCH',
-    body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
-  }).catch(()=>{});
-  await sb('waiting_users?session_id=eq.' + SESSION_ID, {
-    method: 'PATCH',
-    body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
-  }).catch(()=>{});
-
-  state.currentPartner = { name: otherUser.nickname || 'Anonymous', id: otherUser.session_id };
-
-  // ✅ FIX 2: Get the current highest message ID BEFORE opening chat
-  // so we ONLY show messages sent AFTER this point — no old messages!
-  await initMessageBaseline();
-
-  openChat(state.currentPartner);
-  incrementChatsToday();
-  startMessagePolling();
-}
-
-// ✅ FIX 2: Sets lastMessageId to max existing ID so old messages are ignored
+// =====================================================================
+// MESSAGE BASELINE — ignore any messages that existed before we joined
+// =====================================================================
 async function initMessageBaseline() {
   try {
     const res = await sb(
@@ -1114,8 +1181,6 @@ async function initMessageBaseline() {
     );
     if (res.ok) {
       const data = await res.json();
-      // If there are old messages, start AFTER the last one
-      // If no messages yet, set to 0 (will accept all new ones)
       lastMessageId = (data && data.length > 0) ? data[0].id : 0;
     } else {
       lastMessageId = 0;
@@ -1136,7 +1201,6 @@ function openChat(partner) {
   if (av) { av.textContent = partner.name.charAt(0).toUpperCase(); av.style.background = randomColor(partner.name); }
   if (un) un.textContent = partner.name;
   if (bn) bn.textContent = t('connection_est');
-  // ✅ FIX 2: Always clear messages when opening a new chat
   if (msgs) msgs.innerHTML =
     '<div class="msg-system">' + t('connected_msg') + '</div>' +
     '<div class="typing-indicator" id="typing-indicator" aria-label="Partner is typing">' +
@@ -1144,9 +1208,13 @@ function openChat(partner) {
   showScreen('chat');
 }
 
+// =====================================================================
+// MESSAGE POLLING — also handles the PARTNER_LEFT_SIGNAL
+// When the signal arrives the receiver sees t('partner_left') in their
+// own language (EN / KA / RU), regardless of what language the sender used.
+// =====================================================================
 function startMessagePolling() {
   stopMessagePolling();
-  // ✅ FIX 2: Only fetch messages with id > lastMessageId (set in initMessageBaseline)
   messageCheckInterval = setInterval(async () => {
     if (!chatRoomId) return;
     try {
@@ -1159,16 +1227,38 @@ function startMessagePolling() {
       const messages = await res.json();
       if (messages && messages.length > 0) {
         messages.forEach(msg => {
-          // Only show messages from the other person
-          if (msg.sender_id !== SESSION_ID) {
+          // Always advance cursor so we never reprocess
+          if (msg.id > lastMessageId) lastMessageId = msg.id;
+
+          // Only handle messages from the other person
+          if (msg.sender_id === SESSION_ID) return;
+
+          if (msg.text === PARTNER_LEFT_SIGNAL) {
+            // ── Partner left — show localised message, stop polling ──
+            addSystemMessage(t('partner_left'));
+            stopMessagePolling();
+            chatRoomId = null;
+            // Disable input area so user can only hit Next/Leave
+            const inp = document.getElementById('chat-input');
+            if (inp) { inp.disabled = true; inp.placeholder = t('partner_left'); }
+          } else {
             appendMessage('them', msg.text);
           }
-          // Always advance the cursor so we don't reprocess
-          if (msg.id > lastMessageId) lastMessageId = msg.id;
         });
       }
     } catch(e) {}
-  }, 800); // Check every 800ms — fast enough, not too spammy
+  }, 800);
+}
+
+function addSystemMessage(text) {
+  const msgs = document.getElementById('messages');
+  if (!msgs) return;
+  const s = document.createElement('div');
+  s.className = 'msg-system';
+  s.textContent = text;
+  const ti = document.getElementById('typing-indicator');
+  if (ti) msgs.insertBefore(s, ti); else msgs.appendChild(s);
+  scrollMessages();
 }
 
 function randomColor(s) {
@@ -1201,11 +1291,10 @@ function scrollMessages() {
 
 async function sendMessage() {
   const inp = document.getElementById('chat-input');
-  if (!inp) return;
+  if (!inp || inp.disabled) return;
   const text = inp.value.trim();
   if (!text || !chatRoomId) return;
 
-  // Show immediately on sender's screen
   appendMessage('me', text);
   inp.value = ''; inp.style.height = '';
 
@@ -1235,25 +1324,44 @@ function autoResize(el) {
   el.style.height = Math.min(el.scrollHeight, 100) + 'px';
 }
 
-function nextChat() {
+// =====================================================================
+// PARTNER-LEFT SIGNAL — sent when the local user leaves/skips
+// We insert a sentinel message BEFORE cleaning up, so the remote side
+// has a moment to pick it up on their next 800ms poll tick.
+// =====================================================================
+async function sendPartnerLeftSignal() {
+  if (!chatRoomId) return;
+  try {
+    await sb('chat_messages', {
+      method: 'POST',
+      body: JSON.stringify({
+        room_id:    chatRoomId,
+        sender_id:  SESSION_ID,
+        text:       PARTNER_LEFT_SIGNAL,
+        created_at: new Date().toISOString()
+      })
+    });
+  } catch(e) {}
+}
+
+async function nextChat() {
   stopMessagePolling();
+  await sendPartnerLeftSignal();  // notify partner first
   sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
-  const msgs = document.getElementById('messages');
-  if (msgs) {
-    const s = document.createElement('div');
-    s.className = 'msg-system';
-    s.textContent = t('partner_left');
-    msgs.appendChild(s);
-    scrollMessages();
-  }
   chatRoomId = null;
+  // Re-enable input for the new chat
+  const inp = document.getElementById('chat-input');
+  if (inp) { inp.disabled = false; inp.placeholder = t('type_message'); }
   setTimeout(startMatching, 600);
 }
 
-function leaveChat() {
+async function leaveChat() {
   stopMessagePolling();
+  await sendPartnerLeftSignal();  // notify partner first
   sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
   chatRoomId = null;
+  const inp = document.getElementById('chat-input');
+  if (inp) { inp.disabled = false; inp.placeholder = t('type_message'); }
   showToast(t('toast_left'));
   setTimeout(() => showScreen('home'), 400);
 }
