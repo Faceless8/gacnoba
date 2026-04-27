@@ -41,145 +41,56 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{height:100%;scroll-behavior:smooth}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--bg);color:var(--text);
-  min-height:100vh;min-height:100dvh;
-  line-height:1.6;overflow-x:hidden;
-  -webkit-text-size-adjust:100%;text-size-adjust:100%;
-}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;line-height:1.6;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:2px}
 .screen{display:none;min-height:100vh;min-height:100dvh}
 .screen.active{display:flex;flex-direction:column}
-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;
-  padding-top:max(12px,env(safe-area-inset-top));
-  border-bottom:1px solid var(--border);
-  background:var(--bg);
-  position:sticky;top:0;z-index:100;
-  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-  gap:8px;
-}
-.nav-logo{
-  font-size:16px;font-weight:600;color:var(--text);
-  text-decoration:none;letter-spacing:-0.3px;
-  display:flex;align-items:center;gap:8px;
-  flex-shrink:0;white-space:nowrap;
-}
-.nav-logo .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--accent);flex-shrink:0;
-  animation:pulse-dot 2s ease infinite;
-}
+nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);gap:8px}
+.nav-logo{font-size:16px;font-weight:600;color:var(--text);text-decoration:none;letter-spacing:-0.3px;display:flex;align-items:center;gap:8px;flex-shrink:0;white-space:nowrap}
+.nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;animation:pulse-dot 2s ease infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
 .nav-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.lang-btn{
-  background:var(--surface);border:1px solid var(--border);
-  color:var(--text2);padding:0 10px;border-radius:var(--rsm);
-  font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;
-  transition:var(--tr);height:36px;min-width:36px;
-  display:flex;align-items:center;justify-content:center;
-  -webkit-tap-highlight-color:transparent;
-}
+.lang-btn{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0 10px;border-radius:var(--rsm);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:var(--tr);height:36px;min-width:36px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
 .lang-btn:hover{background:var(--surface2);color:var(--text)}
 .lang-btn.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent)}
-.theme-btn{
-  background:var(--surface);border:1px solid var(--border);
-  color:var(--text2);width:36px;height:36px;border-radius:var(--rsm);
-  cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;
-  transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent;
-}
-#screen-home{
-  align-items:center;justify-content:flex-start;
-  padding:24px 16px 40px;position:relative;overflow:hidden;
-}
+.theme-btn{background:var(--surface);border:1px solid var(--border);color:var(--text2);width:36px;height:36px;border-radius:var(--rsm);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent}
+#screen-home{align-items:center;justify-content:flex-start;padding:24px 16px 40px;position:relative;overflow:hidden}
 .home-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .home-bg-circle{position:absolute;border-radius:50%;background:var(--accent);opacity:0.04;filter:blur(80px)}
 .home-bg-circle:nth-child(1){width:500px;height:500px;top:-100px;left:-100px}
 .home-bg-circle:nth-child(2){width:300px;height:300px;bottom:0;right:-50px;opacity:0.06}
 .home-content{text-align:center;max-width:580px;width:100%;position:relative;z-index:1}
-.home-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);
-  color:var(--green);padding:5px 14px;border-radius:99px;
-  font-size:12px;font-weight:500;margin-bottom:20px;
-  animation:fade-up 0.5s ease both;
-}
+.home-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);color:var(--green);padding:5px 14px;border-radius:99px;font-size:12px;font-weight:500;margin-bottom:20px;animation:fade-up 0.5s ease both}
 .home-badge .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-dot 1.5s ease infinite}
 h1{font-size:clamp(28px,7vw,60px);font-weight:600;line-height:1.15;letter-spacing:-1px;margin-bottom:12px;animation:fade-up 0.5s 0.1s ease both}
 h1 span{color:var(--accent)}
 .home-sub{font-size:15px;color:var(--text2);line-height:1.6;margin-bottom:24px;font-weight:300;animation:fade-up 0.5s 0.2s ease both}
-.filters-panel{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--rlg);padding:16px;margin-bottom:14px;
-  animation:fade-up 0.5s 0.3s ease both;text-align:left;
-}
+.filters-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:16px;margin-bottom:14px;animation:fade-up 0.5s 0.3s ease both;text-align:left}
 .filters-title{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
 .filter-row{display:flex;gap:12px;flex-direction:column}
 .filter-group{flex:1}
 .filter-label{font-size:12px;color:var(--text2);margin-bottom:8px}
 .filter-pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{
-  background:var(--surface2);border:1px solid var(--border);
-  color:var(--text2);padding:7px 13px;border-radius:99px;
-  font-size:13px;cursor:pointer;transition:var(--tr);
-  user-select:none;min-height:36px;
-  display:inline-flex;align-items:center;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-}
+.pill{background:var(--surface2);border:1px solid var(--border);color:var(--text2);padding:7px 13px;border-radius:99px;font-size:13px;cursor:pointer;transition:var(--tr);user-select:none;min-height:36px;display:inline-flex;align-items:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .pill:hover{border-color:var(--accent);color:var(--accent)}
 .pill:active{opacity:0.75;transform:scale(0.96)}
 .pill.selected{background:var(--accent-bg);border-color:var(--accent);color:var(--accent2)}
 .nickname-row{display:flex;gap:10px;margin-bottom:12px;animation:fade-up 0.5s 0.35s ease both}
-.nickname-input{
-  flex:1;background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--rsm);padding:13px 16px;
-  font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);
-  transition:var(--tr);outline:none;-webkit-appearance:none;min-height:48px;
-}
+.nickname-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);transition:var(--tr);outline:none;-webkit-appearance:none;min-height:48px}
 .nickname-input::placeholder{color:var(--text3)}
 .nickname-input:focus{border-color:var(--accent);background:var(--surface2)}
-.btn-primary{
-  background:var(--accent);color:#fff;
-  border:none;padding:14px 24px;border-radius:var(--r);
-  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;
-  cursor:pointer;transition:var(--tr);white-space:nowrap;
-  display:inline-flex;align-items:center;gap:8px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:48px;
-}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:14px 24px;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:var(--tr);white-space:nowrap;display:inline-flex;align-items:center;gap:8px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:48px}
 .btn-primary:hover{background:var(--accent2)}
 .btn-primary:active{opacity:0.85;transform:scale(0.98)}
 .btn-primary.full{width:100%;justify-content:center}
-.btn-secondary{
-  background:var(--surface);border:1px solid var(--border);
-  color:var(--text);padding:12px 18px;border-radius:var(--r);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;
-  cursor:pointer;transition:var(--tr);
-  display:inline-flex;align-items:center;gap:8px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px;
-}
+.btn-secondary{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:12px 18px;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;cursor:pointer;transition:var(--tr);display:inline-flex;align-items:center;gap:8px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px}
 .btn-secondary:hover{background:var(--surface2);border-color:var(--border2)}
 .btn-secondary:active{opacity:0.8}
-.btn-danger{
-  background:var(--red-bg);border:1px solid rgba(248,113,113,0.2);
-  color:var(--red);padding:10px 12px;border-radius:var(--rsm);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  cursor:pointer;transition:var(--tr);
-  display:inline-flex;align-items:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px;
-}
+.btn-danger{background:var(--red-bg);border:1px solid rgba(248,113,113,0.2);color:var(--red);padding:10px 12px;border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:var(--tr);display:inline-flex;align-items:center;gap:6px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px}
 .btn-danger:hover{background:rgba(248,113,113,0.2)}
-.btn-amber{
-  background:var(--amber-bg);border:1px solid rgba(251,191,36,0.2);
-  color:var(--amber);padding:10px 12px;border-radius:var(--rsm);
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
-  cursor:pointer;transition:var(--tr);
-  display:inline-flex;align-items:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px;
-}
+.btn-amber{background:var(--amber-bg);border:1px solid rgba(251,191,36,0.2);color:var(--amber);padding:10px 12px;border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:var(--tr);display:inline-flex;align-items:center;gap:6px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:40px}
 .btn-amber:hover{background:rgba(251,191,36,0.2)}
 .start-btn-wrap{animation:fade-up 0.5s 0.4s ease both}
 .home-stats{display:flex;gap:20px;justify-content:center;margin-top:28px;flex-wrap:wrap;animation:fade-up 0.5s 0.5s ease both}
@@ -189,11 +100,7 @@ h1 span{color:var(--accent)}
 #online-count,#stat-online{color:var(--green);font-variant-numeric:tabular-nums;transition:all 0.4s ease}
 .count-update{animation:count-pop 0.4s ease}
 @keyframes count-pop{0%{transform:scale(1)}50%{transform:scale(1.15);color:var(--green)}100%{transform:scale(1)}}
-#screen-matching{
-  align-items:center;justify-content:center;
-  padding:40px 20px;
-  min-height:calc(100vh - 57px);min-height:calc(100dvh - 57px);
-}
+#screen-matching{align-items:center;justify-content:center;padding:40px 20px;min-height:calc(100vh - 57px);min-height:calc(100dvh - 57px)}
 .matching-content{text-align:center}
 .matching-orbs{display:flex;align-items:center;justify-content:center;margin-bottom:32px;height:100px}
 .orb{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:600;color:#fff;z-index:2}
@@ -210,41 +117,19 @@ h1 span{color:var(--accent)}
 .matching-dots span:nth-child(2){animation-delay:0.2s}
 .matching-dots span:nth-child(3){animation-delay:0.4s}
 @keyframes blink{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1)}}
-#screen-chat{
-  display:none;flex-direction:column;
-  position:fixed;inset:0;z-index:10;
-  height:100vh;height:100dvh;overflow:hidden;
-}
+#screen-chat{display:none;flex-direction:column;position:fixed;inset:0;z-index:10;height:100vh;height:100dvh;overflow:hidden}
 #screen-chat.active{display:flex}
-.chat-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 12px;
-  padding-top:max(10px,env(safe-area-inset-top));
-  border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0;
-}
+.chat-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
 .chat-user-info{display:flex;align-items:center;gap:10px}
 .chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0}
 .chat-username{font-size:14px;font-weight:500}
 .chat-status{font-size:12px;color:var(--green);display:flex;align-items:center;gap:4px}
 .chat-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
 .chat-actions{display:flex;gap:6px;align-items:center}
-.connection-banner{
-  padding:8px 16px;text-align:center;
-  background:var(--green-bg);border-bottom:1px solid rgba(74,222,128,0.15);
-  font-size:12px;color:var(--green);font-weight:500;
-  animation:slide-down 0.4s ease;flex-shrink:0;
-}
+.connection-banner{padding:8px 16px;text-align:center;background:var(--green-bg);border-bottom:1px solid rgba(74,222,128,0.15);font-size:12px;color:var(--green);font-weight:500;animation:slide-down 0.4s ease;flex-shrink:0}
 @keyframes slide-down{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-.messages{
-  flex:1;overflow-y:auto;padding:12px 14px;
-  display:flex;flex-direction:column;gap:6px;
-  -webkit-overflow-scrolling:touch;overscroll-behavior:contain;
-}
-.msg-system{
-  text-align:center;font-size:12px;color:var(--text3);
-  padding:5px 12px;background:var(--surface);
-  border-radius:99px;align-self:center;margin:4px 0;
-}
+.messages{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.msg-system{text-align:center;font-size:12px;color:var(--text3);padding:5px 12px;background:var(--surface);border-radius:99px;align-self:center;margin:4px 0}
 .msg{display:flex;flex-direction:column;max-width:82%;animation:msg-in 0.25s ease}
 @keyframes msg-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .msg.them{align-self:flex-start}
@@ -260,68 +145,25 @@ h1 span{color:var(--accent)}
 .typing-indicator span:nth-child(2){animation-delay:0.2s}
 .typing-indicator span:nth-child(3){animation-delay:0.4s}
 @keyframes typing{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-.chat-input-area{
-  padding:10px 12px;
-  padding-bottom:max(10px,env(safe-area-inset-bottom));
-  border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0;
-}
+.chat-input-area{padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));border-top:1px solid var(--border);background:var(--bg2);flex-shrink:0}
 .chat-input-row{display:flex;gap:8px;align-items:flex-end}
-.chat-input{
-  flex:1;background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r);padding:11px 14px;
-  font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);
-  resize:none;outline:none;max-height:100px;line-height:1.5;
-  transition:var(--tr);min-height:44px;-webkit-appearance:none;
-}
+.chat-input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);resize:none;outline:none;max-height:100px;line-height:1.5;transition:var(--tr);min-height:44px;-webkit-appearance:none}
 .chat-input::placeholder{color:var(--text3)}
 .chat-input:focus{border-color:var(--accent);background:var(--surface2)}
-.send-btn{
-  width:44px;height:44px;border-radius:var(--rsm);
-  background:var(--accent);border:none;color:#fff;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:var(--tr);flex-shrink:0;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-}
+.send-btn{width:44px;height:44px;border-radius:var(--rsm);background:var(--accent);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--tr);flex-shrink:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .send-btn:hover{background:var(--accent2)}
 .send-btn:active{opacity:0.8;transform:scale(0.94)}
 .send-btn svg{width:18px;height:18px}
-.chat-bottom-bar{
-  display:flex;gap:8px;padding:8px 12px;
-  padding-bottom:max(8px,env(safe-area-inset-bottom));
-  background:var(--bg2);flex-shrink:0;
-}
-.next-btn{
-  flex:1;background:var(--surface);border:1px solid var(--border);
-  color:var(--text);padding:11px 14px;border-radius:var(--rsm);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
-  cursor:pointer;transition:var(--tr);
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px;
-}
+.chat-bottom-bar{display:flex;gap:8px;padding:8px 12px;padding-bottom:max(8px,env(safe-area-inset-bottom));background:var(--bg2);flex-shrink:0}
+.next-btn{flex:1;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:var(--rsm);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:6px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:44px}
 .next-btn:hover{background:var(--surface2);border-color:var(--accent);color:var(--accent)}
 .next-btn:active{opacity:0.8}
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,0.75);
-  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-  z-index:200;align-items:flex-end;justify-content:center;
-}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:200;align-items:flex-end;justify-content:center}
 @media(min-width:520px){.modal-overlay{align-items:center;padding:20px}}
 .modal-overlay.open{display:flex}
-.modal{
-  background:var(--surface);border:1px solid var(--border2);
-  border-radius:var(--rxl) var(--rxl) 0 0;
-  padding:20px;
-  padding-bottom:max(20px,env(safe-area-inset-bottom));
-  max-width:480px;width:100%;
-  animation:modal-up 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  max-height:92vh;overflow-y:auto;
-}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--rxl) var(--rxl) 0 0;padding:20px;padding-bottom:max(20px,env(safe-area-inset-bottom));max-width:480px;width:100%;animation:modal-up 0.3s cubic-bezier(0.34,1.56,0.64,1);max-height:92vh;overflow-y:auto}
 .modal::before{content:'';display:block;width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px}
-@media(min-width:520px){
-  .modal{border-radius:var(--rxl);padding:28px;padding-bottom:28px;animation:modal-in 0.3s cubic-bezier(0.34,1.56,0.64,1)}
-  .modal::before{display:none}
-}
+@media(min-width:520px){.modal{border-radius:var(--rxl);padding:28px;padding-bottom:28px;animation:modal-in 0.3s cubic-bezier(0.34,1.56,0.64,1)}.modal::before{display:none}}
 @keyframes modal-up{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
 @keyframes modal-in{from{opacity:0;transform:scale(0.92) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
 .modal-title{font-size:18px;font-weight:600;margin-bottom:6px}
@@ -329,26 +171,11 @@ h1 span{color:var(--accent)}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
 .form-group{margin-bottom:14px}
 .form-label{font-size:13px;color:var(--text2);margin-bottom:6px;display:block}
-.form-input,.form-select,.form-textarea{
-  width:100%;background:var(--bg2);border:1px solid var(--border);
-  border-radius:var(--rsm);padding:11px 14px;
-  font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);
-  outline:none;transition:var(--tr);-webkit-appearance:none;
-}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rsm);padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:16px;color:var(--text);outline:none;transition:var(--tr);-webkit-appearance:none}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);background:var(--bg3)}
 .form-textarea{resize:vertical;min-height:80px}
 .form-select option{background:var(--surface)}
-.toast{
-  position:fixed;
-  bottom:max(24px,env(safe-area-inset-bottom,24px));
-  left:50%;transform:translateX(-50%);
-  background:var(--surface);border:1px solid var(--border2);
-  color:var(--text);padding:12px 20px;border-radius:var(--r);
-  font-size:14px;z-index:300;
-  box-shadow:var(--shlg);opacity:0;pointer-events:none;
-  transition:opacity 0.3s ease;
-  max-width:calc(100vw - 32px);white-space:nowrap;
-}
+.toast{position:fixed;bottom:max(24px,env(safe-area-inset-bottom,24px));left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:12px 20px;border-radius:var(--r);font-size:14px;z-index:300;box-shadow:var(--shlg);opacity:0;pointer-events:none;transition:opacity 0.3s ease;max-width:calc(100vw - 32px);white-space:nowrap}
 .toast.show{opacity:1;pointer-events:auto}
 .toast.success{border-color:rgba(74,222,128,0.3)}
 .toast.error{border-color:rgba(248,113,113,0.3)}
@@ -357,12 +184,7 @@ h1 span{color:var(--accent)}
 .section{padding:36px 16px;max-width:900px;margin:0 auto}
 .section-title{font-size:22px;font-weight:600;letter-spacing:-0.5px;margin-bottom:8px}
 .section-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
-.trust-bar{
-  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
-  padding:16px;
-  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-  background:var(--bg2);
-}
+.trust-bar{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2)}
 .trust-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2)}
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 .feature-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:16px;transition:var(--tr)}
@@ -370,29 +192,12 @@ h1 span{color:var(--accent)}
 .feature-icon{width:36px;height:36px;border-radius:var(--rsm);background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
 .feature-title{font-size:14px;font-weight:500;margin-bottom:4px}
 .feature-desc{font-size:13px;color:var(--text2);line-height:1.6}
-footer{
-  border-top:1px solid var(--border);padding:20px;
-  padding-bottom:max(20px,env(safe-area-inset-bottom));
-  text-align:center;font-size:13px;color:var(--text3);
-}
+footer{border-top:1px solid var(--border);padding:20px;padding-bottom:max(20px,env(safe-area-inset-bottom));text-align:center;font-size:13px;color:var(--text3)}
 footer a{color:var(--text2);text-decoration:none}
 footer a:hover{color:var(--accent)}
 button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(max-width:480px){
-  .chat-actions .btn-label{display:none}
-  .chat-actions .btn-amber,.chat-actions .btn-danger{padding:10px 12px}
-  .features-grid{grid-template-columns:1fr}
-  .msg{max-width:88%}
-  .home-stats .stat-num{font-size:20px}
-}
-@media(min-width:481px){
-  #screen-home{justify-content:center;padding:40px 20px}
-  .filter-row{flex-direction:row}
-  .filter-group{min-width:120px}
-  .section-title{font-size:28px}
-  h1{letter-spacing:-1.5px}
-}
+@media(max-width:480px){.chat-actions .btn-label{display:none}.chat-actions .btn-amber,.chat-actions .btn-danger{padding:10px 12px}.features-grid{grid-template-columns:1fr}.msg{max-width:88%}.home-stats .stat-num{font-size:20px}}
+@media(min-width:481px){#screen-home{justify-content:center;padding:40px 20px}.filter-row{flex-direction:row}.filter-group{min-width:120px}.section-title{font-size:28px}h1{letter-spacing:-1.5px}}
 </style>
 </head>
 <body>
@@ -405,18 +210,15 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     gacnoba<span style="color:var(--accent)">.ge</span>
   </a>
   <div class="nav-right">
-    <button class="lang-btn active" onclick="setLang('en')" id="lang-en" aria-label="English">EN</button>
-    <button class="lang-btn" onclick="setLang('ka')" id="lang-ka" aria-label="Georgian">KA</button>
-    <button class="lang-btn" onclick="setLang('ru')" id="lang-ru" aria-label="Russian">RU</button>
-    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" aria-label="Toggle theme">🌙</button>
+    <button class="lang-btn active" onclick="setLang('en')" id="lang-en">EN</button>
+    <button class="lang-btn" onclick="setLang('ka')" id="lang-ka">KA</button>
+    <button class="lang-btn" onclick="setLang('ru')" id="lang-ru">RU</button>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">🌙</button>
   </div>
 </nav>
 
 <main id="screen-home" class="screen active" role="main">
-  <div class="home-bg" aria-hidden="true">
-    <div class="home-bg-circle"></div>
-    <div class="home-bg-circle"></div>
-  </div>
+  <div class="home-bg" aria-hidden="true"><div class="home-bg-circle"></div><div class="home-bg-circle"></div></div>
   <div class="home-content">
     <div class="home-badge" role="status">
       <span class="live-dot" aria-hidden="true"></span>
@@ -424,12 +226,12 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
     <h1 data-i18n="home_title">Meet someone<br><span>unexpected.</span></h1>
     <p class="home-sub" data-i18n="home_sub">Anonymous, instant, real conversations.<br>No account needed. Just click and connect.</p>
-    <div class="filters-panel" role="group" aria-labelledby="filters-heading">
-      <div class="filters-title" id="filters-heading" data-i18n="filters">Optional filters</div>
+    <div class="filters-panel">
+      <div class="filters-title" data-i18n="filters">Optional filters</div>
       <div class="filter-row">
         <div class="filter-group">
           <div class="filter-label" data-i18n="i_am">I am</div>
-          <div class="filter-pills" role="group" aria-label="Gender">
+          <div class="filter-pills">
             <button class="pill selected" data-filter="gender" data-val="any" onclick="selectPill(this)" data-i18n-pill="any">Any</button>
             <button class="pill" data-filter="gender" data-val="male" onclick="selectPill(this)" data-i18n-pill="male">Male</button>
             <button class="pill" data-filter="gender" data-val="female" onclick="selectPill(this)" data-i18n-pill="female">Female</button>
@@ -437,7 +239,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         </div>
         <div class="filter-group">
           <div class="filter-label" data-i18n="looking_for">Looking for</div>
-          <div class="filter-pills" role="group" aria-label="Intent">
+          <div class="filter-pills">
             <button class="pill selected" data-filter="intent" data-val="any" onclick="selectPill(this)" data-i18n-pill="any">Any</button>
             <button class="pill" data-filter="intent" data-val="friendship" onclick="selectPill(this)" data-i18n-pill="friendship">Friendship</button>
             <button class="pill" data-filter="intent" data-val="casual" onclick="selectPill(this)" data-i18n-pill="casual">Casual</button>
@@ -446,7 +248,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
         </div>
         <div class="filter-group">
           <div class="filter-label" data-i18n="interests_title">Things I am interested in</div>
-          <div class="filter-pills" role="group" aria-label="Interests">
+          <div class="filter-pills">
             <button class="pill" data-interest="books" onclick="toggleInterest(this)" data-i18n-pill="books">📚 Reading</button>
             <button class="pill" data-interest="swimming" onclick="toggleInterest(this)" data-i18n-pill="swimming">🏊 Swimming</button>
             <button class="pill" data-interest="drawing" onclick="toggleInterest(this)" data-i18n-pill="drawing">🎨 Drawing</button>
@@ -466,123 +268,102 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
       </div>
     </div>
     <div class="nickname-row">
-      <input type="text" class="nickname-input" id="nickname-input"
-        placeholder="Nickname (optional)" maxlength="20"
-        aria-label="Enter optional nickname" data-i18n-ph="nickname_ph"
-        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button class="btn-secondary" onclick="generateNickname()" aria-label="Random nickname"
-        style="padding:0;width:48px;flex-shrink:0;justify-content:center;font-size:20px">🎲</button>
+      <input type="text" class="nickname-input" id="nickname-input" placeholder="Nickname (optional)" maxlength="20" data-i18n-ph="nickname_ph" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="btn-secondary" onclick="generateNickname()" style="padding:0;width:48px;flex-shrink:0;justify-content:center;font-size:20px">🎲</button>
     </div>
     <div class="start-btn-wrap">
-      <button class="btn-primary full" onclick="startMatching()" aria-label="Start random chat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <button class="btn-primary full" onclick="startMatching()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         <span data-i18n="start_chat">Start Chat</span>
       </button>
     </div>
-    <div class="home-stats" aria-label="Platform statistics">
+    <div class="home-stats">
       <div class="stat"><div class="stat-num" id="stat-online">...</div><div class="stat-label" data-i18n="stat_online">Online now</div></div>
       <div class="stat"><div class="stat-num" id="stat-chats-today">0</div><div class="stat-label" data-i18n="stat_chats">Chats today</div></div>
       <div class="stat"><div class="stat-num">🇬🇪</div><div class="stat-label" data-i18n="stat_made_in">Made in Georgia</div></div>
     </div>
   </div>
   <div id="landing-sections">
-    <div class="trust-bar" role="list">
-      <div class="trust-item" role="listitem"><span aria-hidden="true">🔒</span><span data-i18n="trust_anon">100% Anonymous</span></div>
-      <div class="trust-item" role="listitem"><span aria-hidden="true">⚡</span><span data-i18n="trust_instant">Instant Connection</span></div>
-      <div class="trust-item" role="listitem"><span aria-hidden="true">🛡️</span><span data-i18n="trust_safe">Safe & Moderated</span></div>
-      <div class="trust-item" role="listitem"><span aria-hidden="true">📱</span><span data-i18n="trust_mobile">Mobile Friendly</span></div>
+    <div class="trust-bar">
+      <div class="trust-item">🔒 <span data-i18n="trust_anon">100% Anonymous</span></div>
+      <div class="trust-item">⚡ <span data-i18n="trust_instant">Instant Connection</span></div>
+      <div class="trust-item">🛡️ <span data-i18n="trust_safe">Safe & Moderated</span></div>
+      <div class="trust-item">📱 <span data-i18n="trust_mobile">Mobile Friendly</span></div>
     </div>
     <div class="section">
       <h2 class="section-title" data-i18n="features_title">Why gacnoba.ge?</h2>
       <p class="section-sub" data-i18n="features_sub">A smarter, safer way to meet people online.</p>
-      <div class="features-grid" role="list">
-        <div class="feature-card" role="listitem"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="f1_title">Instant Matching</div><div class="feature-desc" data-i18n="f1_desc">Connect with a real person in seconds. No waiting rooms.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🎭</div><div class="feature-title" data-i18n="f2_title">Stay Anonymous</div><div class="feature-desc" data-i18n="f2_desc">No account required. Your privacy is always protected.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🎯</div><div class="feature-title" data-i18n="f3_title">Smart Filters</div><div class="feature-desc" data-i18n="f3_desc">Gender, intent, interests — find your kind of conversation.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🚀</div><div class="feature-title" data-i18n="f4_title">Skip Freely</div><div class="feature-desc" data-i18n="f4_desc">Not feeling it? Hit Next and find someone new instantly.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🛡️</div><div class="feature-title" data-i18n="f5_title">Safe by Design</div><div class="feature-desc" data-i18n="f5_desc">Block, report, and active moderation keep you safe.</div></div>
-        <div class="feature-card" role="listitem"><div class="feature-icon">🌍</div><div class="feature-title" data-i18n="f6_title">Multilingual</div><div class="feature-desc" data-i18n="f6_desc">English, Georgian, Russian — the interface speaks your language.</div></div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title" data-i18n="f1_title">Instant Matching</div><div class="feature-desc" data-i18n="f1_desc">Connect with a real person in seconds.</div></div>
+        <div class="feature-card"><div class="feature-icon">🎭</div><div class="feature-title" data-i18n="f2_title">Stay Anonymous</div><div class="feature-desc" data-i18n="f2_desc">No account required. Your privacy is always protected.</div></div>
+        <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-title" data-i18n="f3_title">Smart Filters</div><div class="feature-desc" data-i18n="f3_desc">Gender, intent, interests — find your kind of conversation.</div></div>
+        <div class="feature-card"><div class="feature-icon">🚀</div><div class="feature-title" data-i18n="f4_title">Skip Freely</div><div class="feature-desc" data-i18n="f4_desc">Not feeling it? Hit Next and find someone new instantly.</div></div>
+        <div class="feature-card"><div class="feature-icon">🛡️</div><div class="feature-title" data-i18n="f5_title">Safe by Design</div><div class="feature-desc" data-i18n="f5_desc">Block, report, and active moderation keep you safe.</div></div>
+        <div class="feature-card"><div class="feature-icon">🌍</div><div class="feature-title" data-i18n="f6_title">Multilingual</div><div class="feature-desc" data-i18n="f6_desc">English, Georgian, Russian — the interface speaks your language.</div></div>
       </div>
     </div>
   </div>
-  <footer role="contentinfo">
-    <p>© 2025 gacnoba.ge &nbsp;·&nbsp;
-      <a href="#" onclick="showModal('terms-modal')">Terms</a> &nbsp;·&nbsp;
-      <a href="#" onclick="showModal('privacy-modal')">Privacy</a> &nbsp;·&nbsp;
-      <a href="#" onclick="showModal('safety-modal')">Safety</a>
-    </p>
+  <footer>
+    <p>© 2025 gacnoba.ge &nbsp;·&nbsp; <a href="#" onclick="showModal('terms-modal')">Terms</a> &nbsp;·&nbsp; <a href="#" onclick="showModal('privacy-modal')">Privacy</a> &nbsp;·&nbsp; <a href="#" onclick="showModal('safety-modal')">Safety</a></p>
   </footer>
 </main>
 
-<section id="screen-matching" class="screen" role="status" aria-live="polite" aria-label="Finding a match">
+<section id="screen-matching" class="screen">
   <div class="matching-content">
-    <div class="matching-orbs" aria-hidden="true">
+    <div class="matching-orbs">
       <div class="orb you" id="my-orb">Y</div>
       <div class="orb-connector"></div>
       <div class="orb them">?</div>
     </div>
     <div class="matching-label" data-i18n="looking_for_match">Looking for someone...</div>
     <div class="matching-title" data-i18n="finding_match">Finding your match</div>
-    <div class="matching-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="matching-dots"><span></span><span></span><span></span></div>
     <br><br>
     <button class="btn-secondary" onclick="cancelMatching()" data-i18n="cancel">Cancel</button>
   </div>
 </section>
 
-<section id="screen-chat" class="screen" aria-label="Chat">
-  <div class="connection-banner" id="connection-banner" role="status" aria-live="polite">✓ Contact established — say hello!</div>
+<section id="screen-chat" class="screen">
+  <div class="connection-banner" id="connection-banner">✓ Contact established — say hello!</div>
   <header class="chat-header">
     <div class="chat-user-info">
-      <div class="chat-avatar" id="chat-avatar" aria-hidden="true">A</div>
+      <div class="chat-avatar" id="chat-avatar">A</div>
       <div>
         <div class="chat-username" id="chat-username">Anonymous</div>
         <div class="chat-status" data-i18n="online">Online</div>
       </div>
     </div>
     <div class="chat-actions">
-      <button class="btn-amber" onclick="showReportModal()" aria-label="Report user">
-        <span aria-hidden="true">⚑</span><span class="btn-label" data-i18n="report">Report</span>
+      <button class="btn-amber" onclick="showReportModal()">
+        <span>⚑</span><span class="btn-label" data-i18n="report">Report</span>
       </button>
-      <button class="btn-danger" onclick="showBlockModal()" aria-label="Block user">
-        <span aria-hidden="true">⊘</span><span class="btn-label" data-i18n="block">Block</span>
+      <button class="btn-danger" onclick="showBlockModal()">
+        <span>⊘</span><span class="btn-label" data-i18n="block">Block</span>
       </button>
     </div>
   </header>
-  <div class="messages" id="messages" role="log" aria-live="polite" aria-label="Chat messages">
+  <div class="messages" id="messages" role="log" aria-live="polite">
     <div class="msg-system" data-i18n="connected_msg">You are connected. Be kind 👋</div>
-    <div class="typing-indicator" id="typing-indicator" aria-label="Partner is typing">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="typing-indicator" id="typing-indicator"><span></span><span></span><span></span></div>
   </div>
   <div class="chat-input-area">
     <div class="chat-input-row">
-      <textarea class="chat-input" id="chat-input"
-        placeholder="Type a message…" rows="1"
-        aria-label="Message input" data-i18n-ph="type_message"
-        onkeydown="handleChatKey(event)" oninput="autoResize(this)"
-        autocorrect="off" autocapitalize="sentences"></textarea>
-      <button class="send-btn" onclick="sendMessage()" aria-label="Send message">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="22" y1="2" x2="11" y2="13"></line>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-        </svg>
+      <textarea class="chat-input" id="chat-input" placeholder="Type a message…" rows="1" data-i18n-ph="type_message" onkeydown="handleChatKey(event)" oninput="autoResize(this)" autocorrect="off" autocapitalize="sentences"></textarea>
+      <button class="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
       </button>
     </div>
   </div>
   <div class="chat-bottom-bar">
-    <button class="next-btn" onclick="nextChat()" aria-label="Next person">
-      <span aria-hidden="true">→</span><span data-i18n="next_person">Next person</span>
-    </button>
-    <button class="btn-secondary" onclick="leaveChat()" aria-label="Leave chat">
-      <span data-i18n="leave">Leave</span>
-    </button>
+    <button class="next-btn" onclick="nextChat()"><span>→</span><span data-i18n="next_person">Next person</span></button>
+    <button class="btn-secondary" onclick="leaveChat()"><span data-i18n="leave">Leave</span></button>
   </div>
 </section>
 
 <!-- MODALS -->
-<div class="modal-overlay" id="report-modal" role="dialog" aria-modal="true" aria-labelledby="report-title">
+<div class="modal-overlay" id="report-modal">
   <div class="modal">
-    <h2 class="modal-title" id="report-title" data-i18n="report_title">Report User</h2>
+    <h2 class="modal-title" data-i18n="report_title">Report User</h2>
     <p class="modal-sub" data-i18n="report_sub">Help us keep the community safe.</p>
     <div class="form-group">
       <label class="form-label" data-i18n="reason">Reason</label>
@@ -604,9 +385,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
   </div>
 </div>
-<div class="modal-overlay" id="block-modal" role="dialog" aria-modal="true" aria-labelledby="block-title">
+<div class="modal-overlay" id="block-modal">
   <div class="modal">
-    <h2 class="modal-title" id="block-title" data-i18n="block_title">Block User</h2>
+    <h2 class="modal-title" data-i18n="block_title">Block User</h2>
     <p class="modal-sub" data-i18n="block_sub">This person will never be matched with you again.</p>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('block-modal')" data-i18n="cancel_btn">Cancel</button>
@@ -614,31 +395,31 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
     </div>
   </div>
 </div>
-<div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+<div class="modal-overlay" id="terms-modal">
   <div class="modal">
-    <h2 class="modal-title" id="terms-title">Terms of Service</h2>
+    <h2 class="modal-title">Terms of Service</h2>
     <div style="font-size:14px;color:var(--text2);line-height:1.7;max-height:240px;overflow-y:auto;margin-bottom:16px">
       <p style="margin-bottom:10px">By using gacnoba.ge you agree to treat all users with respect. You must be 18 or older.</p>
-      <p style="margin-bottom:10px">Prohibited: explicit content, harassment, spam, illegal activity, sharing personal information.</p>
+      <p style="margin-bottom:10px">Prohibited: explicit content, harassment, spam, illegal activity.</p>
       <p>We reserve the right to ban users who violate these terms.</p>
     </div>
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('terms-modal')">Got it</button></div>
   </div>
 </div>
-<div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+<div class="modal-overlay" id="privacy-modal">
   <div class="modal">
-    <h2 class="modal-title" id="privacy-title">Privacy Policy</h2>
+    <h2 class="modal-title">Privacy Policy</h2>
     <div style="font-size:14px;color:var(--text2);line-height:1.7;max-height:240px;overflow-y:auto;margin-bottom:16px">
       <p style="margin-bottom:10px">We do not store chat messages. Sessions are deleted when the chat ends.</p>
-      <p style="margin-bottom:10px">We collect: temporary session IDs, browser type, and timestamps for anti-spam.</p>
-      <p>We never sell your data. Block lists are stored locally in your browser.</p>
+      <p style="margin-bottom:10px">We collect temporary session IDs and timestamps for anti-spam.</p>
+      <p>We never sell your data.</p>
     </div>
     <div class="modal-actions"><button class="btn-primary" onclick="closeModal('privacy-modal')">Got it</button></div>
   </div>
 </div>
-<div class="modal-overlay" id="safety-modal" role="dialog" aria-modal="true" aria-labelledby="safety-title">
+<div class="modal-overlay" id="safety-modal">
   <div class="modal">
-    <h2 class="modal-title" id="safety-title">Safety Guidelines</h2>
+    <h2 class="modal-title">Safety Guidelines</h2>
     <div style="font-size:14px;color:var(--text2);line-height:1.7;max-height:240px;overflow-y:auto;margin-bottom:16px">
       <p style="margin-bottom:10px">🛡️ Never share personal info: name, address, phone, or social handles.</p>
       <p style="margin-bottom:10px">🚨 Use Report immediately for any inappropriate behavior.</p>
@@ -650,40 +431,11 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-vis
 </div>
 
 <script>
-// =====================================================================
-// SUPABASE CONFIG
-// =====================================================================
+// ─── SUPABASE ────────────────────────────────────────────────────────
 const SUPABASE_URL = 'https://kgubxokkjhxsncgftgws.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtndWJ4b2tramh4c25jZ2Z0Z3dzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2MDkyOTEsImV4cCI6MjA5MjE4NTI5MX0.0Ff-lk-yqHMzWjzdeTKTbWjcNg88fGzxfEJMVod0FOc';
+const PARTNER_LEFT_SIGNAL = '__PARTNER_LEFT__';
 
-// =====================================================================
-// SESSION ID — persistent across refreshes, unique per browser
-// =====================================================================
-function generateDeviceFingerprint() {
-  const data = [
-    navigator.language, navigator.platform,
-    navigator.hardwareConcurrency || 'x',
-    navigator.deviceMemory || 'x',
-    screen.width + 'x' + screen.height,
-    new Date().getTimezoneOffset()
-  ].join('|');
-  let hash = 0;
-  for (let i = 0; i < data.length; i++) {
-    hash = ((hash << 5) - hash) + data.charCodeAt(i);
-    hash = hash & hash;
-  }
-  return Math.abs(hash).toString(36);
-}
-
-let SESSION_ID = localStorage.getItem('gacnoba_session_id');
-if (!SESSION_ID) {
-  SESSION_ID = generateDeviceFingerprint() + '_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
-  localStorage.setItem('gacnoba_session_id', SESSION_ID);
-}
-
-// =====================================================================
-// HELPER — all Supabase requests go through here
-// =====================================================================
 function sb(path, opts = {}) {
   return fetch(SUPABASE_URL + '/rest/v1/' + path, {
     ...opts,
@@ -696,189 +448,143 @@ function sb(path, opts = {}) {
   });
 }
 
-// =====================================================================
-// ONLINE COUNTER
-// =====================================================================
-let heartbeatInterval   = null;
-let countRefreshInterval = null;
-let chatsTodayCount     = 0;
-let isRegistered        = false;
+// ─── SESSION ID ──────────────────────────────────────────────────────
+function generateDeviceFingerprint() {
+  const data = [navigator.language, navigator.platform, navigator.hardwareConcurrency||'x', screen.width+'x'+screen.height, new Date().getTimezoneOffset()].join('|');
+  let hash = 0;
+  for (let i = 0; i < data.length; i++) { hash = ((hash << 5) - hash) + data.charCodeAt(i); hash = hash & hash; }
+  return Math.abs(hash).toString(36);
+}
+let SESSION_ID = localStorage.getItem('gacnoba_session_id');
+if (!SESSION_ID) {
+  SESSION_ID = generateDeviceFingerprint() + '_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  localStorage.setItem('gacnoba_session_id', SESSION_ID);
+}
+
+// ─── ONLINE COUNTER ──────────────────────────────────────────────────
+let heartbeatInterval = null, countRefreshInterval = null, chatsTodayCount = 0, isRegistered = false;
 
 async function registerOnline() {
   if (isRegistered) return;
   try {
-    const res = await sb('online_users?on_conflict=session_id', {
-      method: 'POST',
-      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
-      body: JSON.stringify({ session_id: SESSION_ID, last_seen: new Date().toISOString() })
-    });
+    const res = await sb('online_users?on_conflict=session_id', { method:'POST', headers:{'Prefer':'resolution=merge-duplicates,return=minimal'}, body:JSON.stringify({session_id:SESSION_ID,last_seen:new Date().toISOString()}) });
     if (res.ok) isRegistered = true;
   } catch(e) {}
 }
-
 async function heartbeat() {
-  try {
-    await sb('online_users?on_conflict=session_id', {
-      method: 'POST',
-      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
-      body: JSON.stringify({ session_id: SESSION_ID, last_seen: new Date().toISOString() })
-    });
-  } catch(e) {}
+  try { await sb('online_users?on_conflict=session_id', { method:'POST', headers:{'Prefer':'resolution=merge-duplicates,return=minimal'}, body:JSON.stringify({session_id:SESSION_ID,last_seen:new Date().toISOString()}) }); } catch(e) {}
 }
-
 async function getOnlineCount() {
   try {
-    const cutoff = new Date(Date.now() - 45000).toISOString();
-    await sb('online_users?last_seen=lt.' + cutoff, { method: 'DELETE' });
-    const res = await sb('online_users?select=count', {
-      headers: { 'Prefer': 'count=exact', 'Range': '0-0' }
-    });
+    const cutoff = new Date(Date.now()-45000).toISOString();
+    await sb('online_users?last_seen=lt.'+cutoff, {method:'DELETE'});
+    const res = await sb('online_users?select=count', {headers:{'Prefer':'count=exact','Range':'0-0'}});
     const range = res.headers.get('content-range');
-    if (range) {
-      const total = parseInt(range.split('/')[1]);
-      if (!isNaN(total)) updateOnlineDisplay(total);
-    }
+    if (range) { const total = parseInt(range.split('/')[1]); if (!isNaN(total)) updateOnlineDisplay(total); }
   } catch(e) {}
 }
-
 function updateOnlineDisplay(count) {
-  const badge = document.getElementById('online-count');
-  const stat  = document.getElementById('stat-online');
   const f = count.toLocaleString();
-  [badge, stat].forEach(el => {
-    if (el && el.textContent !== f) {
-      el.textContent = f;
-      el.classList.remove('count-update');
-      void el.offsetWidth;
-      el.classList.add('count-update');
-    }
+  [document.getElementById('online-count'), document.getElementById('stat-online')].forEach(el => {
+    if (el && el.textContent !== f) { el.textContent = f; el.classList.remove('count-update'); void el.offsetWidth; el.classList.add('count-update'); }
   });
 }
-
 async function removeOnline() {
-  try {
-    await sb('online_users?session_id=eq.'  + SESSION_ID, { method: 'DELETE' });
-    await sb('waiting_users?session_id=eq.' + SESSION_ID, { method: 'DELETE' });
-  } catch(e) {}
+  try { await sb('online_users?session_id=eq.'+SESSION_ID,{method:'DELETE'}); await sb('waiting_users?session_id=eq.'+SESSION_ID,{method:'DELETE'}); } catch(e) {}
 }
-
 async function initOnlineCounter() {
-  await registerOnline();
-  await getOnlineCount();
-  heartbeatInterval    = setInterval(heartbeat,      20000);
-  countRefreshInterval = setInterval(getOnlineCount,  5000);
+  await registerOnline(); await getOnlineCount();
+  heartbeatInterval = setInterval(heartbeat, 20000);
+  countRefreshInterval = setInterval(getOnlineCount, 5000);
 }
-
 window.addEventListener('beforeunload', removeOnline);
-window.addEventListener('pagehide',     removeOnline);
+window.addEventListener('pagehide', removeOnline);
 
-// =====================================================================
-// CHATS TODAY
-// =====================================================================
+// ─── CHATS TODAY ─────────────────────────────────────────────────────
 async function incrementChatsToday() {
   const today = new Date().toISOString().split('T')[0];
   try {
-    const res  = await sb('chats_today?date=eq.' + today + '&select=count');
+    const res = await sb('chats_today?date=eq.'+today+'&select=count');
     const data = await res.json();
     if (data && data.length > 0) {
-      const n = (data[0].count || 0) + 1;
-      await sb('chats_today?date=eq.' + today, { method: 'PATCH', body: JSON.stringify({ count: n }) });
+      const n = (data[0].count||0)+1;
+      await sb('chats_today?date=eq.'+today, {method:'PATCH', body:JSON.stringify({count:n})});
       chatsTodayCount = n;
     } else {
-      await sb('chats_today', { method: 'POST', body: JSON.stringify({ date: today, count: 1 }) });
+      await sb('chats_today', {method:'POST', body:JSON.stringify({date:today,count:1})});
       chatsTodayCount = 1;
     }
     const el = document.getElementById('stat-chats-today');
     if (el) el.textContent = chatsTodayCount.toLocaleString();
   } catch(e) {}
 }
-
 async function loadChatsToday() {
   const today = new Date().toISOString().split('T')[0];
   try {
-    const res  = await sb('chats_today?date=eq.' + today + '&select=count');
+    const res = await sb('chats_today?date=eq.'+today+'&select=count');
     const data = await res.json();
     if (data && data.length > 0) {
-      chatsTodayCount = data[0].count || 0;
+      chatsTodayCount = data[0].count||0;
       const el = document.getElementById('stat-chats-today');
       if (el) el.textContent = chatsTodayCount.toLocaleString();
     }
   } catch(e) {}
 }
 
-// =====================================================================
-// STATE
-// =====================================================================
+// ─── STATE ───────────────────────────────────────────────────────────
 const state = {
   lang:'en', theme:'dark', nickname:'',
   filters:{ gender:'any', intent:'any' },
-  interests: [],
+  interests:[],
   currentPartner: null,
+  // blockedIds: merged list of server blocks + localStorage cache
   blockedIds: JSON.parse(localStorage.getItem('acq_blocked') || '[]'),
   matchTimer: null
 };
 
-// =====================================================================
-// I18N
-// =====================================================================
+// ─── I18N ────────────────────────────────────────────────────────────
 const i18n = {
   en:{
     home_title:'Meet someone<br><span>unexpected.</span>',
     home_sub:'Anonymous, instant, real conversations.<br>No account needed. Just click and connect.',
-    filters:'Optional filters', i_am:'I am', looking_for:'Looking for',
-    interests_title:'Things I am interested in',
-    any:'Any', male:'Male', female:'Female',
-    friendship:'Friendship', casual:'Casual', romantic:'Romantic',
-    books:'📚 Reading', swimming:'🏊 Swimming', drawing:'🎨 Drawing',
-    music:'🎵 Music', movies:'🎬 Movies/TV', gym:'🏋️ Gym',
-    hiking:'🥾 Hiking', cars:'🚗 Cars', bikes:'🏍️ Bikes',
-    gaming:'🎮 Gaming', cats:'🐱 Cats', dogs:'🐶 Dogs',
-    travel:'✈️ Travel', food:'🍔 Food',
+    filters:'Optional filters', i_am:'I am', looking_for:'Looking for', interests_title:'Things I am interested in',
+    any:'Any', male:'Male', female:'Female', friendship:'Friendship', casual:'Casual', romantic:'Romantic',
+    books:'📚 Reading', swimming:'🏊 Swimming', drawing:'🎨 Drawing', music:'🎵 Music', movies:'🎬 Movies/TV',
+    gym:'🏋️ Gym', hiking:'🥾 Hiking', cars:'🚗 Cars', bikes:'🏍️ Bikes', gaming:'🎮 Gaming',
+    cats:'🐱 Cats', dogs:'🐶 Dogs', travel:'✈️ Travel', food:'🍔 Food',
     nickname_ph:'Nickname (optional)', start_chat:'Start Chat',
     stat_online:'Online now', stat_chats:'Chats today', stat_made_in:'Made in Georgia',
-    trust_anon:'100% Anonymous', trust_instant:'Instant Connection',
-    trust_safe:'Safe & Moderated', trust_mobile:'Mobile Friendly',
+    trust_anon:'100% Anonymous', trust_instant:'Instant Connection', trust_safe:'Safe & Moderated', trust_mobile:'Mobile Friendly',
     features_title:'Why gacnoba.ge?', features_sub:'A smarter, safer way to meet people online.',
-    f1_title:'Instant Matching', f1_desc:'Connect with a real person in seconds. No waiting rooms.',
+    f1_title:'Instant Matching', f1_desc:'Connect with a real person in seconds.',
     f2_title:'Stay Anonymous', f2_desc:'No account required. Your privacy is always protected.',
     f3_title:'Smart Filters', f3_desc:'Gender, intent, interests — find your kind of conversation.',
     f4_title:'Skip Freely', f4_desc:'Not feeling it? Hit Next and find someone new instantly.',
     f5_title:'Safe by Design', f5_desc:'Block, report, and active moderation keep you safe.',
     f6_title:'Multilingual', f6_desc:'English, Georgian, Russian — the interface speaks your language.',
-    looking_for_match:'Looking for someone...',
-    finding_match:'Finding your match', cancel:'Cancel',
+    looking_for_match:'Looking for someone...', finding_match:'Finding your match', cancel:'Cancel',
     connected_msg:'You are connected. Be kind 👋', online:'Online',
-    report:'Report', block:'Block', next_person:'Next person', leave:'Leave',
-    type_message:'Type a message…',
+    report:'Report', block:'Block', next_person:'Next person', leave:'Leave', type_message:'Type a message…',
     report_title:'Report User', report_sub:'Help us keep the community safe.',
     reason:'Reason', details:'Additional details (optional)',
-    r_spam:'Spam or advertising', r_harassment:'Harassment or threats',
-    r_explicit:'Explicit content', r_underage:'Suspected minor', r_other:'Other',
+    r_spam:'Spam or advertising', r_harassment:'Harassment or threats', r_explicit:'Explicit content', r_underage:'Suspected minor', r_other:'Other',
     cancel_btn:'Cancel', submit_report:'Submit Report',
-    block_title:'Block User', block_sub:'This person will never be matched with you again.',
-    confirm_block:'Block & Skip',
-    toast_reported:'✓ Report submitted. Thank you.',
-    toast_blocked:'⊘ User blocked.', toast_left:'Chat ended.',
-    connection_est:'✓ Contact established — say hello!',
-    partner_left:'Your partner left the chat.', report_ph:'Describe what happened...',
-    no_one_found:'No one available right now. Try again!'
+    block_title:'Block User', block_sub:'This person will never be matched with you again.', confirm_block:'Block & Skip',
+    toast_reported:'✓ Report submitted. Thank you.', toast_blocked:'⊘ User blocked.', toast_left:'Chat ended.',
+    connection_est:'✓ Contact established — say hello!', partner_left:'Your partner left the chat.',
+    report_ph:'Describe what happened...', no_one_found:'No one available right now. Try again!'
   },
   ka:{
     home_title:'გაიცანი<br><span>ვინმე მოულოდნელი.</span>',
     home_sub:'ანონიმური, სწრაფი, ნამდვილი საუბრები.<br>რეგისტრაცია საჭირო არ არის.',
-    filters:'სურვილისამებრ ფილტრები', i_am:'მე ვარ', looking_for:'ვეძებ',
-    interests_title:'რაც მაინტერესებს',
-    any:'ნებისმიერი', male:'კაცი', female:'ქალი',
-    friendship:'მეგობრობა', casual:'კასუალური', romantic:'რომანტიული',
-    books:'📚 კითხვა', swimming:'🏊 ცურვა', drawing:'🎨 ხატვა',
-    music:'🎵 მუსიკა', movies:'🎬 ფილმები', gym:'🏋️ დარბაზი',
-    hiking:'🥾 ლაშქრობა', cars:'🚗 მანქანები', bikes:'🏍️ მოტო',
-    gaming:'🎮 თამაშები', cats:'🐱 კატები', dogs:'🐶 ძაღლები',
-    travel:'✈️ მოგზაურობა', food:'🍔 საკვები',
+    filters:'სურვილისამებრ ფილტრები', i_am:'მე ვარ', looking_for:'ვეძებ', interests_title:'რაც მაინტერესებს',
+    any:'ნებისმიერი', male:'კაცი', female:'ქალი', friendship:'მეგობრობა', casual:'კასუალური', romantic:'რომანტიული',
+    books:'📚 კითხვა', swimming:'🏊 ცურვა', drawing:'🎨 ხატვა', music:'🎵 მუსიკა', movies:'🎬 ფილმები',
+    gym:'🏋️ დარბაზი', hiking:'🥾 ლაშქრობა', cars:'🚗 მანქანები', bikes:'🏍️ მოტო', gaming:'🎮 თამაშები',
+    cats:'🐱 კატები', dogs:'🐶 ძაღლები', travel:'✈️ მოგზაურობა', food:'🍔 საკვები',
     nickname_ph:'მეტსახელი (სურვილისამებრ)', start_chat:'ჩატის დაწყება',
     stat_online:'ახლა ონლაინ', stat_chats:'ჩატი დღეს', stat_made_in:'საქართველოდან',
-    trust_anon:'100% ანონიმური', trust_instant:'სწრაფი კავშირი',
-    trust_safe:'უსაფრთხო', trust_mobile:'მობილური',
+    trust_anon:'100% ანონიმური', trust_instant:'სწრაფი კავშირი', trust_safe:'უსაფრთხო', trust_mobile:'მობილური',
     features_title:'რატომ gacnoba.ge?', features_sub:'ადამიანების გასაცნობად უფრო ჭკვიანი გზა.',
     f1_title:'სწრაფი დაკავშირება', f1_desc:'დაუკავშირდი რეალურ ადამიანს წამებში.',
     f2_title:'დარჩი ანონიმური', f2_desc:'კონფიდენციალურობა დაცულია.',
@@ -888,36 +594,27 @@ const i18n = {
     f6_title:'მრავალენოვანი', f6_desc:'ინტერფეისი შენს ენაზე.',
     looking_for_match:'ვეძებ...', finding_match:'ეძებს მოსაუბრეს', cancel:'გაუქმება',
     connected_msg:'დაკავშირებული ხარ. იყავი კეთილი 👋', online:'ონლაინ',
-    report:'შეტყობინება', block:'დაბლოკვა', next_person:'შემდეგი', leave:'გასვლა',
-    type_message:'შეიყვანე შეტყობინება…',
+    report:'შეტყობინება', block:'დაბლოკვა', next_person:'შემდეგი', leave:'გასვლა', type_message:'შეიყვანე შეტყობინება…',
     report_title:'შეტყობინება', report_sub:'დაგვეხმარე საზოგადოების დაცვაში.',
     reason:'მიზეზი', details:'დამატებითი დეტალები',
-    r_spam:'სპამი', r_harassment:'შეწუხება', r_explicit:'უხამსი კონტენტი',
-    r_underage:'არასრულწლოვანი', r_other:'სხვა',
+    r_spam:'სპამი', r_harassment:'შეწუხება', r_explicit:'უხამსი კონტენტი', r_underage:'არასრულწლოვანი', r_other:'სხვა',
     cancel_btn:'გაუქმება', submit_report:'გაგზავნა',
-    block_title:'დაბლოკვა', block_sub:'ეს ადამიანი მეტად ვერ გაგცნობს.',
-    confirm_block:'დაბლოკვა',
+    block_title:'დაბლოკვა', block_sub:'ეს ადამიანი მეტად ვერ გაგცნობს.', confirm_block:'დაბლოკვა',
     toast_reported:'✓ შეტყობინება გაიგზავნა.', toast_blocked:'⊘ დაიბლოკა.', toast_left:'ჩატი დასრულდა.',
-    connection_est:'✓ კავშირი დამყარდა — გამარჯობა!',
-    partner_left:'შენი პარტნიორი გავიდა.', report_ph:'აღწერე რა მოხდა...',
-    no_one_found:'ახლა არავინ არის. სცადე მოგვიანებით!'
+    connection_est:'✓ კავშირი დამყარდა — გამარჯობა!', partner_left:'შენი პარტნიორი გავიდა.',
+    report_ph:'აღწერე რა მოხდა...', no_one_found:'ახლა არავინ არის. სცადე მოგვიანებით!'
   },
   ru:{
     home_title:'Познакомься с<br><span>кем-то новым.</span>',
     home_sub:'Анонимные, мгновенные, настоящие разговоры.<br>Без регистрации.',
-    filters:'Фильтры (необязательно)', i_am:'Я', looking_for:'Ищу',
-    interests_title:'Мои интересы',
-    any:'Любой', male:'Мужчину', female:'Женщину',
-    friendship:'Дружбу', casual:'Общение', romantic:'Романтику',
-    books:'📚 Чтение', swimming:'🏊 Плавание', drawing:'🎨 Рисование',
-    music:'🎵 Музыка', movies:'🎬 Фильмы', gym:'🏋️ Зал',
-    hiking:'🥾 Походы', cars:'🚗 Машины', bikes:'🏍️ Мотоциклы',
-    gaming:'🎮 Игры', cats:'🐱 Кошки', dogs:'🐶 Собаки',
-    travel:'✈️ Путешествия', food:'🍔 Еда',
+    filters:'Фильтры (необязательно)', i_am:'Я', looking_for:'Ищу', interests_title:'Мои интересы',
+    any:'Любой', male:'Мужчину', female:'Женщину', friendship:'Дружбу', casual:'Общение', romantic:'Романтику',
+    books:'📚 Чтение', swimming:'🏊 Плавание', drawing:'🎨 Рисование', music:'🎵 Музыка', movies:'🎬 Фильмы',
+    gym:'🏋️ Зал', hiking:'🥾 Походы', cars:'🚗 Машины', bikes:'🏍️ Мотоциклы', gaming:'🎮 Игры',
+    cats:'🐱 Кошки', dogs:'🐶 Собаки', travel:'✈️ Путешествия', food:'🍔 Еда',
     nickname_ph:'Никнейм (необязательно)', start_chat:'Начать чат',
     stat_online:'Онлайн сейчас', stat_chats:'Чатов сегодня', stat_made_in:'Сделано в Грузии',
-    trust_anon:'100% Анонимно', trust_instant:'Мгновенное соединение',
-    trust_safe:'Безопасно', trust_mobile:'Мобильная версия',
+    trust_anon:'100% Анонимно', trust_instant:'Мгновенное соединение', trust_safe:'Безопасно', trust_mobile:'Мобильная версия',
     features_title:'Почему gacnoba.ge?', features_sub:'Умнее и безопаснее.',
     f1_title:'Мгновенный матчинг', f1_desc:'Подключись к реальному человеку за секунды.',
     f2_title:'Анонимность', f2_desc:'Аккаунт не нужен. Приватность защищена.',
@@ -927,80 +624,109 @@ const i18n = {
     f6_title:'Многоязычность', f6_desc:'Интерфейс на твоём языке.',
     looking_for_match:'Ищем...', finding_match:'Ищем твой матч', cancel:'Отмена',
     connected_msg:'Вы подключены. Будьте добры 👋', online:'Онлайн',
-    report:'Жалоба', block:'Заблокировать', next_person:'Следующий', leave:'Выйти',
-    type_message:'Введите сообщение…',
+    report:'Жалоба', block:'Заблокировать', next_person:'Следующий', leave:'Выйти', type_message:'Введите сообщение…',
     report_title:'Пожаловаться', report_sub:'Помогите сохранить безопасность.',
     reason:'Причина', details:'Дополнительные детали',
-    r_spam:'Спам', r_harassment:'Угрозы', r_explicit:'Неприемлемый контент',
-    r_underage:'Несовершеннолетний', r_other:'Другое',
+    r_spam:'Спам', r_harassment:'Угрозы', r_explicit:'Неприемлемый контент', r_underage:'Несовершеннолетний', r_other:'Другое',
     cancel_btn:'Отмена', submit_report:'Отправить',
-    block_title:'Заблокировать', block_sub:'Этот человек больше не совпадёт с вами.',
-    confirm_block:'Заблокировать',
+    block_title:'Заблокировать', block_sub:'Этот человек больше не совпадёт с вами.', confirm_block:'Заблокировать',
     toast_reported:'✓ Жалоба отправлена.', toast_blocked:'⊘ Заблокировано.', toast_left:'Чат завершён.',
-    connection_est:'✓ Контакт установлен — скажи привет!',
-    partner_left:'Собеседник покинул чат.', report_ph:'Опишите что произошло...',
-    no_one_found:'Сейчас никого нет. Попробуйте позже!'
+    connection_est:'✓ Контакт установлен — скажи привет!', partner_left:'Собеседник покинул чат.',
+    report_ph:'Опишите что произошло...', no_one_found:'Сейчас никого нет. Попробуйте позже!'
   }
 };
 function t(k){ return (i18n[state.lang]||i18n.en)[k] || i18n.en[k] || k; }
 
-// =====================================================================
-// SCREEN MANAGEMENT
-// =====================================================================
+// ─── SCREEN MANAGEMENT ───────────────────────────────────────────────
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => {
-    s.classList.remove('active');
-    if (s.id !== 'screen-chat') s.style.display = '';
-  });
-  const el = document.getElementById('screen-' + id);
+  document.querySelectorAll('.screen').forEach(s => { s.classList.remove('active'); if (s.id !== 'screen-chat') s.style.display = ''; });
+  const el = document.getElementById('screen-'+id);
   if (el) { el.classList.add('active'); if (id !== 'chat') window.scrollTo(0,0); }
   const nav = document.querySelector('nav');
   if (nav) nav.style.display = (id === 'chat') ? 'none' : 'flex';
 }
-
 function goHome(e) {
   if (e) e.preventDefault();
-  stopMatching();
-  stopMessagePolling();
-  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
-  chatRoomId = null;
-  showScreen('home');
+  stopMatching(); stopMessagePolling();
+  sb('waiting_users?session_id=eq.'+SESSION_ID, {method:'DELETE'}).catch(()=>{});
+  chatRoomId = null; showScreen('home');
 }
 
-// =====================================================================
-// NICKNAME & FILTERS
-// =====================================================================
-const adjs  = ['Swift','Quiet','Bright','Calm','Wild','Clever','Gentle','Bold','Keen','Warm'];
+// ─── FILTERS & NICKNAME ──────────────────────────────────────────────
+const adjs = ['Swift','Quiet','Bright','Calm','Wild','Clever','Gentle','Bold','Keen','Warm'];
 const nouns = ['Falcon','River','Star','Fox','Ocean','Tiger','Cloud','Moon','Storm','Petal'];
 function generateNickname() {
-  const a = adjs[Math.floor(Math.random()*adjs.length)];
-  const n = nouns[Math.floor(Math.random()*nouns.length)];
-  document.getElementById('nickname-input').value = a + n + (Math.floor(Math.random()*90)+10);
+  const a = adjs[Math.floor(Math.random()*adjs.length)], n = nouns[Math.floor(Math.random()*nouns.length)];
+  document.getElementById('nickname-input').value = a+n+(Math.floor(Math.random()*90)+10);
 }
 function selectPill(el) {
   const f = el.dataset.filter;
   document.querySelectorAll('[data-filter="'+f+'"]').forEach(p => p.classList.remove('selected'));
-  el.classList.add('selected');
-  state.filters[f] = el.dataset.val;
+  el.classList.add('selected'); state.filters[f] = el.dataset.val;
 }
 function toggleInterest(el) {
-  const v = el.dataset.interest;
-  el.classList.toggle('selected');
+  const v = el.dataset.interest; el.classList.toggle('selected');
   if (state.interests.includes(v)) state.interests = state.interests.filter(i => i !== v);
   else state.interests.push(v);
 }
 
-// =====================================================================
-// MATCHING
-// =====================================================================
-let chatRoomId          = null;
-let messageCheckInterval = null;
-let lastMessageId       = 0;   // will be set to current max BEFORE chat starts
-let matchInterval       = null;
+// ─── SERVER BLOCKS ───────────────────────────────────────────────────
+// Loads all blocks involving this session ID (in BOTH directions) from
+// the Supabase `blocks` table and merges them into state.blockedIds.
+async function loadServerBlocks() {
+  try {
+    const [r1, r2] = await Promise.all([
+      sb('blocks?blocker_id=eq.'+SESSION_ID+'&select=blocked_id'),
+      sb('blocks?blocked_id=eq.'+SESSION_ID+'&select=blocker_id')
+    ]);
+    if (r1.ok) {
+      const rows = await r1.json();
+      rows.forEach(r => { if (!state.blockedIds.includes(r.blocked_id)) state.blockedIds.push(r.blocked_id); });
+    }
+    if (r2.ok) {
+      const rows = await r2.json();
+      // If someone blocked us, we also won't be matched with them
+      rows.forEach(r => { if (!state.blockedIds.includes(r.blocker_id)) state.blockedIds.push(r.blocker_id); });
+    }
+    localStorage.setItem('acq_blocked', JSON.stringify(state.blockedIds));
+  } catch(e) {}
+}
+
+// Writes a block row to Supabase. Uses on_conflict to silently ignore duplicates.
+async function saveBlockToServer(blockedId) {
+  try {
+    const res = await sb('blocks?on_conflict=blocker_id,blocked_id', {
+      method: 'POST',
+      headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ blocker_id: SESSION_ID, blocked_id: blockedId })
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Block save failed:', res.status, err);
+    }
+  } catch(e) { console.error('Block save error:', e); }
+}
+
+// Writes a report row to Supabase (visible in the Table Editor for moderation).
+async function saveReportToServer(reportedId, reason, details) {
+  try {
+    const res = await sb('reports', {
+      method: 'POST',
+      body: JSON.stringify({ reporter_id: SESSION_ID, reported_id: reportedId, reason: reason, details: details||'' })
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Report save failed:', res.status, err);
+    }
+  } catch(e) { console.error('Report save error:', e); }
+}
+
+// ─── MATCHING ────────────────────────────────────────────────────────
+let chatRoomId = null, messageCheckInterval = null, lastMessageId = 0, matchInterval = null;
 
 function stopMatching() {
-  if (matchInterval)       { clearInterval(matchInterval);  matchInterval = null; }
-  if (state.matchTimer)    { clearInterval(state.matchTimer); state.matchTimer = null; }
+  if (matchInterval) { clearInterval(matchInterval); matchInterval = null; }
+  if (state.matchTimer) { clearInterval(state.matchTimer); state.matchTimer = null; }
 }
 function stopMessagePolling() {
   if (messageCheckInterval) { clearInterval(messageCheckInterval); messageCheckInterval = null; }
@@ -1008,526 +734,310 @@ function stopMessagePolling() {
 
 function startMatching() {
   const inp = document.getElementById('nickname-input');
-  state.nickname = inp.value.trim();
-  if (!state.nickname) { generateNickname(); state.nickname = inp.value; }
+  state.nickname = inp ? inp.value.trim() : '';
+  if (!state.nickname) { generateNickname(); state.nickname = document.getElementById('nickname-input').value; }
   const orb = document.getElementById('my-orb');
   if (orb) orb.textContent = state.nickname.charAt(0).toUpperCase();
   showScreen('matching');
-  // ✅ FIX 1: No delay — start immediately
-  findAndMatchUser();
+  // Always refresh server blocks before entering the queue so the block
+  // list is up to date even if the user cleared localStorage.
+  loadServerBlocks().finally(() => findAndMatchUser());
 }
 
 function cancelMatching() {
   stopMatching();
-  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
+  sb('waiting_users?session_id=eq.'+SESSION_ID, {method:'DELETE'}).catch(()=>{});
   showScreen('home');
 }
 
+// Two-phase matching (race-condition-safe):
+// Phase 1 — check if WE were already matched by someone else
+// Phase 2 — try to atomically claim a waiting user ourselves
 async function findAndMatchUser() {
   try {
     await addUserToWaiting();
-
     let attempts = 0;
-    // ✅ FIX 1: Poll every 500ms instead of 1500ms — 3x faster matching
+
     matchInterval = setInterval(async () => {
       attempts++;
       try {
-        const res = await sb(
-          'waiting_users?status=eq.waiting&session_id=neq.' + SESSION_ID + '&order=created_at.asc&limit=1'
-        );
+        // ── Phase 1: check if someone already matched us ──────────────
+        const myRes = await sb('waiting_users?session_id=eq.'+SESSION_ID+'&select=status,matched_with');
+        if (myRes.ok) {
+          const myRows = await myRes.json();
+          if (myRows && myRows.length > 0 && myRows[0].status === 'chatting' && myRows[0].matched_with) {
+            stopMatching();
+            const partnerId = myRows[0].matched_with;
+
+            // Respect block list even when we're the passive side
+            if (state.blockedIds.includes(partnerId)) {
+              await sb('waiting_users?session_id=eq.'+SESSION_ID, {
+                method:'PATCH', body:JSON.stringify({status:'waiting',matched_with:null,created_at:new Date().toISOString()})
+              }).catch(()=>{});
+              findAndMatchUser(); return;
+            }
+
+            let partnerName = 'Anonymous';
+            try {
+              const pRes = await sb('waiting_users?session_id=eq.'+partnerId+'&select=nickname');
+              if (pRes.ok) { const pd = await pRes.json(); if (pd&&pd.length>0&&pd[0].nickname) partnerName=pd[0].nickname; }
+            } catch(_) {}
+
+            chatRoomId = [SESSION_ID, partnerId].sort().join('___');
+            state.currentPartner = { name: partnerName, id: partnerId };
+            await initMessageBaseline();
+            openChat(state.currentPartner);
+            incrementChatsToday(); startMessagePolling(); return;
+          }
+        }
+
+        // ── Phase 2: try to claim a waiting user ─────────────────────
+        // Pass the block list as a server-side NOT IN filter so blocked
+        // users are excluded before they even reach the client.
+        let blockedFilter = '';
+        if (state.blockedIds.length > 0) {
+          blockedFilter = '&session_id=not.in.('+state.blockedIds.join(',')+')';
+        }
+        const res = await sb('waiting_users?status=eq.waiting&session_id=neq.'+SESSION_ID+blockedFilter+'&order=created_at.asc&limit=5&select=*');
         if (!res.ok) return;
-        const waiting = await res.json();
-        if (waiting && waiting.length > 0) {
+        const candidates = await res.json();
+
+        for (const c of (candidates||[])) {
+          if (state.blockedIds.includes(c.session_id)) continue; // belt-and-suspenders
+
+          // Atomic claim — only succeeds if candidate is STILL 'waiting'
+          const claimRes = await sb('waiting_users?session_id=eq.'+c.session_id+'&status=eq.waiting', {
+            method:'PATCH', headers:{'Prefer':'return=representation'},
+            body:JSON.stringify({status:'chatting', matched_with:SESSION_ID})
+          });
+          if (!claimRes.ok) continue;
+          const claimed = await claimRes.json();
+          if (!claimed||claimed.length===0) continue; // lost race, try next
+
           stopMatching();
-          await startChatWith(waiting[0]);
+          await sb('waiting_users?session_id=eq.'+SESSION_ID, {
+            method:'PATCH', body:JSON.stringify({status:'chatting', matched_with:c.session_id})
+          }).catch(()=>{});
+
+          chatRoomId = [SESSION_ID, c.session_id].sort().join('___');
+          state.currentPartner = { name: c.nickname||'Anonymous', id: c.session_id };
+          await initMessageBaseline();
+          openChat(state.currentPartner);
+          incrementChatsToday(); startMessagePolling(); return;
         }
       } catch(e) {}
 
-      // Timeout after 2 minutes (240 attempts × 500ms)
       if (attempts > 240) {
         stopMatching();
-        sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
-        showToast(t('no_one_found'));
-        showScreen('home');
+        sb('waiting_users?session_id=eq.'+SESSION_ID, {method:'DELETE'}).catch(()=>{});
+        showToast(t('no_one_found')); showScreen('home');
       }
     }, 500);
 
     state.matchTimer = matchInterval;
-  } catch(e) {
-    showToast('Error connecting. Try again.');
-    showScreen('home');
-  }
+  } catch(e) { showToast('Error connecting. Try again.'); showScreen('home'); }
 }
 
 async function addUserToWaiting() {
-  // ✅ FIX: no updated_at, uses upsert to avoid 409 errors
   const res = await sb('waiting_users?on_conflict=session_id', {
-    method: 'POST',
-    headers: { 'Prefer': 'resolution=merge-duplicates,return=minimal' },
-    body: JSON.stringify({
-      session_id: SESSION_ID,
-      nickname:   state.nickname,
-      gender:     state.filters.gender,
-      intent:     state.filters.intent,
-      interests:  state.interests.join(','),
-      status:     'waiting',
-      created_at: new Date().toISOString()
-      // ✅ updated_at REMOVED — column does not exist
-    })
+    method:'POST', headers:{'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({ session_id:SESSION_ID, nickname:state.nickname, gender:state.filters.gender, intent:state.filters.intent, interests:state.interests.join(','), status:'waiting', created_at:new Date().toISOString() })
   });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error('addUserToWaiting failed: ' + res.status + ' ' + err);
-  }
+  if (!res.ok) { const err = await res.text(); throw new Error('addUserToWaiting: '+res.status+' '+err); }
 }
 
-async function startChatWith(otherUser) {
-  // ✅ Check server-side blocks before connecting
-  const blocked = await isBlocked(otherUser.session_id);
-  if (blocked) {
-    // Skip this person silently and keep looking
-    return;
-  }
-
-  // Create a stable room ID from both session IDs sorted alphabetically
-  chatRoomId = [SESSION_ID, otherUser.session_id].sort().join('___');
-
-  // Mark both users as chatting
-  await sb('waiting_users?session_id=eq.' + otherUser.session_id, {
-    method: 'PATCH',
-    body: JSON.stringify({ matched_with: SESSION_ID, status: 'chatting' })
-  }).catch(()=>{});
-  await sb('waiting_users?session_id=eq.' + SESSION_ID, {
-    method: 'PATCH',
-    body: JSON.stringify({ matched_with: otherUser.session_id, status: 'chatting' })
-  }).catch(()=>{});
-
-  state.currentPartner = { name: otherUser.nickname || 'Anonymous', id: otherUser.session_id };
-
-  // ✅ FIX 2: Get the current highest message ID BEFORE opening chat
-  // so we ONLY show messages sent AFTER this point — no old messages!
-  await initMessageBaseline();
-
-  openChat(state.currentPartner);
-  incrementChatsToday();
-  startMessagePolling();
-}
-
-// ✅ FIX 2: Sets lastMessageId to max existing ID so old messages are ignored
 async function initMessageBaseline() {
   try {
-    const res = await sb(
-      'chat_messages?room_id=eq.' + chatRoomId + '&order=id.desc&limit=1'
-    );
-    if (res.ok) {
-      const data = await res.json();
-      // If there are old messages, start AFTER the last one
-      // If no messages yet, set to 0 (will accept all new ones)
-      lastMessageId = (data && data.length > 0) ? data[0].id : 0;
-    } else {
-      lastMessageId = 0;
-    }
-  } catch(e) {
-    lastMessageId = 0;
-  }
+    const res = await sb('chat_messages?room_id=eq.'+chatRoomId+'&order=id.desc&limit=1');
+    if (res.ok) { const d = await res.json(); lastMessageId = (d&&d.length>0) ? d[0].id : 0; }
+    else lastMessageId = 0;
+  } catch(e) { lastMessageId = 0; }
 }
 
-// =====================================================================
-// CHAT UI
-// =====================================================================
+// ─── CHAT UI ─────────────────────────────────────────────────────────
 function openChat(partner) {
-  const av   = document.getElementById('chat-avatar');
-  const un   = document.getElementById('chat-username');
-  const bn   = document.getElementById('connection-banner');
-  const msgs = document.getElementById('messages');
-  if (av) { av.textContent = partner.name.charAt(0).toUpperCase(); av.style.background = randomColor(partner.name); }
+  const av=document.getElementById('chat-avatar'), un=document.getElementById('chat-username'),
+        bn=document.getElementById('connection-banner'), msgs=document.getElementById('messages'),
+        inp=document.getElementById('chat-input');
+  if (av) { av.textContent=partner.name.charAt(0).toUpperCase(); av.style.background=randomColor(partner.name); }
   if (un) un.textContent = partner.name;
   if (bn) bn.textContent = t('connection_est');
-  // ✅ FIX 2: Always clear messages when opening a new chat
-  if (msgs) msgs.innerHTML =
-    '<div class="msg-system">' + t('connected_msg') + '</div>' +
-    '<div class="typing-indicator" id="typing-indicator" aria-label="Partner is typing">' +
-    '<span></span><span></span><span></span></div>';
+  if (inp) { inp.disabled=false; inp.placeholder=t('type_message'); inp.value=''; inp.style.height=''; }
+  if (msgs) msgs.innerHTML = '<div class="msg-system">'+t('connected_msg')+'</div><div class="typing-indicator" id="typing-indicator"><span></span><span></span><span></span></div>';
   showScreen('chat');
 }
 
 function startMessagePolling() {
   stopMessagePolling();
-  // ✅ FIX 2: Only fetch messages with id > lastMessageId (set in initMessageBaseline)
   messageCheckInterval = setInterval(async () => {
     if (!chatRoomId) return;
     try {
-      const res = await sb(
-        'chat_messages?room_id=eq.' + chatRoomId +
-        '&id=gt.' + lastMessageId +
-        '&order=id.asc'
-      );
+      const res = await sb('chat_messages?room_id=eq.'+chatRoomId+'&id=gt.'+lastMessageId+'&order=id.asc');
       if (!res.ok) return;
       const messages = await res.json();
       if (messages && messages.length > 0) {
         messages.forEach(msg => {
-          // Only show messages from the other person
-          if (msg.sender_id !== SESSION_ID) {
+          if (msg.id > lastMessageId) lastMessageId = msg.id;
+          if (msg.sender_id === SESSION_ID) return;
+          if (msg.text === PARTNER_LEFT_SIGNAL) {
+            addSystemMessage(t('partner_left'));
+            stopMessagePolling(); chatRoomId = null;
+            const inp = document.getElementById('chat-input');
+            if (inp) { inp.disabled=true; inp.placeholder=t('partner_left'); }
+          } else {
             appendMessage('them', msg.text);
           }
-          // Always advance the cursor so we don't reprocess
-          if (msg.id > lastMessageId) lastMessageId = msg.id;
         });
       }
     } catch(e) {}
-  }, 800); // Check every 800ms — fast enough, not too spammy
+  }, 800);
+}
+
+function addSystemMessage(text) {
+  const msgs=document.getElementById('messages'); if (!msgs) return;
+  const s=document.createElement('div'); s.className='msg-system'; s.textContent=text;
+  const ti=document.getElementById('typing-indicator');
+  if (ti) msgs.insertBefore(s,ti); else msgs.appendChild(s);
+  scrollMessages();
 }
 
 function randomColor(s) {
-  const c = ['#7c6af7','#f472b6','#34d399','#60a5fa','#fbbf24','#a78bfa','#fb7185'];
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = s.charCodeAt(i) + ((h << 5) - h);
-  return c[Math.abs(h) % c.length];
+  const c=['#7c6af7','#f472b6','#34d399','#60a5fa','#fbbf24','#a78bfa','#fb7185'];
+  let h=0; for (let i=0;i<s.length;i++) h=s.charCodeAt(i)+((h<<5)-h);
+  return c[Math.abs(h)%c.length];
 }
 
 function appendMessage(from, text) {
-  const msgs = document.getElementById('messages');
-  const ti   = document.getElementById('typing-indicator');
+  const msgs=document.getElementById('messages'), ti=document.getElementById('typing-indicator');
   if (!msgs) return;
-  const time = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-  const msg  = document.createElement('div');
-  msg.className = 'msg ' + from;
-  msg.innerHTML = '<div class="msg-bubble">' + escapeHtml(text) + '</div>' +
-                  '<div class="msg-time">' + time + '</div>';
-  if (ti) msgs.insertBefore(msg, ti); else msgs.appendChild(msg);
+  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const msg=document.createElement('div'); msg.className='msg '+from;
+  msg.innerHTML='<div class="msg-bubble">'+escapeHtml(text)+'</div><div class="msg-time">'+time+'</div>';
+  if (ti) msgs.insertBefore(msg,ti); else msgs.appendChild(msg);
   scrollMessages();
 }
 
 function escapeHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-function scrollMessages() {
-  const m = document.getElementById('messages');
-  if (m) m.scrollTop = m.scrollHeight;
-}
+function scrollMessages() { const m=document.getElementById('messages'); if (m) m.scrollTop=m.scrollHeight; }
 
 async function sendMessage() {
-  const inp = document.getElementById('chat-input');
-  if (!inp) return;
-  const text = inp.value.trim();
-  if (!text || !chatRoomId) return;
-
-  // Show immediately on sender's screen
-  appendMessage('me', text);
-  inp.value = ''; inp.style.height = '';
-
+  const inp=document.getElementById('chat-input');
+  if (!inp||inp.disabled) return;
+  const text=inp.value.trim(); if (!text||!chatRoomId) return;
+  appendMessage('me', text); inp.value=''; inp.style.height='';
   try {
-    const res = await sb('chat_messages', {
-      method: 'POST',
-      body: JSON.stringify({
-        room_id:    chatRoomId,
-        sender_id:  SESSION_ID,
-        text:       text,
-        created_at: new Date().toISOString()
-      })
-    });
+    const res = await sb('chat_messages', {method:'POST', body:JSON.stringify({room_id:chatRoomId,sender_id:SESSION_ID,text:text,created_at:new Date().toISOString()})});
     if (!res.ok) showToast('Failed to send. Try again.');
-  } catch(e) {
-    showToast('Failed to send. Try again.');
-  }
+  } catch(e) { showToast('Failed to send. Try again.'); }
 }
 
-function handleChatKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 600) {
-    e.preventDefault(); sendMessage();
-  }
-}
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+function handleChatKey(e) { if (e.key==='Enter'&&!e.shiftKey&&window.innerWidth>600) { e.preventDefault(); sendMessage(); } }
+function autoResize(el) { el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,100)+'px'; }
+
+async function sendPartnerLeftSignal() {
+  if (!chatRoomId) return;
+  try { await sb('chat_messages', {method:'POST', body:JSON.stringify({room_id:chatRoomId,sender_id:SESSION_ID,text:PARTNER_LEFT_SIGNAL,created_at:new Date().toISOString()})}); } catch(e) {}
 }
 
-function nextChat() {
-  stopMessagePolling();
-  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
-  const msgs = document.getElementById('messages');
-  if (msgs) {
-    const s = document.createElement('div');
-    s.className = 'msg-system';
-    s.textContent = t('partner_left');
-    msgs.appendChild(s);
-    scrollMessages();
-  }
+async function nextChat() {
+  stopMessagePolling(); await sendPartnerLeftSignal();
+  sb('waiting_users?session_id=eq.'+SESSION_ID, {method:'DELETE'}).catch(()=>{});
   chatRoomId = null;
   setTimeout(startMatching, 600);
 }
-
-function leaveChat() {
-  stopMessagePolling();
-  sb('waiting_users?session_id=eq.' + SESSION_ID, { method:'DELETE' }).catch(()=>{});
+async function leaveChat() {
+  stopMessagePolling(); await sendPartnerLeftSignal();
+  sb('waiting_users?session_id=eq.'+SESSION_ID, {method:'DELETE'}).catch(()=>{});
   chatRoomId = null;
-  showToast(t('toast_left'));
-  setTimeout(() => showScreen('home'), 400);
+  showToast(t('toast_left')); setTimeout(() => showScreen('home'), 400);
 }
 
-// =====================================================================
-// BLOCK & REPORT  — fully server-side (Supabase blocks table)
-// =====================================================================
-function showBlockModal()  { showModal('block-modal'); }
-function showReportModal() { showModal('report-modal'); }
-
+// ─── BLOCK ───────────────────────────────────────────────────────────
+// 1. Writes to Supabase `blocks` table (permanent, server-side)
+// 2. Updates local cache (fast lookups)
+// 3. Skips to next chat
 async function confirmBlock() {
   closeModal('block-modal');
   if (state.currentPartner) {
-    try {
-      // Save block to Supabase — owner can delete this row to unblock
-      await sb('blocks', {
-        method: 'POST',
-        headers: { 'Prefer': 'return=minimal' },
-        body: JSON.stringify({
-          blocker_id: SESSION_ID,
-          blocked_id: state.currentPartner.id
-        })
-      });
-    } catch(e) {}
+    const pid = state.currentPartner.id;
+    await saveBlockToServer(pid);                               // ← Supabase
+    if (!state.blockedIds.includes(pid)) {
+      state.blockedIds.push(pid);
+      localStorage.setItem('acq_blocked', JSON.stringify(state.blockedIds)); // ← cache
+    }
   }
   showToast(t('toast_blocked'), 'error');
   setTimeout(nextChat, 500);
 }
 
-// Check if either user has blocked the other (called before matching)
-async function isBlocked(otherSessionId) {
-  try {
-    const res = await sb(
-      'blocks?or=(and(blocker_id.eq.' + SESSION_ID + ',blocked_id.eq.' + otherSessionId + '),' +
-      'and(blocker_id.eq.' + otherSessionId + ',blocked_id.eq.' + SESSION_ID + '))'
-    );
-    if (!res.ok) return false;
-    const data = await res.json();
-    return data && data.length > 0;
-  } catch(e) { return false; }
-}
-function submitReport() {
-  if (!document.getElementById('report-reason')?.value) return;
+// ─── REPORT ──────────────────────────────────────────────────────────
+// Writes to Supabase `reports` table — visible in Table Editor for moderation
+async function submitReport() {
+  const reasonEl = document.getElementById('report-reason');
+  const detailsEl = document.getElementById('report-details');
+  if (!reasonEl || !reasonEl.value) return;
+
   closeModal('report-modal');
+
+  if (state.currentPartner) {
+    await saveReportToServer(state.currentPartner.id, reasonEl.value, detailsEl ? detailsEl.value : ''); // ← Supabase
+  }
+
   showToast(t('toast_reported'), 'success');
-  document.getElementById('report-details').value = '';
+  if (detailsEl) detailsEl.value = '';
 }
 
-// =====================================================================
-// MODALS / TOAST / THEME / LANG
-// =====================================================================
-function showModal(id)  { const e = document.getElementById(id); if (e) e.classList.add('open'); }
-function closeModal(id) { const e = document.getElementById(id); if (e) e.classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o =>
-  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); })
-);
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-});
+function showBlockModal()  { showModal('block-modal'); }
+function showReportModal() { showModal('report-modal'); }
+
+// ─── MODALS / TOAST / THEME / LANG ──────────────────────────────────
+function showModal(id) { const e=document.getElementById(id); if (e) e.classList.add('open'); }
+function closeModal(id) { const e=document.getElementById(id); if (e) e.classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target===o) o.classList.remove('open'); }));
+document.addEventListener('keydown', e => { if (e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open')); });
 
 let toastTimer = null;
-function showToast(msg, type = '') {
-  const el = document.getElementById('toast');
-  if (!el) return;
+function showToast(msg, type='') {
+  const el=document.getElementById('toast'); if (!el) return;
   if (toastTimer) clearTimeout(toastTimer);
-  el.textContent = msg;
-  el.className = 'toast show ' + type;
+  el.textContent=msg; el.className='toast show '+type;
   toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
 }
 
 function toggleTheme() {
-  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  state.theme = state.theme==='dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', state.theme);
-  document.getElementById('theme-btn').textContent = state.theme === 'dark' ? '🌙' : '☀️';
+  document.getElementById('theme-btn').textContent = state.theme==='dark' ? '🌙' : '☀️';
   localStorage.setItem('acq_theme', state.theme);
 }
 
 function setLang(lang) {
-  state.lang = lang;
-  document.documentElement.lang = lang;
-  localStorage.setItem('acq_lang', lang);
-  ['en','ka','ru'].forEach(l => {
-    const b = document.getElementById('lang-' + l);
-    if (b) b.classList.toggle('active', l === lang);
-  });
+  state.lang=lang; document.documentElement.lang=lang; localStorage.setItem('acq_lang', lang);
+  ['en','ka','ru'].forEach(l => { const b=document.getElementById('lang-'+l); if (b) b.classList.toggle('active', l===lang); });
   applyTranslations();
 }
 
 function applyTranslations() {
-  const tr = i18n[state.lang] || i18n.en;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.getAttribute('data-i18n');
-    if (tr[k] !== undefined) el.innerHTML = tr[k];
-  });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-    const k = el.getAttribute('data-i18n-ph');
-    if (tr[k] !== undefined) el.placeholder = tr[k];
-  });
-  document.querySelectorAll('[data-i18n-pill]').forEach(el => {
-    const k = el.getAttribute('data-i18n-pill');
-    if (tr[k] !== undefined) el.textContent = tr[k];
-  });
-  const banner = document.getElementById('connection-banner');
-  const cs = document.getElementById('screen-chat');
-  if (banner && cs && cs.classList.contains('active')) banner.textContent = tr.connection_est || '';
+  const tr=i18n[state.lang]||i18n.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k=el.getAttribute('data-i18n'); if (tr[k]!==undefined) el.innerHTML=tr[k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k=el.getAttribute('data-i18n-ph'); if (tr[k]!==undefined) el.placeholder=tr[k]; });
+  document.querySelectorAll('[data-i18n-pill]').forEach(el => { const k=el.getAttribute('data-i18n-pill'); if (tr[k]!==undefined) el.textContent=tr[k]; });
+  const bn=document.getElementById('connection-banner'), cs=document.getElementById('screen-chat');
+  if (bn&&cs&&cs.classList.contains('active')) bn.textContent=tr.connection_est||'';
 }
 
-// =====================================================================
-// INIT
-// =====================================================================
+// ─── INIT ────────────────────────────────────────────────────────────
 (async function() {
-  const th = localStorage.getItem('acq_theme');
-  if (th) {
-    state.theme = th;
-    document.documentElement.setAttribute('data-theme', th);
-    const b = document.getElementById('theme-btn');
-    if (b) b.textContent = th === 'dark' ? '🌙' : '☀️';
-  }
-  const lg = localStorage.getItem('acq_lang');
+  const th=localStorage.getItem('acq_theme');
+  if (th) { state.theme=th; document.documentElement.setAttribute('data-theme',th); const b=document.getElementById('theme-btn'); if (b) b.textContent=th==='dark'?'🌙':'☀️'; }
+  const lg=localStorage.getItem('acq_lang');
   if (lg && i18n[lg]) setLang(lg);
-
-  // ✅ Check if admin panel should open
-  if (checkAdminAccess()) {
-    await loadAdminPanel();
-  } else {
-    showScreen('home');
-  }
-
+  showScreen('home');
   await initOnlineCounter();
   await loadChatsToday();
 })();
-
-// =====================================================================
-// ADMIN PANEL — defined AFTER init so sb() helper is available
-// Access: yoursite.netlify.app/?admin=gacnoba2025
-// =====================================================================
-const ADMIN_PASSWORD = 'gacnoba2025';
-
-function checkAdminAccess() {
-  return new URLSearchParams(window.location.search).get('admin') === ADMIN_PASSWORD;
-}
-
-async function loadAdminPanel() {
-  showScreen('admin');
-  await Promise.all([loadAdminBlocks(), loadAdminOnline(), loadAdminWaiting()]);
-}
-
-async function loadAdminBlocks() {
-  const el = document.getElementById('admin-blocks-list');
-  if (!el) return;
-  el.textContent = 'Loading...';
-  try {
-    const res  = await sb('blocks?order=created_at.desc');
-    const data = await res.json();
-    if (!data || data.length === 0) {
-      el.innerHTML = '<span style="color:var(--text3)">No blocks found.</span>';
-      return;
-    }
-    el.innerHTML = data.map(b => `
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);gap:8px;flex-wrap:wrap">
-        <div style="font-size:12px;word-break:break-all">
-          <span style="color:var(--text3)">Blocker:</span> ${b.blocker_id.slice(0,20)}...<br>
-          <span style="color:var(--text3)">Blocked:</span> ${b.blocked_id.slice(0,20)}...
-          <span style="color:var(--text3);font-size:11px;margin-left:8px">${new Date(b.created_at).toLocaleString()}</span>
-        </div>
-        <button onclick="adminUnblock(${b.id}, this)"
-          style="background:var(--green-bg);border:1px solid rgba(74,222,128,0.2);color:var(--green);
-          padding:6px 14px;border-radius:var(--rsm);cursor:pointer;font-size:12px;white-space:nowrap;
-          font-family:'DM Sans',sans-serif;min-height:32px">✓ Unblock</button>
-      </div>`).join('');
-  } catch(e) {
-    el.innerHTML = '<span style="color:var(--red)">Error loading blocks.</span>';
-  }
-}
-
-async function adminUnblock(blockId, btn) {
-  btn.textContent = 'Unblocking...'; btn.disabled = true;
-  try {
-    await sb('blocks?id=eq.' + blockId, { method: 'DELETE' });
-    showToast('✓ User unblocked!', 'success');
-    await loadAdminBlocks();
-  } catch(e) { btn.textContent = 'Error'; showToast('Failed to unblock.', 'error'); }
-}
-
-async function loadAdminOnline() {
-  const el = document.getElementById('admin-online-list');
-  if (!el) return;
-  try {
-    const res  = await sb('online_users?select=session_id,last_seen&order=last_seen.desc');
-    const data = await res.json();
-    if (!data || data.length === 0) { el.innerHTML = '<span style="color:var(--text3)">No users online.</span>'; return; }
-    el.innerHTML = '<span style="color:var(--green);font-weight:600">' + data.length + ' online</span><br><br>' +
-      data.map(u => '<div style="font-size:11px;color:var(--text3);margin-bottom:4px">' +
-        u.session_id.slice(0,30) + '... — ' + new Date(u.last_seen).toLocaleTimeString() + '</div>').join('');
-  } catch(e) { el.innerHTML = '<span style="color:var(--red)">Error.</span>'; }
-}
-
-async function loadAdminWaiting() {
-  const el = document.getElementById('admin-waiting-list');
-  if (!el) return;
-  try {
-    const res  = await sb('waiting_users?order=created_at.desc');
-    const data = await res.json();
-    if (!data || data.length === 0) { el.innerHTML = '<span style="color:var(--text3)">No waiting users.</span>'; return; }
-    el.innerHTML = data.map(u =>
-      '<div style="font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)"><b>' +
-      (u.nickname||'Anonymous') + '</b> — <span style="color:' +
-      (u.status==='chatting'?'var(--green)':'var(--amber)') + '">' + u.status + '</span> — ' +
-      u.session_id.slice(0,20) + '...</div>').join('');
-  } catch(e) { el.innerHTML = '<span style="color:var(--red)">Error.</span>'; }
-}
-
-async function adminClearWaiting() {
-  if (!confirm('Delete all waiting/chatting users?')) return;
-  try { await sb('waiting_users?id=gt.0', { method:'DELETE' }); showToast('✓ Cleared!','success'); await loadAdminWaiting(); }
-  catch(e) { showToast('Error.','error'); }
-}
-
-async function adminClearMessages() {
-  if (!confirm('Delete ALL chat messages? This cannot be undone.')) return;
-  try { await sb('chat_messages?id=gt.0', { method:'DELETE' }); showToast('✓ Messages cleared!','success'); }
-  catch(e) { showToast('Error.','error'); }
-}
-
-// Run admin check AFTER all functions are defined
-if (checkAdminAccess()) { loadAdminPanel(); }
 </script>
-<!-- ADMIN PANEL — access via yoursite.com?admin=gacnoba2025 -->
-<section id="screen-admin" class="screen" aria-label="Admin Panel" style="padding:24px 16px;max-width:700px;margin:0 auto;width:100%">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px">
-    <h2 style="font-size:20px;font-weight:600">🛡️ Admin Panel</h2>
-    <button class="btn-secondary" onclick="goHome(event)">← Back to site</button>
-  </div>
-
-  <!-- ONLINE USERS -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:16px;margin-bottom:16px">
-    <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">Online Users</div>
-    <div id="admin-online-list" style="font-size:13px;color:var(--text2)">Loading...</div>
-  </div>
-
-  <!-- BLOCKED USERS -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:16px;margin-bottom:16px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text3)">Blocked Users</div>
-      <button class="btn-secondary" onclick="loadAdminBlocks()" style="font-size:12px;padding:6px 12px;min-height:32px">🔄 Refresh</button>
-    </div>
-    <div id="admin-blocks-list" style="font-size:13px;color:var(--text2)">Loading...</div>
-  </div>
-
-  <!-- WAITING USERS -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--rlg);padding:16px;margin-bottom:16px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text3)">Waiting / Chatting</div>
-      <button class="btn-secondary" onclick="loadAdminWaiting()" style="font-size:12px;padding:6px 12px;min-height:32px">🔄 Refresh</button>
-    </div>
-    <div id="admin-waiting-list" style="font-size:13px;color:var(--text2)">Loading...</div>
-  </div>
-
-  <!-- DANGER ZONE -->
-  <div style="background:var(--red-bg);border:1px solid rgba(248,113,113,0.2);border-radius:var(--rlg);padding:16px">
-    <div style="font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--red);margin-bottom:12px">⚠️ Danger Zone</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn-danger" onclick="adminClearWaiting()">Clear all waiting users</button>
-      <button class="btn-danger" onclick="adminClearMessages()">Clear all messages</button>
-    </div>
-  </div>
-</section>
-
 </body>
 </html>
